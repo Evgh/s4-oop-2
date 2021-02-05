@@ -28,19 +28,17 @@ namespace s4_oop_2
 
     class Flat
     {
-        // поля по заданию
+        public string Owner { get; set; }
+        public int ResidentAmount { get; set; }
         public int Area { get; }
         public int RoomAmount { get; }
+        public DateTime Day { get; set; }
         public bool HasKitchen { get; set; }
         public bool HasBathroom { get; set; }
         public bool HasRestroom { get; set; }
         public bool HasBasement { get; }
         public bool HasBalcony { get; }
-
-        // мои поля
-        public string Owner { get; set; }
-        public int ResidentAmount { get; set; }
-        public DateTime Day { get; set; }
+        
 
 
         // агрегируемые объекты 
