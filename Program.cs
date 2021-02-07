@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace s4_oop_2
 {
 
-    class Adress
+    public class Adress
     {
         public string Country { get; set; }
         public string City { get; set; }
@@ -16,9 +16,28 @@ namespace s4_oop_2
         public string HouseNumber { get; set; }
         public int FlatNumber { get; set; }
 
+        public string MyToString
+        {
+            get => ToString();
+        }
         public override string ToString()
         {
-            return "Adress";
+            return $"{Country}, г. {City}, район {District}, ул. {Street}, {HouseNumber}-{FlatNumber}";
+        }
+
+        public Adress (string country, string city, string district, string street, string houseNum, int flatNum)
+        {
+            Country = country;
+            City = city;
+            District = district;
+            Street = street;
+            HouseNumber = houseNum;
+            FlatNumber = flatNum;
+        }
+
+        public Adress() : this ("country", "city", "district", "Street", "61A", 13)
+        {
+
         }
     }
 
@@ -29,7 +48,7 @@ namespace s4_oop_2
         public int Orientation { get; set; }
     }
 
-    struct FlatArgs 
+    public struct FlatArgs 
     {
         public string owner; //1 
         public int residentAmount; //2
@@ -44,7 +63,7 @@ namespace s4_oop_2
         public Adress adress; //11
     }
 
-    class Flat
+    public class Flat
     {
         public string Owner { get; set; } //1
         public int ResidentAmount { get; set; } //2
@@ -78,7 +97,7 @@ namespace s4_oop_2
             HasBasement = hasBasement;
             HasBalcony = hasBalcony;
 
-            _adress = new Adress();
+            _adress = adress;
             //rooms = new List<Room> { };
         }
 
@@ -106,7 +125,7 @@ namespace s4_oop_2
         { 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1( new List<Flat> { new Flat(), new Flat() }, new List<Adress> { }));
+            Application.Run(new Form1( new List<Flat> { new Flat(), new Flat() }, new List<Adress> { new Adress(), new Adress(), new Adress()}));
         }
     }
 }

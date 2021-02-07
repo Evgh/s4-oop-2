@@ -45,16 +45,16 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePickerDay = new System.Windows.Forms.DateTimePicker();
             this.labelDate = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonAdressesMenu = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.listBoxAdress = new System.Windows.Forms.ListBox();
+            this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -208,11 +208,11 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(1160, 155);
+            this.buttonAdd.Location = new System.Drawing.Point(1135, 240);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(89, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(132, 23);
             this.buttonAdd.TabIndex = 7;
-            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.Text = "Добавить запись";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -244,14 +244,6 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Количество жильцов";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(852, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(240, 24);
-            this.comboBox1.TabIndex = 11;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -277,14 +269,15 @@
             this.labelDate.TabIndex = 14;
             this.labelDate.Text = "Дата заселения";
             // 
-            // button4
+            // buttonAdressesMenu
             // 
-            this.button4.Location = new System.Drawing.Point(1098, 30);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(151, 23);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "Изменить список";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonAdressesMenu.Location = new System.Drawing.Point(852, 139);
+            this.buttonAdressesMenu.Name = "buttonAdressesMenu";
+            this.buttonAdressesMenu.Size = new System.Drawing.Size(151, 23);
+            this.buttonAdressesMenu.TabIndex = 15;
+            this.buttonAdressesMenu.Text = "Изменить адреса";
+            this.buttonAdressesMenu.UseVisualStyleBackColor = true;
+            this.buttonAdressesMenu.Click += new System.EventHandler(this.buttonAdressesMenu_Click);
             // 
             // dataGridView1
             // 
@@ -299,14 +292,13 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.listBoxAdress);
             this.panel1.Controls.Add(this.maskedTextBoxOwner);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.labelOwner);
-            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.buttonAdressesMenu);
             this.panel1.Controls.Add(this.maskedTextBoxArea);
-            this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.labelDate);
-            this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.labelArea);
             this.panel1.Controls.Add(this.dateTimePickerDay);
@@ -319,6 +311,26 @@
             this.panel1.Size = new System.Drawing.Size(1264, 185);
             this.panel1.TabIndex = 17;
             // 
+            // listBoxAdress
+            // 
+            this.listBoxAdress.FormattingEnabled = true;
+            this.listBoxAdress.ItemHeight = 16;
+            this.listBoxAdress.Items.AddRange(new object[] {
+            ""});
+            this.listBoxAdress.Location = new System.Drawing.Point(852, 30);
+            this.listBoxAdress.Name = "listBoxAdress";
+            this.listBoxAdress.Size = new System.Drawing.Size(397, 100);
+            this.listBoxAdress.TabIndex = 18;
+            // 
+            // maskedTextBoxOwner
+            // 
+            this.maskedTextBoxOwner.Location = new System.Drawing.Point(172, 27);
+            this.maskedTextBoxOwner.Mask = "L.L.LLL??????????????????????????????????";
+            this.maskedTextBoxOwner.Name = "maskedTextBoxOwner";
+            this.maskedTextBoxOwner.Size = new System.Drawing.Size(200, 22);
+            this.maskedTextBoxOwner.TabIndex = 17;
+            this.maskedTextBoxOwner.ValidatingType = typeof(int);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -330,22 +342,13 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(1178, 242);
+            this.buttonClear.Location = new System.Drawing.Point(1125, 269);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(89, 23);
+            this.buttonClear.Size = new System.Drawing.Size(142, 23);
             this.buttonClear.TabIndex = 18;
-            this.buttonClear.Text = "Очистить все";
+            this.buttonClear.Text = "Очистить таблицу";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
-            // maskedTextBoxOwner
-            // 
-            this.maskedTextBoxOwner.Location = new System.Drawing.Point(172, 27);
-            this.maskedTextBoxOwner.Mask = "L.L.LLL??????????????????????????????????";
-            this.maskedTextBoxOwner.Name = "maskedTextBoxOwner";
-            this.maskedTextBoxOwner.Size = new System.Drawing.Size(200, 22);
-            this.maskedTextBoxOwner.TabIndex = 17;
-            this.maskedTextBoxOwner.ValidatingType = typeof(int);
             // 
             // Form1
             // 
@@ -357,6 +360,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonAdd);
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel2.ResumeLayout(false);
@@ -387,16 +391,16 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimePickerDay;
         private System.Windows.Forms.Label labelDate;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonAdressesMenu;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxOwner;
+        private System.Windows.Forms.ListBox listBoxAdress;
     }
 }
 

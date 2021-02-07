@@ -13,35 +13,39 @@ namespace s4_oop_2
         public Form1()
         {
             InitializeComponent();
-            _flats = new List<Flat> {};
+            _flats = new List<Flat> { };
             _adresses = new List<Adress> { };
 
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = _flats;
-            dataGridView1.DataSource = bindingSource;
+            InitializeDataGridView1();
+            InitializeListBoxAdress();
         }
 
-        public Form1(object flats, object adresses)
+        public Form1(List<Flat> flats, List<Adress> adresses)
         {
             InitializeComponent();
+            _flats = flats;
+            _adresses = adresses;
 
-            try 
-            {
-                _flats = (List<Flat>) flats;
-                _adresses = (List<Adress>)adresses;
-            } 
-            catch (InvalidCastException e)
-            {
-                MessageBox.Show("Не удалось получить список квартир и перечень адресов\n" + e.Message);
-                _flats = new List<Flat> { };
-                _adresses = new List<Adress> { };
-            }
+            InitializeDataGridView1();
+            InitializeListBoxAdress();
+        }
 
+        internal void InitializeDataGridView1()
+        {
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = _flats;
             dataGridView1.DataSource = bindingSource;
         }
 
+        internal void InitializeListBoxAdress()
+        {
+
+            BindingSource bindingSource = new BindingSource();
+            bindingSource.DataSource = _adresses;
+            listBoxAdress.DataSource = bindingSource;
+            listBoxAdress.DisplayMember = "MyToString";
+            listBoxAdress.ValueMember = "FlatNumber";
+        }
 
         FlatArgs MyFlatArgs
         {
@@ -59,10 +63,13 @@ namespace s4_oop_2
                     hasRestroom = checkBoxHasRestroom.Checked,
                     hasBasement = checkBoxHasBasement.Checked,
                     hasBalcony = checkBoxHasBalcony.Checked,
-                    adress = new Adress()
+                    adress = listBoxAdress.SelectedItem as Adress
                 };
             }
         }
+
+
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -122,18 +129,19 @@ namespace s4_oop_2
                 maskedTextBoxArea.BackColor = System.Drawing.Color.Salmon;
             }
 
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = _flats;
-            dataGridView1.DataSource = bindingSource;
-
+            InitializeDataGridView1();
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
             _flats.Clear();
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = _flats;
-            dataGridView1.DataSource = bindingSource;
+            InitializeDataGridView1();
+        }
+
+        private void buttonAdressesMenu_Click(object sender, EventArgs e)
+        {
+            Form2 form = new Form2(this, _adresses);
+            form.Show();
         }
     }
 }
