@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxOwner = new System.Windows.Forms.TextBox();
             this.labelOwner = new System.Windows.Forms.Label();
             this.maskedTextBoxArea = new System.Windows.Forms.MaskedTextBox();
             this.labelArea = new System.Windows.Forms.Label();
@@ -41,31 +40,26 @@
             this.radioButtonGoodsManual = new System.Windows.Forms.RadioButton();
             this.radioButtonGoodsDefault = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBarResidentAmount = new System.Windows.Forms.TrackBar();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerDay = new System.Windows.Forms.DateTimePicker();
             this.labelDate = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBoxOwner
-            // 
-            this.textBoxOwner.Location = new System.Drawing.Point(172, 30);
-            this.textBoxOwner.Name = "textBoxOwner";
-            this.textBoxOwner.Size = new System.Drawing.Size(200, 22);
-            this.textBoxOwner.TabIndex = 0;
             // 
             // labelOwner
             // 
@@ -78,6 +72,8 @@
             // 
             // maskedTextBoxArea
             // 
+            this.maskedTextBoxArea.BackColor = System.Drawing.SystemColors.Window;
+            this.maskedTextBoxArea.BeepOnError = true;
             this.maskedTextBoxArea.Location = new System.Drawing.Point(172, 59);
             this.maskedTextBoxArea.Mask = "000";
             this.maskedTextBoxArea.Name = "maskedTextBoxArea";
@@ -203,16 +199,16 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Удобства";
             // 
-            // trackBar1
+            // trackBarResidentAmount
             // 
-            this.trackBar1.Location = new System.Drawing.Point(161, 91);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 56);
-            this.trackBar1.TabIndex = 6;
+            this.trackBarResidentAmount.Location = new System.Drawing.Point(161, 91);
+            this.trackBarResidentAmount.Name = "trackBarResidentAmount";
+            this.trackBarResidentAmount.Size = new System.Drawing.Size(104, 56);
+            this.trackBarResidentAmount.TabIndex = 6;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(1178, 242);
+            this.buttonAdd.Location = new System.Drawing.Point(1160, 155);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(89, 23);
             this.buttonAdd.TabIndex = 7;
@@ -265,12 +261,12 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Адрес";
             // 
-            // dateTimePicker1
+            // dateTimePickerDay
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(172, 140);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 13;
+            this.dateTimePickerDay.Location = new System.Drawing.Point(172, 140);
+            this.dateTimePickerDay.Name = "dateTimePickerDay";
+            this.dateTimePickerDay.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerDay.TabIndex = 13;
             // 
             // labelDate
             // 
@@ -287,7 +283,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(151, 23);
             this.button4.TabIndex = 15;
-            this.button4.Text = "Дополнить список";
+            this.button4.Text = "Изменить список";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -303,18 +299,19 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.maskedTextBoxOwner);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.textBoxOwner);
             this.panel1.Controls.Add(this.labelOwner);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.maskedTextBoxArea);
+            this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.labelDate);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.labelArea);
-            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.dateTimePickerDay);
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.trackBar1);
+            this.panel1.Controls.Add(this.trackBarResidentAmount);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(16, 51);
@@ -331,21 +328,40 @@
             this.label5.TabIndex = 16;
             this.label5.Text = "м^2";
             // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(1178, 242);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(89, 23);
+            this.buttonClear.TabIndex = 18;
+            this.buttonClear.Text = "Очистить все";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // maskedTextBoxOwner
+            // 
+            this.maskedTextBoxOwner.Location = new System.Drawing.Point(172, 27);
+            this.maskedTextBoxOwner.Mask = "L.L.LLL??????????????????????????????????";
+            this.maskedTextBoxOwner.Name = "maskedTextBoxOwner";
+            this.maskedTextBoxOwner.Size = new System.Drawing.Size(200, 22);
+            this.maskedTextBoxOwner.TabIndex = 17;
+            this.maskedTextBoxOwner.ValidatingType = typeof(int);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1295, 570);
+            this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.buttonAdd);
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -354,8 +370,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxOwner;
         private System.Windows.Forms.Label labelOwner;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxArea;
         private System.Windows.Forms.Label labelArea;
@@ -368,19 +382,21 @@
         private System.Windows.Forms.CheckBox checkBoxHasRestroom;
         private System.Windows.Forms.CheckBox checkBoxHasBathroom;
         private System.Windows.Forms.CheckBox checkBoxHasBalcony;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBarResidentAmount;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDay;
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxOwner;
     }
 }
 

@@ -15,6 +15,11 @@ namespace s4_oop_2
         public string Street { get; set; }
         public string HouseNumber { get; set; }
         public int FlatNumber { get; set; }
+
+        public override string ToString()
+        {
+            return "Adress";
+        }
     }
 
     class Room
@@ -24,48 +29,69 @@ namespace s4_oop_2
         public int Orientation { get; set; }
     }
 
-   
+    struct FlatArgs 
+    {
+        public string owner; //1 
+        public int residentAmount; //2
+        public int area; //3
+        public int roomAmount; //4 
+        public DateTime day; // 5     
+        public bool hasKitchen; //6
+        public bool hasBathroom; //7 
+        public bool hasRestroom; //8
+        public bool hasBasement; //9
+        public bool hasBalcony; //10       
+        public Adress adress; //11
+    }
 
     class Flat
     {
-        public string Owner { get; set; }
-        public int ResidentAmount { get; set; }
-        public int Area { get; }
-        public int RoomAmount { get; }
-        public DateTime Day { get; set; }
-        public bool HasKitchen { get; set; }
-        public bool HasBathroom { get; set; }
-        public bool HasRestroom { get; set; }
-        public bool HasBasement { get; }
-        public bool HasBalcony { get; }
-        
+        public string Owner { get; set; } //1
+        public int ResidentAmount { get; set; } //2
+        public int Area { get; set; } //3
+        public int RoomAmount { get; set; } //4
+        public DateTime Day { get; set; } //5
+        public bool HasKitchen { get; set; } //6
+        public bool HasBathroom { get; set; } //7
+        public bool HasRestroom { get; set; } //8
+        public bool HasBasement { get; set; } //9
+        public bool HasBalcony { get; set; } //10
 
 
         // агрегируемые объекты 
-        public Adress Adress { get; set; }
+        Adress _adress; //11
+        public string Adress { get => _adress.ToString();}
 
         // функционал с комнатами добавлю позже
         //public List<Room> rooms; 
 
-        public Flat(int area, int roomAmount, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, int residentAmount)
+        public Flat(string owner, int residentAmount, int area, int roomAmount, DateTime day, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, Adress adress)
         {
+            Owner = owner;
+            ResidentAmount = residentAmount;
             Area = area;
             RoomAmount = roomAmount;
+            Day = day;
             HasKitchen = hasKitchen;
             HasBathroom = hasBathroom;
             HasRestroom = hasRestroom;
             HasBasement = hasBasement;
             HasBalcony = hasBalcony;
 
-            ResidentAmount = residentAmount;
-
+            _adress = new Adress();
             //rooms = new List<Room> { };
         }
 
-        public Flat() : this(100, 1, true, true, true, true, true, 1)
+        public Flat() : this("Владелец", 1, 100, 1, DateTime.Now, true, true, true, false, false, new Adress())
         {
 
         }
+        public Flat (FlatArgs fa) : this(fa.owner, fa.residentAmount, fa.area, fa.roomAmount, fa.day, fa.hasKitchen, fa.hasBathroom, fa.hasRestroom, fa.hasBasement, fa.hasBalcony, fa.adress)
+        {
+
+        }
+
+
 
 
     }
@@ -77,10 +103,10 @@ namespace s4_oop_2
         /// </summary>
         [STAThread]
         static void Main()
-        {
+        { 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form1( new List<Flat> { new Flat(), new Flat() }, new List<Adress> { }));
         }
     }
 }
