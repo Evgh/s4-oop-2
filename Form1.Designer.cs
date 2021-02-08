@@ -42,8 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarResidentAmount = new System.Windows.Forms.TrackBar();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonSerialize = new System.Windows.Forms.Button();
+            this.buttonDeserialize = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePickerDay = new System.Windows.Forms.DateTimePicker();
@@ -216,24 +216,25 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // button2
+            // buttonSerialize
             // 
-            this.button2.Location = new System.Drawing.Point(16, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Сохранить";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSerialize.Location = new System.Drawing.Point(16, 12);
+            this.buttonSerialize.Name = "buttonSerialize";
+            this.buttonSerialize.Size = new System.Drawing.Size(96, 23);
+            this.buttonSerialize.TabIndex = 8;
+            this.buttonSerialize.Text = "Сохранить";
+            this.buttonSerialize.UseVisualStyleBackColor = true;
+            this.buttonSerialize.Click += new System.EventHandler(this.buttonSerialize_Click);
             // 
-            // button3
+            // buttonDeserialize
             // 
-            this.button3.Location = new System.Drawing.Point(118, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(200, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Загрузить данные";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.buttonDeserialize.Location = new System.Drawing.Point(118, 12);
+            this.buttonDeserialize.Name = "buttonDeserialize";
+            this.buttonDeserialize.Size = new System.Drawing.Size(200, 23);
+            this.buttonDeserialize.TabIndex = 9;
+            this.buttonDeserialize.Text = "Загрузить данные";
+            this.buttonDeserialize.UseVisualStyleBackColor = true;
+            this.buttonDeserialize.Click += new System.EventHandler(this.buttonDeserialize_Click);
             // 
             // label2
             // 
@@ -358,8 +359,8 @@
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonDeserialize);
+            this.Controls.Add(this.buttonSerialize);
             this.Controls.Add(this.buttonAdd);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -388,8 +389,8 @@
         private System.Windows.Forms.CheckBox checkBoxHasBalcony;
         private System.Windows.Forms.TrackBar trackBarResidentAmount;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonSerialize;
+        private System.Windows.Forms.Button buttonDeserialize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimePickerDay;

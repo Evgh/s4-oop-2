@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace s4_oop_2
 {
 
     public class Adress
     {
+        static int nextId = 0;
         public string Country { get; set; }
         public string City { get; set; }
         public string District { get; set; }
         public string Street { get; set; }
         public string HouseNumber { get; set; }
         public int FlatNumber { get; set; }
-
         public string MyToString
         {
             get => ToString();
         }
-        public override string ToString()
-        {
-            return $"{Country}, г. {City}, район {District}, ул. {Street}, {HouseNumber}-{FlatNumber}";
-        }
 
-        public Adress (string country, string city, string district, string street, string houseNum, int flatNum)
+        public int Id { get; set; }
+
+        Adress(string country, string city, string district, string street, string houseNum, int flatNum)
         {
             Country = country;
             City = city;
@@ -33,12 +33,42 @@ namespace s4_oop_2
             Street = street;
             HouseNumber = houseNum;
             FlatNumber = flatNum;
-        }
 
-        public Adress() : this ("country", "city", "district", "Street", "61A", 13)
+            Id = nextId++;
+        }
+        Adress() : this("country", "city", "district", "Street", "61A", 13)
         {
 
         }
+        public override string ToString()
+        {
+            return $"{Country}, г. {City}, район {District}, ул. {Street}, {HouseNumber}-{FlatNumber}";
+        }
+
+
+        public readonly static List<Adress> adressPool;
+
+        static Adress()
+        {
+            adressPool = new List<Adress> { new Adress()};
+        }
+
+        public static void Add()
+        {
+            adressPool.Add(new Adress());
+        }
+
+        public static void Add(string country, string city, string district, string street, string houseNum, int flatNum)
+        {
+            adressPool.Add(new Adress(country, city, district, street, houseNum, flatNum));
+        }
+
+        public static Adress GetAdress(int index)
+        {
+            return adressPool[index];
+        }
+
+
     }
 
     class Room
@@ -48,7 +78,7 @@ namespace s4_oop_2
         public int Orientation { get; set; }
     }
 
-    public struct FlatArgs 
+    public struct FlatArgs
     {
         public string owner; //1 
         public int residentAmount; //2
@@ -63,6 +93,7 @@ namespace s4_oop_2
         public Adress adress; //11
     }
 
+    [Serializable]
     public class Flat
     {
         public string Owner { get; set; } //1
@@ -75,11 +106,16 @@ namespace s4_oop_2
         public bool HasRestroom { get; set; } //8
         public bool HasBasement { get; set; } //9
         public bool HasBalcony { get; set; } //10
+        public int AdressId { get; set; }
+
+        
 
 
-        // агрегируемые объекты 
-        Adress _adress; //11
-        public string Adress { get => _adress.ToString();}
+
+        // агрегируемые объекты
+        // public Adress _adress; //11
+        public string MyAdress { get => (Adress.adressPool[AdressId]).ToString(); }
+        
 
         // функционал с комнатами добавлю позже
         //public List<Room> rooms; 
@@ -96,25 +132,27 @@ namespace s4_oop_2
             HasRestroom = hasRestroom;
             HasBasement = hasBasement;
             HasBalcony = hasBalcony;
-
-            _adress = adress;
+            AdressId = adress.Id;
             //rooms = new List<Room> { };
         }
-
-        public Flat() : this("Владелец", 1, 100, 1, DateTime.Now, true, true, true, false, false, new Adress())
+        public Flat() : this("Владелец", 1, 100, 1, DateTime.Now, true, true, true, false, false, Adress.GetAdress(0))
         {
 
         }
-        public Flat (FlatArgs fa) : this(fa.owner, fa.residentAmount, fa.area, fa.roomAmount, fa.day, fa.hasKitchen, fa.hasBathroom, fa.hasRestroom, fa.hasBasement, fa.hasBalcony, fa.adress)
+        public Flat(FlatArgs fa) : this(fa.owner, fa.residentAmount, fa.area, fa.roomAmount, fa.day, fa.hasKitchen, fa.hasBathroom, fa.hasRestroom, fa.hasBasement, fa.hasBalcony, fa.adress)
         {
 
         }
 
-
-
-
+        public void Serialize(string path = "serialize.xml")
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Flat));
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                serializer.Serialize(fs, this);
+            }
+        }
     }
-
     static class Program
     {
         /// <summary>
@@ -122,10 +160,15 @@ namespace s4_oop_2
         /// </summary>
         [STAThread]
         static void Main()
-        { 
+        {
+
+            Adress.Add("Бел", "Минск", "Центр", "Захарова", "61", 13);
+            Adress.Add("Пшекия", "Пшексити", "Экстремисткий", "Путило", "8", 9);
+            Adress.Add("Украина", "Киiв", "Киiв", "Слава", "3", 5);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1( new List<Flat> { new Flat(), new Flat() }, new List<Adress> { new Adress(), new Adress(), new Adress()}));
+            Application.Run(new Form1( new List<Flat> { new Flat(), new Flat() }));
         }
     }
 }

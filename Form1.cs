@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace s4_oop_2
 {
@@ -8,24 +10,15 @@ namespace s4_oop_2
     public partial class Form1 : Form
     {
         List<Flat> _flats;
-        List<Adress> _adresses;
 
-        public Form1()
+        public Form1() : this (new List<Flat> { })
         {
-            InitializeComponent();
-            _flats = new List<Flat> { };
-            _adresses = new List<Adress> { };
-
-            InitializeDataGridView1();
-            InitializeListBoxAdress();
         }
 
-        public Form1(List<Flat> flats, List<Adress> adresses)
+        public Form1(List<Flat> flats)
         {
             InitializeComponent();
             _flats = flats;
-            _adresses = adresses;
-
             InitializeDataGridView1();
             InitializeListBoxAdress();
         }
@@ -41,7 +34,7 @@ namespace s4_oop_2
         {
 
             BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = _adresses;
+            bindingSource.DataSource = Adress.adressPool;
             listBoxAdress.DataSource = bindingSource;
             listBoxAdress.DisplayMember = "MyToString";
             listBoxAdress.ValueMember = "FlatNumber";
@@ -66,14 +59,6 @@ namespace s4_oop_2
                     adress = listBoxAdress.SelectedItem as Adress
                 };
             }
-        }
-
-
-
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void radioButtonGoodsDefault_CheckedChanged(object sender, EventArgs e)
@@ -140,10 +125,28 @@ namespace s4_oop_2
 
         private void buttonAdressesMenu_Click(object sender, EventArgs e)
         {
-            Form2 form = new Form2(this, _adresses);
+            Form2 form = new Form2(this);
             form.Show();
         }
+
+        private void buttonSerialize_Click(object sender, EventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
+            using (FileStream fs = new FileStream("serialize.xml", FileMode.OpenOrCreate))
+            {
+                serializer.Serialize(fs, _flats);
+            }
+        }
+        private void buttonDeserialize_Click(object sender, EventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
+            using (FileStream fs = new FileStream("serialize.xml", FileMode.Open))
+            {
+                _flats = (List<Flat>)serializer.Deserialize(fs);
+            }
+
+            InitializeDataGridView1();
+        }
+
     }
 }
-
-

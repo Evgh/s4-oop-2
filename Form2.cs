@@ -8,18 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace s4_oop_2
 {
     public partial class Form2 : Form
     {
         Form1 _parent;
-        List<Adress> _adresses;
 
-        public Form2(Form1 parent, List<Adress> adresses)
+        public Form2(Form1 parent)
         {
             InitializeComponent();
             _parent = parent;
-            _adresses = adresses;
 
             InitializeDataGridViewAdresses();
         }
@@ -27,7 +26,7 @@ namespace s4_oop_2
         private void InitializeDataGridViewAdresses()
         {
             BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = _adresses;
+            bindingSource.DataSource = Adress.adressPool;
             dataGridViewAdresses.DataSource = bindingSource;
             dataGridViewAdresses.Columns["MyToString"].Visible = false;
         }
@@ -36,17 +35,14 @@ namespace s4_oop_2
         { 
             try
             {
-                _adresses.Add( new Adress() 
-                { 
-                    Country = textBoxCountry.Text, 
-                    City = textBoxCity.Text, 
-                    District = textBoxDistrict.Text, 
-                    Street = textBoxStreet.Text, 
-                    HouseNumber = textBoxHouseNum.Text, 
-                    FlatNumber = int.Parse(maskedTextBoxFlatNum.Text)
-                    
-                }
-                );
+                Adress.Add(
+                    textBoxCountry.Text,
+                    textBoxCity.Text,
+                    textBoxDistrict.Text,
+                    textBoxStreet.Text,
+                    textBoxHouseNum.Text,
+                    int.Parse(maskedTextBoxFlatNum.Text)
+                    );
                 maskedTextBoxFlatNum.BackColor = System.Drawing.SystemColors.Window;
             }
             catch (System.FormatException ex)
@@ -63,5 +59,8 @@ namespace s4_oop_2
         {
             _parent.InitializeListBoxAdress();
         }
+
+
+
     }
 }
