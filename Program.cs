@@ -11,6 +11,9 @@ namespace s4_oop_2
 
     public class Adress
     {
+        // хранилище всех созданных адресов. программа не позволяет создавать отдельно взятые адреса, вся работа производится через статический пул
+        public readonly static List<Adress> adressPool; 
+
         static int nextId = 0;
         public string Country { get; set; }
         public string City { get; set; }
@@ -18,12 +21,13 @@ namespace s4_oop_2
         public string Street { get; set; }
         public string HouseNumber { get; set; }
         public int FlatNumber { get; set; }
+        public int Id { get; set; }
+
+        // свойство для отображения в листбоксе на Form1
         public string MyToString
         {
             get => ToString();
         }
-
-        public int Id { get; set; }
 
         Adress(string country, string city, string district, string street, string houseNum, int flatNum)
         {
@@ -40,19 +44,17 @@ namespace s4_oop_2
         {
 
         }
+        static Adress()
+        {
+            adressPool = new List<Adress> { new Adress() };
+        }
+
         public override string ToString()
         {
             return $"{Country}, г. {City}, район {District}, ул. {Street}, {HouseNumber}-{FlatNumber}";
         }
-
-
-        public readonly static List<Adress> adressPool;
-
-        static Adress()
-        {
-            adressPool = new List<Adress> { new Adress()};
-        }
-
+               
+        // Статические методы для взаимодействия с пулом адресов. 
         public static void Add()
         {
             adressPool.Add(new Adress());
@@ -67,8 +69,6 @@ namespace s4_oop_2
         {
             return adressPool[index];
         }
-
-
     }
 
     class Room
@@ -78,6 +78,7 @@ namespace s4_oop_2
         public int Orientation { get; set; }
     }
 
+    // структура для передачи параметров в конструктор Flat
     public struct FlatArgs
     {
         public string owner; //1 
@@ -109,16 +110,12 @@ namespace s4_oop_2
         public int AdressId { get; set; }
 
         
+        // агрегация объекта адреса
+        public string AdressStr { get => (Adress.adressPool[AdressId]).ToString(); }
 
-
-
-        // агрегируемые объекты
-        // public Adress _adress; //11
-        public string MyAdress { get => (Adress.adressPool[AdressId]).ToString(); }
-        
-
-        // функционал с комнатами добавлю позже
+        // композиция объектов-комнат
         //public List<Room> rooms; 
+        // функционал с комнатами добавлю позже
 
         public Flat(string owner, int residentAmount, int area, int roomAmount, DateTime day, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, Adress adress)
         {
@@ -143,16 +140,8 @@ namespace s4_oop_2
         {
 
         }
-
-        public void Serialize(string path = "serialize.xml")
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(Flat));
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            {
-                serializer.Serialize(fs, this);
-            }
-        }
     }
+
     static class Program
     {
         /// <summary>

@@ -29,6 +29,7 @@ namespace s4_oop_2
             bindingSource.DataSource = Adress.adressPool;
             dataGridViewAdresses.DataSource = bindingSource;
             dataGridViewAdresses.Columns["MyToString"].Visible = false;
+            dataGridViewAdresses.Columns["ID"].Visible = false;
         }
 
         private void buttonAddAdress_Click(object sender, EventArgs e)

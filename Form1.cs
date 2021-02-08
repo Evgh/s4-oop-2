@@ -28,6 +28,29 @@ namespace s4_oop_2
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = _flats;
             dataGridView1.DataSource = bindingSource;
+            dataGridView1.Columns["AdressId"].Visible = false;
+            DataGridViewColumn columnAdress = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
+            columnAdress.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            // попытка сделать редактирование адреса через выпадающий список Combobox  
+
+            //DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
+            //column.HeaderText = "Adress";
+            //column.Width = 300;
+
+            //BindingSource comboboxSource = new BindingSource();
+            //comboboxSource.DataSource = Adress.adressPool;
+            //column.DataSource = comboboxSource;
+
+            //column.DisplayMember = "MyToString";
+            //column.ValueMember = "Id";
+
+            //for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
+            //{
+            //    dataGridView1.Rows[i].Cells[7].Value = Adress.adressPool[0].MyToString;
+            //}
+            //dataGridView1.Columns.Add(column);
+
         }
 
         internal void InitializeListBoxAdress()
@@ -131,16 +154,26 @@ namespace s4_oop_2
 
         private void buttonSerialize_Click(object sender, EventArgs e)
         {
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = saveFileDialog1.FileName;
             XmlSerializer serializer = new XmlSerializer(_flats.GetType());
-            using (FileStream fs = new FileStream("serialize.xml", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
                 serializer.Serialize(fs, _flats);
             }
+            MessageBox.Show("Файл сохранен");
         }
         private void buttonDeserialize_Click(object sender, EventArgs e)
         {
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = openFileDialog1.FileName;
             XmlSerializer serializer = new XmlSerializer(_flats.GetType());
-            using (FileStream fs = new FileStream("serialize.xml", FileMode.Open))
+            using (FileStream fs = new FileStream(path, FileMode.Open))
             {
                 _flats = (List<Flat>)serializer.Deserialize(fs);
             }
