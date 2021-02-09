@@ -57,6 +57,8 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.buttonRooms = new System.Windows.Forms.Button();
+            this.buttonСount = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -205,14 +207,14 @@
             // 
             this.trackBarResidentAmount.Location = new System.Drawing.Point(161, 91);
             this.trackBarResidentAmount.Name = "trackBarResidentAmount";
-            this.trackBarResidentAmount.Size = new System.Drawing.Size(104, 56);
+            this.trackBarResidentAmount.Size = new System.Drawing.Size(223, 56);
             this.trackBarResidentAmount.TabIndex = 6;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(1135, 240);
+            this.buttonAdd.Location = new System.Drawing.Point(1125, 240);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(132, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(142, 23);
             this.buttonAdd.TabIndex = 7;
             this.buttonAdd.Text = "Добавить запись";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -284,6 +286,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(16, 298);
             this.dataGridView1.Name = "dataGridView1";
@@ -357,11 +360,33 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // buttonRooms
+            // 
+            this.buttonRooms.Location = new System.Drawing.Point(16, 269);
+            this.buttonRooms.Name = "buttonRooms";
+            this.buttonRooms.Size = new System.Drawing.Size(202, 23);
+            this.buttonRooms.TabIndex = 19;
+            this.buttonRooms.Text = "Редактировать комнаты";
+            this.buttonRooms.UseVisualStyleBackColor = true;
+            this.buttonRooms.Click += new System.EventHandler(this.buttonRooms_Click);
+            // 
+            // buttonСount
+            // 
+            this.buttonСount.Location = new System.Drawing.Point(324, 12);
+            this.buttonСount.Name = "buttonСount";
+            this.buttonСount.Size = new System.Drawing.Size(200, 23);
+            this.buttonСount.TabIndex = 20;
+            this.buttonСount.Text = "Рассчитать стоимость";
+            this.buttonСount.UseVisualStyleBackColor = true;
+            this.buttonСount.Click += new System.EventHandler(this.buttonСount_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1295, 570);
+            this.Controls.Add(this.buttonСount);
+            this.Controls.Add(this.buttonRooms);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
@@ -410,6 +435,8 @@
         private System.Windows.Forms.ListBox listBoxAdress;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button buttonRooms;
+        private System.Windows.Forms.Button buttonСount;
     }
 }
 

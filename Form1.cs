@@ -9,7 +9,7 @@ namespace s4_oop_2
 
     public partial class Form1 : Form
     {
-        List<Flat> _flats;
+        public List<Flat> _flats;
 
         public Form1() : this (new List<Flat> { })
         {
@@ -21,6 +21,8 @@ namespace s4_oop_2
             _flats = flats;
             InitializeDataGridView1();
             InitializeListBoxAdress();
+
+
         }
 
         internal void InitializeDataGridView1()
@@ -28,9 +30,12 @@ namespace s4_oop_2
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = _flats;
             dataGridView1.DataSource = bindingSource;
+
             dataGridView1.Columns["AdressId"].Visible = false;
-            DataGridViewColumn columnAdress = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
-            columnAdress.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
+            DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
+            columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
 
             // попытка сделать редактирование адреса через выпадающий список Combobox  
 
@@ -72,7 +77,6 @@ namespace s4_oop_2
                     owner = maskedTextBoxOwner.Text,
                     residentAmount = trackBarResidentAmount.Value,
                     area = int.Parse(maskedTextBoxArea.Text),
-                    roomAmount = 1,
                     day = dateTimePickerDay.Value,
                     hasKitchen = checkBoxHasKitchen.Checked,
                     hasBathroom = checkBoxHasBathroom.Checked,
@@ -130,14 +134,15 @@ namespace s4_oop_2
             {
                 _flats.Add(new Flat(MyFlatArgs));
                 maskedTextBoxArea.BackColor = System.Drawing.SystemColors.Window;
+                Form3 roomEditor = new Form3(_flats.Count-1, this);
+                roomEditor.Show();
             }
             catch (System.FormatException ex)
             {
                 MessageBox.Show(ex.Message);
                 maskedTextBoxArea.BackColor = System.Drawing.Color.Salmon;
             }
-
-            InitializeDataGridView1();
+            InitializeDataGridView1();            
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -181,5 +186,31 @@ namespace s4_oop_2
             InitializeDataGridView1();
         }
 
+        private void buttonRooms_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                Form3 form = new Form3(int.Parse(row.Cells[0].Value.ToString()), this);
+                form.Show();
+            }
+        }
+
+        private void buttonСount_Click(object sender, EventArgs e)
+        {
+            string message = "";
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                int id = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                Flat theFlat = _flats.Find((f) => { return f.Id == id; });
+
+                message = $"Стоимость квартиры {theFlat?.Count()} белорусских рублей";
+            }
+            else
+            {
+                message = "Выделите 1 строку в таблице";
+            }
+
+            MessageBox.Show(message);
+        }
     }
 }

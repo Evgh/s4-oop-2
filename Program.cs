@@ -71,11 +71,32 @@ namespace s4_oop_2
         }
     }
 
-    class Room
+    public class Room
     {
+        public enum RoomOrientation
+        {
+            North, South, East, West, NorthEast, NorthWest, SouthEast, SouthWest
+        }
+
         public int Area { get; set; }
         public int Windows { get; set; }
-        public int Orientation { get; set; }
+        public RoomOrientation Orientation { get; set; }
+
+        public override string ToString()
+        {
+            return $"Комната в {Area} метров выходит на {Orientation} {Windows} окнами";
+        }
+        public Room(int area, int windows, RoomOrientation orientation)
+        {
+            Area = area;
+            Windows = windows;
+            Orientation = orientation;                
+        }
+
+        public Room() : this (10, 1, RoomOrientation.North)
+        {
+
+        }
     }
 
     // структура для передачи параметров в конструктор Flat
@@ -84,7 +105,6 @@ namespace s4_oop_2
         public string owner; //1 
         public int residentAmount; //2
         public int area; //3
-        public int roomAmount; //4 
         public DateTime day; // 5     
         public bool hasKitchen; //6
         public bool hasBathroom; //7 
@@ -97,10 +117,12 @@ namespace s4_oop_2
     [Serializable]
     public class Flat
     {
+        static int idGiver = 0;
+        public int Id { get; }
         public string Owner { get; set; } //1
         public int ResidentAmount { get; set; } //2
         public int Area { get; set; } //3
-        public int RoomAmount { get; set; } //4
+        public int RoomAmount { get => rooms.Count;} //4
         public DateTime Day { get; set; } //5
         public bool HasKitchen { get; set; } //6
         public bool HasBathroom { get; set; } //7
@@ -114,31 +136,34 @@ namespace s4_oop_2
         public string AdressStr { get => (Adress.adressPool[AdressId]).ToString(); }
 
         // композиция объектов-комнат
-        //public List<Room> rooms; 
-        // функционал с комнатами добавлю позже
-
-        public Flat(string owner, int residentAmount, int area, int roomAmount, DateTime day, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, Adress adress)
+        public List<Room> rooms = new List<Room> {};        
+       
+        public Flat(string owner, int residentAmount, int area, DateTime day, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, Adress adress)
         {
             Owner = owner;
             ResidentAmount = residentAmount;
             Area = area;
-            RoomAmount = roomAmount;
             Day = day;
             HasKitchen = hasKitchen;
             HasBathroom = hasBathroom;
             HasRestroom = hasRestroom;
             HasBasement = hasBasement;
             HasBalcony = hasBalcony;
+
+            Id = idGiver++;
             AdressId = adress.Id;
-            //rooms = new List<Room> { };
         }
-        public Flat() : this("Владелец", 1, 100, 1, DateTime.Now, true, true, true, false, false, Adress.GetAdress(0))
+        public Flat() : this("Владелец", 1, 100, DateTime.Now, true, true, true, false, false, Adress.GetAdress(0))
         {
 
         }
-        public Flat(FlatArgs fa) : this(fa.owner, fa.residentAmount, fa.area, fa.roomAmount, fa.day, fa.hasKitchen, fa.hasBathroom, fa.hasRestroom, fa.hasBasement, fa.hasBalcony, fa.adress)
+        public Flat(FlatArgs fa) : this(fa.owner, fa.residentAmount, fa.area, fa.day, fa.hasKitchen, fa.hasBathroom, fa.hasRestroom, fa.hasBasement, fa.hasBalcony, fa.adress)
         {
+        }
 
+        public double Count()
+        {
+            return Area * 29 * (4.7 / (0.1 * (rooms.Count+1)));
         }
     }
 
@@ -150,14 +175,13 @@ namespace s4_oop_2
         [STAThread]
         static void Main()
         {
-
             Adress.Add("Бел", "Минск", "Центр", "Захарова", "61", 13);
             Adress.Add("Пшекия", "Пшексити", "Экстремисткий", "Путило", "8", 9);
             Adress.Add("Украина", "Киiв", "Киiв", "Слава", "3", 5);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1( new List<Flat> { new Flat(), new Flat() }));
+            Application.Run(new Form1( new List<Flat> { new Flat() }));
         }
     }
 }

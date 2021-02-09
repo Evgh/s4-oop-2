@@ -60,8 +60,5 @@ namespace s4_oop_2
         {
             _parent.InitializeListBoxAdress();
         }
-
-
-
     }
 }
