@@ -71,7 +71,7 @@
             this.labelOwner.Location = new System.Drawing.Point(15, 30);
             this.labelOwner.Name = "labelOwner";
             this.labelOwner.Size = new System.Drawing.Size(73, 17);
-            this.labelOwner.TabIndex = 1;
+            this.labelOwner.TabIndex = 11;
             this.labelOwner.Text = "Владелец";
             // 
             // maskedTextBoxArea
@@ -82,7 +82,7 @@
             this.maskedTextBoxArea.Mask = "000";
             this.maskedTextBoxArea.Name = "maskedTextBoxArea";
             this.maskedTextBoxArea.Size = new System.Drawing.Size(28, 22);
-            this.maskedTextBoxArea.TabIndex = 0;
+            this.maskedTextBoxArea.TabIndex = 1;
             this.maskedTextBoxArea.ValidatingType = typeof(int);
             // 
             // labelArea
@@ -176,7 +176,7 @@
             this.radioButtonGoodsManual.Location = new System.Drawing.Point(221, 4);
             this.radioButtonGoodsManual.Name = "radioButtonGoodsManual";
             this.radioButtonGoodsManual.Size = new System.Drawing.Size(152, 21);
-            this.radioButtonGoodsManual.TabIndex = 1;
+            this.radioButtonGoodsManual.TabIndex = 11;
             this.radioButtonGoodsManual.Text = "Отметить вручную";
             this.radioButtonGoodsManual.UseVisualStyleBackColor = true;
             this.radioButtonGoodsManual.CheckedChanged += new System.EventHandler(this.radioButtonGoodsManual_CheckedChanged);
@@ -188,7 +188,7 @@
             this.radioButtonGoodsDefault.Location = new System.Drawing.Point(20, 3);
             this.radioButtonGoodsDefault.Name = "radioButtonGoodsDefault";
             this.radioButtonGoodsDefault.Size = new System.Drawing.Size(170, 21);
-            this.radioButtonGoodsDefault.TabIndex = 0;
+            this.radioButtonGoodsDefault.TabIndex = 10;
             this.radioButtonGoodsDefault.TabStop = true;
             this.radioButtonGoodsDefault.Text = "Опции по умолчанию";
             this.radioButtonGoodsDefault.UseVisualStyleBackColor = true;
@@ -334,7 +334,7 @@
             this.maskedTextBoxOwner.Mask = "L.L.LLL??????????????????????????????????";
             this.maskedTextBoxOwner.Name = "maskedTextBoxOwner";
             this.maskedTextBoxOwner.Size = new System.Drawing.Size(200, 22);
-            this.maskedTextBoxOwner.TabIndex = 17;
+            this.maskedTextBoxOwner.TabIndex = 0;
             this.maskedTextBoxOwner.ValidatingType = typeof(int);
             // 
             // label5

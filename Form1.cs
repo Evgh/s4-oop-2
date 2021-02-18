@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
 
 namespace s4_oop_2
 {
@@ -19,10 +22,9 @@ namespace s4_oop_2
         {
             InitializeComponent();
             _flats = flats;
+
             InitializeDataGridView1();
             InitializeListBoxAdress();
-
-
         }
 
         internal void InitializeDataGridView1()
@@ -60,7 +62,6 @@ namespace s4_oop_2
 
         internal void InitializeListBoxAdress()
         {
-
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = Adress.adressPool;
             listBoxAdress.DataSource = bindingSource;
@@ -122,20 +123,56 @@ namespace s4_oop_2
                     {
                         checkBox.CheckState = CheckState.Checked;
                     }
-
                 }
             }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-
+            // try/catch обрабатывает случай, если площадь не введена
             try
             {
-                _flats.Add(new Flat(MyFlatArgs));
-                maskedTextBoxArea.BackColor = System.Drawing.SystemColors.Window;
-                Form3 roomEditor = new Form3(_flats.Count-1, this);
-                roomEditor.Show();
+                var flat = new Flat(MyFlatArgs);
+                var results = new List<ValidationResult> { };
+                var context = new ValidationContext(flat);
+                // валидация 
+                if (!Validator.TryValidateObject(flat, context, results, true))
+                {
+                    List<int> invalidIndexex = new List<int> { };
+                    StringBuilder message = new StringBuilder("");
+                    
+                    foreach (var error in results)
+                    {
+                        message.Append(error.ErrorMessage);
+                        message.Append('\n');
+                        // получаем таб-индекс элемента из сообщения об ошибке (индексы прописаны вручную)
+                        invalidIndexex.Add(int.Parse(error.ErrorMessage.Substring(0, 1)));
+                    }
+
+                    //// перекрашиваем поля ввода с некорректными данными
+                    foreach (Control control in panel1.Controls)
+                    {
+                        for (int i = 0; i < invalidIndexex.Count; i++)
+                        {
+                            if (control.TabIndex == invalidIndexex[i])
+                            {
+                                control.BackColor = System.Drawing.Color.Salmon;
+                                break;
+                            }
+                            control.BackColor = System.Drawing.SystemColors.Window;
+                        }                        
+                    }
+
+                    MessageBox.Show(message.ToString());
+                }
+                else
+                {
+                    _flats.Add(flat);
+                    maskedTextBoxArea.BackColor = maskedTextBoxOwner.BackColor = System.Drawing.SystemColors.Window;
+
+                    Form3 roomEditor = new Form3(_flats[_flats.Count - 1].Id, this);
+                    roomEditor.Show();
+                }
             }
             catch (System.FormatException ex)
             {
@@ -183,6 +220,18 @@ namespace s4_oop_2
                 _flats = (List<Flat>)serializer.Deserialize(fs);
             }
 
+            // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
+            // собственно, объекты-адреса не сериализуются, они просто хранятся в памяти, а каждая квартира получает даже не ссылку на свой адрес, а id адреса
+            // и по этому id квартира работает со ссылкой на адрес через пул адресов
+            // возможна ситуация, когда объект десериализуется, и у него будет ид на адрес, которого не существует
+            foreach (var flat in _flats)
+            {
+                if (flat.AdressId > Adress.adressPool.Count - 1)
+                {
+                    flat.AdressId = 0;
+                }
+            }
+
             InitializeDataGridView1();
         }
 
@@ -210,6 +259,11 @@ namespace s4_oop_2
                 message = "Выделите 1 строку в таблице";
             }
 
+            MessageBox.Show(message);
+        }
+
+        public void ShowMessage(string message)
+        {
             MessageBox.Show(message);
         }
     }

@@ -40,13 +40,14 @@ namespace s4_oop_2
                     listBoxRooms.DataSource = bindingSource;
                     break;
                 }
+
             }            
         }
 
         internal void InitializeTrackBarArea()
         {
-            int diff = 0;
-            if (theFlat.rooms.Count > 0)
+            int diff = 0;           
+            if (theFlat.rooms != null && theFlat.rooms.Count > 0)
             {
                 foreach (var room in theFlat.rooms)
                 {

@@ -5,168 +5,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.Text.RegularExpressions;
+
 
 namespace s4_oop_2
 {
-
-    public class Adress
-    {
-        // хранилище всех созданных адресов. программа не позволяет создавать отдельно взятые адреса, вся работа производится через статический пул
-        public readonly static List<Adress> adressPool; 
-
-        static int nextId = 0;
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string District { get; set; }
-        public string Street { get; set; }
-        public string HouseNumber { get; set; }
-        public int FlatNumber { get; set; }
-        public int Id { get; set; }
-
-        // свойство для отображения в листбоксе на Form1
-        public string MyToString
-        {
-            get => ToString();
-        }
-
-        Adress(string country, string city, string district, string street, string houseNum, int flatNum)
-        {
-            Country = country;
-            City = city;
-            District = district;
-            Street = street;
-            HouseNumber = houseNum;
-            FlatNumber = flatNum;
-
-            Id = nextId++;
-        }
-        Adress() : this("country", "city", "district", "Street", "61A", 13)
-        {
-
-        }
-        static Adress()
-        {
-            adressPool = new List<Adress> { new Adress() };
-        }
-
-        public override string ToString()
-        {
-            return $"{Country}, г. {City}, район {District}, ул. {Street}, {HouseNumber}-{FlatNumber}";
-        }
-               
-        // Статические методы для взаимодействия с пулом адресов. 
-        public static void Add()
-        {
-            adressPool.Add(new Adress());
-        }
-
-        public static void Add(string country, string city, string district, string street, string houseNum, int flatNum)
-        {
-            adressPool.Add(new Adress(country, city, district, street, houseNum, flatNum));
-        }
-
-        public static Adress GetAdress(int index)
-        {
-            return adressPool[index];
-        }
-    }
-
-    public class Room
-    {
-        public enum RoomOrientation
-        {
-            North, South, East, West, NorthEast, NorthWest, SouthEast, SouthWest
-        }
-
-        public int Area { get; set; }
-        public int Windows { get; set; }
-        public RoomOrientation Orientation { get; set; }
-
-        public override string ToString()
-        {
-            return $"Комната в {Area} метров выходит на {Orientation} {Windows} окнами";
-        }
-        public Room(int area, int windows, RoomOrientation orientation)
-        {
-            Area = area;
-            Windows = windows;
-            Orientation = orientation;                
-        }
-
-        public Room() : this (10, 1, RoomOrientation.North)
-        {
-
-        }
-    }
-
-    // структура для передачи параметров в конструктор Flat
-    public struct FlatArgs
-    {
-        public string owner; //1 
-        public int residentAmount; //2
-        public int area; //3
-        public DateTime day; // 5     
-        public bool hasKitchen; //6
-        public bool hasBathroom; //7 
-        public bool hasRestroom; //8
-        public bool hasBasement; //9
-        public bool hasBalcony; //10       
-        public Adress adress; //11
-    }
-
-    [Serializable]
-    public class Flat
-    {
-        static int idGiver = 0;
-        public int Id { get; }
-        public string Owner { get; set; } //1
-        public int ResidentAmount { get; set; } //2
-        public int Area { get; set; } //3
-        public int RoomAmount { get => rooms.Count;} //4
-        public DateTime Day { get; set; } //5
-        public bool HasKitchen { get; set; } //6
-        public bool HasBathroom { get; set; } //7
-        public bool HasRestroom { get; set; } //8
-        public bool HasBasement { get; set; } //9
-        public bool HasBalcony { get; set; } //10
-        public int AdressId { get; set; }
-
-        
-        // агрегация объекта адреса
-        public string AdressStr { get => (Adress.adressPool[AdressId]).ToString(); }
-
-        // композиция объектов-комнат
-        public List<Room> rooms = new List<Room> {};        
-       
-        public Flat(string owner, int residentAmount, int area, DateTime day, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, Adress adress)
-        {
-            Owner = owner;
-            ResidentAmount = residentAmount;
-            Area = area;
-            Day = day;
-            HasKitchen = hasKitchen;
-            HasBathroom = hasBathroom;
-            HasRestroom = hasRestroom;
-            HasBasement = hasBasement;
-            HasBalcony = hasBalcony;
-
-            Id = idGiver++;
-            AdressId = adress.Id;
-        }
-        public Flat() : this("Владелец", 1, 100, DateTime.Now, true, true, true, false, false, Adress.GetAdress(0))
-        {
-
-        }
-        public Flat(FlatArgs fa) : this(fa.owner, fa.residentAmount, fa.area, fa.day, fa.hasKitchen, fa.hasBathroom, fa.hasRestroom, fa.hasBasement, fa.hasBalcony, fa.adress)
-        {
-        }
-
-        public double Count()
-        {
-            return Area * 29 * (4.7 / (0.1 * (rooms.Count+1)));
-        }
-    }
-
     static class Program
     {
         /// <summary>
@@ -175,13 +18,41 @@ namespace s4_oop_2
         [STAThread]
         static void Main()
         {
-            Adress.Add("Бел", "Минск", "Центр", "Захарова", "61", 13);
-            Adress.Add("Пшекия", "Пшексити", "Экстремисткий", "Путило", "8", 9);
-            Adress.Add("Украина", "Киiв", "Киiв", "Слава", "3", 5);
+            //Func<object, bool> test = delegate (object value)
+            //    {
+            //        if (value != null)
+            //        {
+            //            int buff = int.Parse(value.ToString());
+            //            return buff != 413;
+            //        }
+            //        return false;
+            //    };
+
+            //MessageBox.Show( test(413).ToString() );
+
+            try
+            {
+                Adress.Add("Бел", "Минск", "Центр", "ул. Захарова", "61", 13);
+            }
+            catch (Adress.AdressValidationException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            try
+            {
+                Adress.Add("Украина", "Киiв", "Героев", "пр. Славы", "3", 5);
+
+            }
+            catch (Adress.AdressValidationException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1( new List<Flat> { new Flat() }));
+
+            Application.Run(new Form1(new List<Flat> { new Flat() }));
         }
     }
 }

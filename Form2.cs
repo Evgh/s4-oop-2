@@ -32,6 +32,32 @@ namespace s4_oop_2
             dataGridViewAdresses.Columns["ID"].Visible = false;
         }
 
+        private void ChangeControlsColors(List<int> indexes)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox || control is MaskedTextBox)
+                {
+                    if (indexes.Count > 0)
+                    {
+                        for (int i = 0; i < indexes.Count; i++)
+                        {
+                            if (control.TabIndex == indexes[i])
+                            {
+                                control.BackColor = System.Drawing.Color.Salmon;
+                                break;
+                            }
+                            control.BackColor = System.Drawing.SystemColors.Window;
+                        }
+                    }
+                    else
+                    {
+                        control.BackColor = System.Drawing.SystemColors.Window;
+                    }
+                }
+            }
+        }
+
         private void buttonAddAdress_Click(object sender, EventArgs e)
         { 
             try
@@ -44,12 +70,19 @@ namespace s4_oop_2
                     textBoxHouseNum.Text,
                     int.Parse(maskedTextBoxFlatNum.Text)
                     );
-                maskedTextBoxFlatNum.BackColor = System.Drawing.SystemColors.Window;
+                // костыль, чтобы поля ввода перекрашивались обратно при правильных значениях 
+                ChangeControlsColors(new List<int> {});
             }
             catch (System.FormatException ex)
             {
                 MessageBox.Show(ex.Message);
                 maskedTextBoxFlatNum.BackColor = System.Drawing.Color.Salmon;
+            }
+            catch (Adress.AdressValidationException ex)
+            {
+                MessageBox.Show(ex.Message);
+                ChangeControlsColors(ex.ControlsIndexex);
+
             }
 
             InitializeDataGridViewAdresses();
@@ -60,5 +93,6 @@ namespace s4_oop_2
         {
             _parent.InitializeListBoxAdress();
         }
+
     }
 }
