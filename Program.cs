@@ -52,7 +52,7 @@ namespace s4_oop_2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new Form1(new List<Flat> { new Flat() }));
+            Application.Run(new MainForm(new List<Flat> { new Flat() }));
         }
     }
 }

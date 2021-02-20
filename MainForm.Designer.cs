@@ -1,6 +1,6 @@
 ﻿namespace s4_oop_2
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -42,8 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarResidentAmount = new System.Windows.Forms.TrackBar();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonSerialize = new System.Windows.Forms.Button();
-            this.buttonDeserialize = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePickerDay = new System.Windows.Forms.DateTimePicker();
@@ -54,15 +52,35 @@
             this.listBoxAdress = new System.Windows.Forms.ListBox();
             this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.buttonClear = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.buttonRooms = new System.Windows.Forms.Button();
-            this.buttonСount = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xMLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.jSONToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.рассчитатьСтоимостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.площадиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.количествуКомнатToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ценеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пункт1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.типколичествоКомнатToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.годЗаселенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.районToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.городToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выбратьНесколькоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelOwner
@@ -71,7 +89,7 @@
             this.labelOwner.Location = new System.Drawing.Point(15, 30);
             this.labelOwner.Name = "labelOwner";
             this.labelOwner.Size = new System.Drawing.Size(73, 17);
-            this.labelOwner.TabIndex = 11;
+            this.labelOwner.TabIndex = 1;
             this.labelOwner.Text = "Владелец";
             // 
             // maskedTextBoxArea
@@ -82,7 +100,7 @@
             this.maskedTextBoxArea.Mask = "000";
             this.maskedTextBoxArea.Name = "maskedTextBoxArea";
             this.maskedTextBoxArea.Size = new System.Drawing.Size(28, 22);
-            this.maskedTextBoxArea.TabIndex = 1;
+            this.maskedTextBoxArea.TabIndex = 0;
             this.maskedTextBoxArea.ValidatingType = typeof(int);
             // 
             // labelArea
@@ -176,7 +194,7 @@
             this.radioButtonGoodsManual.Location = new System.Drawing.Point(221, 4);
             this.radioButtonGoodsManual.Name = "radioButtonGoodsManual";
             this.radioButtonGoodsManual.Size = new System.Drawing.Size(152, 21);
-            this.radioButtonGoodsManual.TabIndex = 11;
+            this.radioButtonGoodsManual.TabIndex = 1;
             this.radioButtonGoodsManual.Text = "Отметить вручную";
             this.radioButtonGoodsManual.UseVisualStyleBackColor = true;
             this.radioButtonGoodsManual.CheckedChanged += new System.EventHandler(this.radioButtonGoodsManual_CheckedChanged);
@@ -188,7 +206,7 @@
             this.radioButtonGoodsDefault.Location = new System.Drawing.Point(20, 3);
             this.radioButtonGoodsDefault.Name = "radioButtonGoodsDefault";
             this.radioButtonGoodsDefault.Size = new System.Drawing.Size(170, 21);
-            this.radioButtonGoodsDefault.TabIndex = 10;
+            this.radioButtonGoodsDefault.TabIndex = 0;
             this.radioButtonGoodsDefault.TabStop = true;
             this.radioButtonGoodsDefault.Text = "Опции по умолчанию";
             this.radioButtonGoodsDefault.UseVisualStyleBackColor = true;
@@ -212,33 +230,13 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(1125, 240);
+            this.buttonAdd.Location = new System.Drawing.Point(1125, 242);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(142, 23);
             this.buttonAdd.TabIndex = 7;
             this.buttonAdd.Text = "Добавить запись";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonSerialize
-            // 
-            this.buttonSerialize.Location = new System.Drawing.Point(16, 12);
-            this.buttonSerialize.Name = "buttonSerialize";
-            this.buttonSerialize.Size = new System.Drawing.Size(96, 23);
-            this.buttonSerialize.TabIndex = 8;
-            this.buttonSerialize.Text = "Сохранить";
-            this.buttonSerialize.UseVisualStyleBackColor = true;
-            this.buttonSerialize.Click += new System.EventHandler(this.buttonSerialize_Click);
-            // 
-            // buttonDeserialize
-            // 
-            this.buttonDeserialize.Location = new System.Drawing.Point(118, 12);
-            this.buttonDeserialize.Name = "buttonDeserialize";
-            this.buttonDeserialize.Size = new System.Drawing.Size(200, 23);
-            this.buttonDeserialize.TabIndex = 9;
-            this.buttonDeserialize.Text = "Загрузить данные";
-            this.buttonDeserialize.UseVisualStyleBackColor = true;
-            this.buttonDeserialize.Click += new System.EventHandler(this.buttonDeserialize_Click);
             // 
             // label2
             // 
@@ -261,9 +259,12 @@
             // dateTimePickerDay
             // 
             this.dateTimePickerDay.Location = new System.Drawing.Point(172, 140);
+            this.dateTimePickerDay.MaxDate = new System.DateTime(2021, 2, 20, 12, 9, 34, 0);
+            this.dateTimePickerDay.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerDay.Name = "dateTimePickerDay";
             this.dateTimePickerDay.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerDay.TabIndex = 13;
+            this.dateTimePickerDay.Value = new System.DateTime(2021, 2, 20, 0, 0, 0, 0);
             // 
             // labelDate
             // 
@@ -276,9 +277,9 @@
             // 
             // buttonAdressesMenu
             // 
-            this.buttonAdressesMenu.Location = new System.Drawing.Point(852, 139);
+            this.buttonAdressesMenu.Location = new System.Drawing.Point(1107, 144);
             this.buttonAdressesMenu.Name = "buttonAdressesMenu";
-            this.buttonAdressesMenu.Size = new System.Drawing.Size(151, 23);
+            this.buttonAdressesMenu.Size = new System.Drawing.Size(142, 23);
             this.buttonAdressesMenu.TabIndex = 15;
             this.buttonAdressesMenu.Text = "Изменить адреса";
             this.buttonAdressesMenu.UseVisualStyleBackColor = true;
@@ -288,12 +289,14 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 298);
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridView1.Location = new System.Drawing.Point(16, 271);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1272, 260);
+            this.dataGridView1.Size = new System.Drawing.Size(1264, 287);
             this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
             // panel1
             // 
@@ -331,10 +334,10 @@
             // maskedTextBoxOwner
             // 
             this.maskedTextBoxOwner.Location = new System.Drawing.Point(172, 27);
-            this.maskedTextBoxOwner.Mask = "L.L.LLL??????????????????????????????????";
+            this.maskedTextBoxOwner.Mask = "L.L.LLL???????????????????????";
             this.maskedTextBoxOwner.Name = "maskedTextBoxOwner";
             this.maskedTextBoxOwner.Size = new System.Drawing.Size(200, 22);
-            this.maskedTextBoxOwner.TabIndex = 0;
+            this.maskedTextBoxOwner.TabIndex = 17;
             this.maskedTextBoxOwner.ValidatingType = typeof(int);
             // 
             // label5
@@ -346,23 +349,13 @@
             this.label5.TabIndex = 16;
             this.label5.Text = "м^2";
             // 
-            // buttonClear
-            // 
-            this.buttonClear.Location = new System.Drawing.Point(1125, 269);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(142, 23);
-            this.buttonClear.TabIndex = 18;
-            this.buttonClear.Text = "Очистить таблицу";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // buttonRooms
             // 
-            this.buttonRooms.Location = new System.Drawing.Point(16, 269);
+            this.buttonRooms.Location = new System.Drawing.Point(16, 242);
             this.buttonRooms.Name = "buttonRooms";
             this.buttonRooms.Size = new System.Drawing.Size(202, 23);
             this.buttonRooms.TabIndex = 19;
@@ -370,30 +363,182 @@
             this.buttonRooms.UseVisualStyleBackColor = true;
             this.buttonRooms.Click += new System.EventHandler(this.buttonRooms_Click);
             // 
-            // buttonСount
+            // menuStrip1
             // 
-            this.buttonСount.Location = new System.Drawing.Point(324, 12);
-            this.buttonСount.Name = "buttonСount";
-            this.buttonСount.Size = new System.Drawing.Size(200, 23);
-            this.buttonСount.TabIndex = 20;
-            this.buttonСount.Text = "Рассчитать стоимость";
-            this.buttonСount.UseVisualStyleBackColor = true;
-            this.buttonСount.Click += new System.EventHandler(this.buttonСount_Click);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem,
+            this.пункут1ToolStripMenuItem,
+            this.пункт1ToolStripMenuItem,
+            this.оПрограммеToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1295, 28);
+            this.menuStrip1.TabIndex = 21;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // Form1
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сохранитьToolStripMenuItem,
+            this.загрузитьToolStripMenuItem,
+            this.рассчитатьСтоимостьToolStripMenuItem,
+            this.очиститьТаблицуToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xMLToolStripMenuItem,
+            this.jSONToolStripMenuItem});
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            // 
+            // xMLToolStripMenuItem
+            // 
+            this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.xMLToolStripMenuItem.Text = "XML";
+            this.xMLToolStripMenuItem.Click += new System.EventHandler(this.XMLToolStripMenuItem_Click);
+            // 
+            // jSONToolStripMenuItem
+            // 
+            this.jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
+            this.jSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.jSONToolStripMenuItem.Text = "JSON";
+            // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xMLToolStripMenuItem1,
+            this.jSONToolStripMenuItem1});
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить";
+            // 
+            // xMLToolStripMenuItem1
+            // 
+            this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
+            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
+            this.xMLToolStripMenuItem1.Text = "XML";
+            this.xMLToolStripMenuItem1.Click += new System.EventHandler(this.XMLToolStripMenuItem1_Click);
+            // 
+            // jSONToolStripMenuItem1
+            // 
+            this.jSONToolStripMenuItem1.Name = "jSONToolStripMenuItem1";
+            this.jSONToolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
+            this.jSONToolStripMenuItem1.Text = "JSON";
+            // 
+            // рассчитатьСтоимостьToolStripMenuItem
+            // 
+            this.рассчитатьСтоимостьToolStripMenuItem.Name = "рассчитатьСтоимостьToolStripMenuItem";
+            this.рассчитатьСтоимостьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.рассчитатьСтоимостьToolStripMenuItem.Text = "Рассчитать стоимость";
+            this.рассчитатьСтоимостьToolStripMenuItem.Click += new System.EventHandler(this.рассчитатьСтоимостьToolStripMenuItem_Click);
+            // 
+            // очиститьТаблицуToolStripMenuItem
+            // 
+            this.очиститьТаблицуToolStripMenuItem.Name = "очиститьТаблицуToolStripMenuItem";
+            this.очиститьТаблицуToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.очиститьТаблицуToolStripMenuItem.Text = "Очистить таблицу";
+            this.очиститьТаблицуToolStripMenuItem.Click += new System.EventHandler(this.очиститьТаблицуToolStripMenuItem_Click);
+            // 
+            // пункут1ToolStripMenuItem
+            // 
+            this.пункут1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.площадиToolStripMenuItem,
+            this.количествуКомнатToolStripMenuItem,
+            this.ценеToolStripMenuItem});
+            this.пункут1ToolStripMenuItem.Name = "пункут1ToolStripMenuItem";
+            this.пункут1ToolStripMenuItem.Size = new System.Drawing.Size(106, 24);
+            this.пункут1ToolStripMenuItem.Text = "Сортировка";
+            // 
+            // площадиToolStripMenuItem
+            // 
+            this.площадиToolStripMenuItem.Name = "площадиToolStripMenuItem";
+            this.площадиToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.площадиToolStripMenuItem.Text = "Площадь";
+            // 
+            // количествуКомнатToolStripMenuItem
+            // 
+            this.количествуКомнатToolStripMenuItem.Name = "количествуКомнатToolStripMenuItem";
+            this.количествуКомнатToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.количествуКомнатToolStripMenuItem.Text = "Количество комнат";
+            // 
+            // ценеToolStripMenuItem
+            // 
+            this.ценеToolStripMenuItem.Name = "ценеToolStripMenuItem";
+            this.ценеToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.ценеToolStripMenuItem.Text = "Цена";
+            // 
+            // пункт1ToolStripMenuItem
+            // 
+            this.пункт1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.типколичествоКомнатToolStripMenuItem,
+            this.годЗаселенияToolStripMenuItem,
+            this.районToolStripMenuItem,
+            this.городToolStripMenuItem,
+            this.выбратьНесколькоToolStripMenuItem});
+            this.пункт1ToolStripMenuItem.Name = "пункт1ToolStripMenuItem";
+            this.пункт1ToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
+            this.пункт1ToolStripMenuItem.Text = "Поиск";
+            // 
+            // типколичествоКомнатToolStripMenuItem
+            // 
+            this.типколичествоКомнатToolStripMenuItem.Name = "типколичествоКомнатToolStripMenuItem";
+            this.типколичествоКомнатToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.типколичествоКомнатToolStripMenuItem.Text = "Тип (количество комнат)";
+            this.типколичествоКомнатToolStripMenuItem.Click += new System.EventHandler(this.типколичествоКомнатToolStripMenuItem_Click);
+            // 
+            // годЗаселенияToolStripMenuItem
+            // 
+            this.годЗаселенияToolStripMenuItem.Name = "годЗаселенияToolStripMenuItem";
+            this.годЗаселенияToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.годЗаселенияToolStripMenuItem.Text = "Год заселения";
+            this.годЗаселенияToolStripMenuItem.Click += new System.EventHandler(this.годЗаселенияToolStripMenuItem_Click);
+            // 
+            // районToolStripMenuItem
+            // 
+            this.районToolStripMenuItem.Name = "районToolStripMenuItem";
+            this.районToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.районToolStripMenuItem.Text = "Район";
+            this.районToolStripMenuItem.Click += new System.EventHandler(this.районToolStripMenuItem_Click);
+            // 
+            // городToolStripMenuItem
+            // 
+            this.городToolStripMenuItem.Name = "городToolStripMenuItem";
+            this.городToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.городToolStripMenuItem.Text = "Город";
+            this.городToolStripMenuItem.Click += new System.EventHandler(this.городToolStripMenuItem_Click);
+            // 
+            // выбратьНесколькоToolStripMenuItem
+            // 
+            this.выбратьНесколькоToolStripMenuItem.Name = "выбратьНесколькоToolStripMenuItem";
+            this.выбратьНесколькоToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.выбратьНесколькоToolStripMenuItem.Text = "Выбрать несколько";
+            this.выбратьНесколькоToolStripMenuItem.Click += new System.EventHandler(this.выбратьНесколькоToolStripMenuItem_Click);
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1295, 570);
-            this.Controls.Add(this.buttonСount);
             this.Controls.Add(this.buttonRooms);
-            this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.buttonDeserialize);
-            this.Controls.Add(this.buttonSerialize);
             this.Controls.Add(this.buttonAdd);
-            this.Name = "Form1";
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -401,7 +546,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -420,8 +568,6 @@
         private System.Windows.Forms.CheckBox checkBoxHasBalcony;
         private System.Windows.Forms.TrackBar trackBarResidentAmount;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonSerialize;
-        private System.Windows.Forms.Button buttonDeserialize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimePickerDay;
@@ -430,13 +576,32 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxOwner;
         private System.Windows.Forms.ListBox listBoxAdress;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button buttonRooms;
-        private System.Windows.Forms.Button buttonСount;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem пункт1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem пункут1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem площадиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem количествуКомнатToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ценеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem типколичествоКомнатToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem годЗаселенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem районToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem городToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выбратьНесколькоToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem рассчитатьСтоимостьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem очиститьТаблицуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
     }
 }
 

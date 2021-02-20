@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace s4_oop_2
 {
-    public partial class Form2 : Form
+    public partial class AdressEditForm : Form
     {
-        Form1 _parent;
+        MainForm _parent;
 
-        public Form2(Form1 parent)
+        public AdressEditForm(MainForm parent)
         {
             InitializeComponent();
             _parent = parent;

@@ -1,7 +1,7 @@
 ﻿
 namespace s4_oop_2
 {
-    partial class Form3
+    partial class RoomEditForm
     {
         /// <summary>
         /// Required designer variable.
