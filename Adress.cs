@@ -18,14 +18,14 @@ namespace s4_oop_2
             public List<int> ControlsIndexex;
             public AdressValidationException() { }
             public AdressValidationException(string message) : base(message) { }
-            public AdressValidationException(string message, List<int> erInd) : base(message) 
+            public AdressValidationException(string message, List<int> erInd) : base(message)
             {
                 ControlsIndexex = erInd;
             }
             public AdressValidationException(string message, Exception inner) : base(message, inner) { }
             protected AdressValidationException(
               System.Runtime.Serialization.SerializationInfo info,
-              System.Runtime.Serialization.StreamingContext context) : base(info, context) { } 
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
 
         public class FlatNumberAttribute : ValidationAttribute
@@ -54,7 +54,7 @@ namespace s4_oop_2
 
         static int nextId = 0;
         //0
-        [Required (ErrorMessage = "0: Напишите страну")]
+        [Required(ErrorMessage = "0: Напишите страну")]
         public string Country { get; set; }
         //1
         [Required(ErrorMessage = "1: Напишите город")]
@@ -76,11 +76,15 @@ namespace s4_oop_2
 
         public int Id { get; set; }
 
+
         // свойство для отображения в листбоксе на Form1
         public string MyToString
         {
             get => ToString();
         }
+
+
+        public Adress Self { get => this;}
 
         Adress(string country, string city, string district, string street, string houseNum, int flatNum)
         {

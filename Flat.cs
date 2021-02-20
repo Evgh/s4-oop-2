@@ -50,11 +50,16 @@ namespace s4_oop_2
         public bool HasBasement { get; set; }
         //10
         public bool HasBalcony { get; set; }
-        
+
         //11
-        public int AdressId { get; set; }
         // агрегация объекта адреса
-        public string AdressStr { get => (Adress.adressPool[AdressId]).ToString(); }
+        public int AdressId { get; set; }
+        //public string AdressStr { get => (Adress.adressPool[AdressId]).ToString(); }
+
+        // 12
+        public Adress comboBoxAdress { get => Adress.adressPool[AdressId]; set => AdressId = value.Id; }
+
+
 
         // композиция объектов-комнат
         public List<Room> rooms = new List<Room> { };

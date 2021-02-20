@@ -1,6 +1,6 @@
 ﻿namespace s4_oop_2
 {
-    partial class Form2
+    partial class AdressEditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -165,7 +165,7 @@
             this.buttonAddAdress.UseVisualStyleBackColor = true;
             this.buttonAddAdress.Click += new System.EventHandler(this.buttonAddAdress_Click);
             // 
-            // Form2
+            // AdressEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -184,7 +184,7 @@
             this.Controls.Add(this.textBoxDistrict);
             this.Controls.Add(this.textBoxCity);
             this.Controls.Add(this.textBoxCountry);
-            this.Name = "Form2";
+            this.Name = "AdressEditForm";
             this.Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAdresses)).EndInit();
             this.ResumeLayout(false);

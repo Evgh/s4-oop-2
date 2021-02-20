@@ -5,26 +5,28 @@ using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Linq;
 
 
 namespace s4_oop_2
 {
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public List<Flat> _flats;
 
-        public Form1() : this (new List<Flat> { })
+        public MainForm() : this (new List<Flat> { })
         {
         }
 
-        public Form1(List<Flat> flats)
+        public MainForm(List<Flat> flats)
         {
             InitializeComponent();
             _flats = flats;
 
             InitializeDataGridView1();
             InitializeListBoxAdress();
+            AddComboBoxColumn();
         }
 
         internal void InitializeDataGridView1()
@@ -34,30 +36,30 @@ namespace s4_oop_2
             dataGridView1.DataSource = bindingSource;
 
             dataGridView1.Columns["AdressId"].Visible = false;
+            dataGridView1.Columns["comboBoxAdress"].Visible = false;
             DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
             DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
             columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+        }
 
+        internal void AddComboBoxColumn()
+        {
+            // Функционал, чтобы редактировать адреса через выпадающий список Combobox  
+            DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
+            column.HeaderText = "Adress";
+            column.Width = 300;
+            //data sourse
+            BindingSource comboboxSource = new BindingSource();
+            comboboxSource.DataSource = Adress.adressPool;
+            column.DataSource = comboboxSource;
 
-            // попытка сделать редактирование адреса через выпадающий список Combobox  
-
-            //DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
-            //column.HeaderText = "Adress";
-            //column.Width = 300;
-
-            //BindingSource comboboxSource = new BindingSource();
-            //comboboxSource.DataSource = Adress.adressPool;
-            //column.DataSource = comboboxSource;
-
-            //column.DisplayMember = "MyToString";
-            //column.ValueMember = "Id";
-
-            //for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
-            //{
-            //    dataGridView1.Rows[i].Cells[7].Value = Adress.adressPool[0].MyToString;
-            //}
-            //dataGridView1.Columns.Add(column);
-
+            // отображается в колонке
+            column.DisplayMember = "MyToString";
+            // свойство, возвращающее ссылку объекта на сам себя (здесь тип Adress)
+            column.ValueMember = "Self";
+            // свойство типа Adress в объекте Flat
+            column.DataPropertyName = "comboBoxAdress";
+            dataGridView1.Columns.Add(column);
         }
 
         internal void InitializeListBoxAdress()
@@ -170,7 +172,7 @@ namespace s4_oop_2
                     _flats.Add(flat);
                     maskedTextBoxArea.BackColor = maskedTextBoxOwner.BackColor = System.Drawing.SystemColors.Window;
 
-                    Form3 roomEditor = new Form3(_flats[_flats.Count - 1].Id, this);
+                    RoomEditForm roomEditor = new RoomEditForm(_flats[_flats.Count - 1].Id, this);
                     roomEditor.Show();
                 }
             }
@@ -184,13 +186,12 @@ namespace s4_oop_2
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            _flats.Clear();
-            InitializeDataGridView1();
+
         }
 
         private void buttonAdressesMenu_Click(object sender, EventArgs e)
         {
-            Form2 form = new Form2(this);
+            AdressEditForm form = new AdressEditForm(this);
             form.Show();
         }
 
@@ -239,7 +240,7 @@ namespace s4_oop_2
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                Form3 form = new Form3(int.Parse(row.Cells[0].Value.ToString()), this);
+                RoomEditForm form = new RoomEditForm(int.Parse(row.Cells[0].Value.ToString()), this);
                 form.Show();
             }
         }
@@ -265,6 +266,115 @@ namespace s4_oop_2
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
+        }
+
+
+        ////////////////////////////////////////////////// пункт меню "Файл"
+
+        // cериализация xml
+        private void XMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = saveFileDialog1.FileName;
+            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                serializer.Serialize(fs, _flats);
+            }
+            MessageBox.Show("Файл сохранен");
+        }
+
+        private void XMLToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = openFileDialog1.FileName;
+            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                _flats = (List<Flat>)serializer.Deserialize(fs);
+            }
+
+            // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
+            // собственно, объекты-адреса не сериализуются, они просто хранятся в памяти, а каждая квартира получает даже не ссылку на свой адрес, а id адреса
+            // и по этому id квартира работает со ссылкой на адрес через пул адресов
+            // возможна ситуация, когда объект десериализуется, и у него будет ид на адрес, которого не существует
+            foreach (var flat in _flats)
+            {
+                if (flat.AdressId > Adress.adressPool.Count - 1)
+                {
+                    flat.AdressId = 0;
+                }
+            }
+
+            InitializeDataGridView1();
+        }
+        private void рассчитатьСтоимостьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "";
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                string selectedId = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+                int id = int.Parse(selectedId);
+                Flat selectedFlat = _flats.Find((f) => { return f.Id == id; });
+
+                if (selectedFlat != null)
+                {
+                    message = $"Стоимость квартиры {selectedFlat.Count()} белорусских рублей";
+                }
+                else
+                {
+                    message = "Ошибка: квартира не найдена";
+                }
+            }
+            else
+            {
+                message = "Выделите 1 строку в таблице";
+            }
+
+            MessageBox.Show(message);
+        }
+
+        private void очиститьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _flats.Clear();
+            InitializeDataGridView1();
+        }
+
+        ////////////////////////////////////////////////// меню "Поиск"
+
+        private void типколичествоКомнатToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new SearchForm(new SearchFormArgs() { type = true }, this)).Show();
+        }
+        private void годЗаселенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new SearchForm(new SearchFormArgs() { year = true }, this)).Show();
+        }
+
+        private void районToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new SearchForm(new SearchFormArgs() { district = true }, this)).Show();
+        }
+
+        private void городToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new SearchForm(new SearchFormArgs() { city = true }, this)).Show();
+
+        }
+        private void выбратьНесколькоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new SearchForm(new SearchFormArgs() {}, this)).Show();
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MessageBox.Show("");
+            
+
         }
     }
 }

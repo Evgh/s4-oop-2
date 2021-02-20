@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace s4_oop_2
 {
-    public partial class Form3 : Form
+    public partial class RoomEditForm : Form
     {
-        Form1 _parent;
+        MainForm _parent;
         Flat theFlat; 
 
-        public Form3(int i, Form1 parent)
+        public RoomEditForm(int i, MainForm parent)
         {
             InitializeComponent();
 
