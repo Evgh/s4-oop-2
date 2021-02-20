@@ -57,7 +57,7 @@ namespace s4_oop_2
         //public string AdressStr { get => (Adress.adressPool[AdressId]).ToString(); }
 
         // 12
-        public Adress comboBoxAdress { get => Adress.adressPool[AdressId]; set => AdressId = value.Id; }
+        public Adress FlatAdress { get => Adress.adressPool[AdressId]; set => AdressId = value.Id; }
 
 
 

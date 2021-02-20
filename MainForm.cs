@@ -36,7 +36,7 @@ namespace s4_oop_2
             dataGridView1.DataSource = bindingSource;
 
             dataGridView1.Columns["AdressId"].Visible = false;
-            dataGridView1.Columns["comboBoxAdress"].Visible = false;
+            dataGridView1.Columns["FlatAdress"].Visible = false;
             DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
             DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
             columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -58,7 +58,7 @@ namespace s4_oop_2
             // свойство, возвращающее ссылку объекта на сам себя (здесь тип Adress)
             column.ValueMember = "Self";
             // свойство типа Adress в объекте Flat
-            column.DataPropertyName = "comboBoxAdress";
+            column.DataPropertyName = "FlatAdress";
             dataGridView1.Columns.Add(column);
         }
 
@@ -371,10 +371,13 @@ namespace s4_oop_2
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            MessageBox.Show("");
-            
+        {            
+        }
 
+        ////////////////////////////////////////////////// О программе 
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Программа 'Квартиры' v.2.0 (с) Касперович Е.Н.");
         }
     }
 }

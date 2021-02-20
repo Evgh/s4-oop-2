@@ -35,6 +35,10 @@ namespace s4_oop_2
             _parent = parent;
             selectedFlats = parent._flats;
 
+            dateTimePickerYear.Format = DateTimePickerFormat.Custom;
+            dateTimePickerYear.CustomFormat = "yyyy";
+            dateTimePickerYear.ShowUpDown = true;
+
             if (sfa.type)
             {
                 checkBoxType.CheckState = CheckState.Checked;
@@ -55,7 +59,6 @@ namespace s4_oop_2
             InitializeDataGridView1();
         }
 
-        //System.Collections.Generic.Ienumerable<Flat>
         internal void InitializeDataGridView1()
         {
             BindingSource bindingSource = new BindingSource();
@@ -65,27 +68,6 @@ namespace s4_oop_2
             DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
             DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
             columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-
-
-            // попытка сделать редактирование адреса через выпадающий список Combobox  
-
-            //DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
-            //column.HeaderText = "Adress";
-            //column.Width = 300;
-
-            //BindingSource comboboxSource = new BindingSource();
-            //comboboxSource.DataSource = Adress.adressPool;
-            //column.DataSource = comboboxSource;
-
-            //column.DisplayMember = "MyToString";
-            //column.ValueMember = "Id";
-
-            //for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
-            //{
-            //    dataGridView1.Rows[i].Cells[7].Value = Adress.adressPool[0].MyToString;
-            //}
-            //dataGridView1.Columns.Add(column);
-
         }
 
 
@@ -108,38 +90,91 @@ namespace s4_oop_2
         {
 
         }
-        //
 
         private void checkBoxType_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxType.Enabled = !textBoxType.Enabled; 
+            trackBarRoomAmount.Enabled = !trackBarRoomAmount.Enabled; 
         }
 
         private void checkBoxYear_CheckedChanged(object sender, EventArgs e)
         {
-            maskedTextBoxYear.Enabled = !maskedTextBoxYear.Enabled;
+            dateTimePickerYear.Enabled = !dateTimePickerYear.Enabled;
         }
 
         private void checkBoxDistrict_CheckedChanged(object sender, EventArgs e)
         {
             textBoxDistrict.Enabled = !textBoxDistrict.Enabled;
+            panelD.Enabled = !panelD.Enabled;
         }
 
         private void checkBoxCity_CheckedChanged(object sender, EventArgs e)
         {
             textBoxCity.Enabled = !textBoxCity.Enabled;
+            panelC.Enabled = !panelC.Enabled;
         }
 
 
 
+        private bool textRegExValidation(string str, char symbol)
+        {
+            // если controls["radioButton + Первая буква + св-во"].Checked 
+
+            //MessageBox.Show(Controls["radioButton" + symbol + "Simple"].Text);
+            MessageBox.Show(panelD.Controls["radioButtonDSimple"].Text);
+
+/*            if ((Controls["radioButton" + symbol + "Simple"] as RadioButton).Checked)
+            {
+                MessageBox.Show("");
+            }
+*/
+            return true;
+        } 
+
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            var searchRresults = from a in _parent._flats
-                            where a.Owner == "Владелец"
-                            select a;
+            selectedFlats = _parent._flats;
+            if (checkBoxType.Checked)
+            {
+                var searchResults = from flat in selectedFlats
+                                    where flat.RoomAmount == trackBarRoomAmount.Value
+                                    select flat;
+                selectedFlats = searchResults.ToList();
+            }
 
-            selectedFlats = searchRresults.ToList();
+            if (checkBoxYear.Checked)
+            {
+                var searchResults = from flat in selectedFlats
+                                    where flat.Day.Year == dateTimePickerYear.Value.Year
+                                    select flat;
+                selectedFlats = searchResults.ToList();
+            }
+
+            if (checkBoxDistrict.Checked)
+            {
+                var searchResults = from flat in selectedFlats
+                                    where textRegExValidation(flat.FlatAdress.District, 'D')
+                                    select flat;
+                selectedFlats = searchResults.ToList();
+            }
+            if (checkBoxCity.Checked)
+            {
+                var searchResults = from flat in selectedFlats
+                                    where flat.FlatAdress.City == textBoxCity.Text
+                                    select flat;
+                selectedFlats = searchResults.ToList();
+            }
+
             InitializeDataGridView1();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
