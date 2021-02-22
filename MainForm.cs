@@ -27,6 +27,8 @@ namespace s4_oop_2
             InitializeDataGridView1();
             InitializeListBoxAdress();
             AddComboBoxColumn();
+
+            (new SearchForm(new SearchFormArgs() { }, this)).Show();
         }
 
         internal void InitializeDataGridView1()

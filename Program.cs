@@ -28,7 +28,11 @@ namespace s4_oop_2
             //        return false;
             //    };
 
+
             //MessageBox.Show( test(413).ToString() );
+
+
+            //MessageBox.Show(Regex.IsMatch(" hhh    saa dis dsss hgh kk", "dis").ToString() + "\n" + Regex.IsMatch("saadisdsss", "(\\s*\\w*dis\\w*\\s*){1}").ToString());
 
             try
             {
@@ -51,7 +55,6 @@ namespace s4_oop_2
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             Application.Run(new MainForm(new List<Flat> { new Flat() }));
         }
     }

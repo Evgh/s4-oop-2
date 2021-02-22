@@ -33,29 +33,29 @@ namespace s4_oop_2
             this.checkBoxYear = new System.Windows.Forms.CheckBox();
             this.checkBoxDistrict = new System.Windows.Forms.CheckBox();
             this.checkBoxCity = new System.Windows.Forms.CheckBox();
-            this.textBoxDistrict = new System.Windows.Forms.TextBox();
             this.textBoxCity = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.trackBarRoomAmount = new System.Windows.Forms.TrackBar();
             this.dateTimePickerYear = new System.Windows.Forms.DateTimePicker();
             this.panelC = new System.Windows.Forms.Panel();
-            this.radioButtonSSimple = new System.Windows.Forms.RadioButton();
-            this.radioButtonSPartly = new System.Windows.Forms.RadioButton();
-            this.radioButtonSRepeats = new System.Windows.Forms.RadioButton();
-            this.radioButtonSBegin = new System.Windows.Forms.RadioButton();
-            this.maskedTextBoxSRepeats = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxRepeatsC = new System.Windows.Forms.MaskedTextBox();
+            this.radioButtonEndC = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButtonSEnd = new System.Windows.Forms.RadioButton();
-            this.panelD = new System.Windows.Forms.Panel();
-            this.radioButtonDEnd = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.maskedTextBoxDRepeats = new System.Windows.Forms.MaskedTextBox();
-            this.radioButtonDBegin = new System.Windows.Forms.RadioButton();
-            this.radioButtonDRepeats = new System.Windows.Forms.RadioButton();
-            this.radioButtonDPartly = new System.Windows.Forms.RadioButton();
-            this.radioButtonDSimple = new System.Windows.Forms.RadioButton();
+            this.radioButtonBeginC = new System.Windows.Forms.RadioButton();
+            this.radioButtonRepeatsC = new System.Windows.Forms.RadioButton();
+            this.radioButtonPartlyC = new System.Windows.Forms.RadioButton();
+            this.radioButtonSimpleC = new System.Windows.Forms.RadioButton();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.panelD = new System.Windows.Forms.Panel();
+            this.maskedTextBoxRepeatsD = new System.Windows.Forms.MaskedTextBox();
+            this.radioButtonEndD = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.radioButtonBeginD = new System.Windows.Forms.RadioButton();
+            this.radioButtonRepeatsD = new System.Windows.Forms.RadioButton();
+            this.radioButtonPartlyD = new System.Windows.Forms.RadioButton();
+            this.radioButtonSimpleD = new System.Windows.Forms.RadioButton();
+            this.textBoxDistrict = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRoomAmount)).BeginInit();
             this.panelC.SuspendLayout();
@@ -106,21 +106,11 @@ namespace s4_oop_2
             this.checkBoxCity.UseVisualStyleBackColor = true;
             this.checkBoxCity.CheckedChanged += new System.EventHandler(this.checkBoxCity_CheckedChanged);
             // 
-            // textBoxDistrict
-            // 
-            this.textBoxDistrict.Enabled = false;
-            this.textBoxDistrict.Location = new System.Drawing.Point(214, 138);
-            this.textBoxDistrict.Name = "textBoxDistrict";
-            this.textBoxDistrict.Size = new System.Drawing.Size(478, 22);
-            this.textBoxDistrict.TabIndex = 6;
-            this.textBoxDistrict.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
             // textBoxCity
             // 
-            this.textBoxCity.Enabled = false;
-            this.textBoxCity.Location = new System.Drawing.Point(214, 261);
+            this.textBoxCity.Location = new System.Drawing.Point(3, 3);
             this.textBoxCity.Name = "textBoxCity";
-            this.textBoxCity.Size = new System.Drawing.Size(478, 22);
+            this.textBoxCity.Size = new System.Drawing.Size(470, 22);
             this.textBoxCity.TabIndex = 7;
             this.textBoxCity.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
@@ -166,185 +156,98 @@ namespace s4_oop_2
             this.dateTimePickerYear.Size = new System.Drawing.Size(478, 22);
             this.dateTimePickerYear.TabIndex = 11;
             // 
-            // panelCity
+            // panelC
             // 
             this.panelC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelC.Controls.Add(this.radioButtonSEnd);
+            this.panelC.Controls.Add(this.maskedTextBoxRepeatsC);
+            this.panelC.Controls.Add(this.radioButtonEndC);
             this.panelC.Controls.Add(this.label1);
-            this.panelC.Controls.Add(this.maskedTextBoxSRepeats);
-            this.panelC.Controls.Add(this.radioButtonSBegin);
-            this.panelC.Controls.Add(this.radioButtonSRepeats);
-            this.panelC.Controls.Add(this.radioButtonSPartly);
-            this.panelC.Controls.Add(this.radioButtonSSimple);
+            this.panelC.Controls.Add(this.radioButtonBeginC);
+            this.panelC.Controls.Add(this.radioButtonRepeatsC);
+            this.panelC.Controls.Add(this.radioButtonPartlyC);
+            this.panelC.Controls.Add(this.radioButtonSimpleC);
+            this.panelC.Controls.Add(this.textBoxCity);
             this.panelC.Enabled = false;
-            this.panelC.Location = new System.Drawing.Point(214, 286);
-            this.panelC.Name = "panelCity";
-            this.panelC.Size = new System.Drawing.Size(478, 80);
+            this.panelC.Location = new System.Drawing.Point(214, 263);
+            this.panelC.Name = "panelC";
+            this.panelC.Size = new System.Drawing.Size(478, 113);
             this.panelC.TabIndex = 12;
+            this.panelC.Paint += new System.Windows.Forms.PaintEventHandler(this.panelS_Paint);
             // 
-            // radioButtonSSimple
+            // maskedTextBoxRepeatsC
             // 
-            this.radioButtonSSimple.AutoSize = true;
-            this.radioButtonSSimple.Location = new System.Drawing.Point(3, 3);
-            this.radioButtonSSimple.Name = "radioButtonSSimple";
-            this.radioButtonSSimple.Size = new System.Drawing.Size(172, 21);
-            this.radioButtonSSimple.TabIndex = 0;
-            this.radioButtonSSimple.TabStop = true;
-            this.radioButtonSSimple.Text = "Полное соответствие";
-            this.radioButtonSSimple.UseVisualStyleBackColor = true;
-            this.radioButtonSSimple.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.maskedTextBoxRepeatsC.Enabled = false;
+            this.maskedTextBoxRepeatsC.Location = new System.Drawing.Point(166, 87);
+            this.maskedTextBoxRepeatsC.Mask = "00";
+            this.maskedTextBoxRepeatsC.Name = "maskedTextBoxRepeatsC";
+            this.maskedTextBoxRepeatsC.Size = new System.Drawing.Size(17, 22);
+            this.maskedTextBoxRepeatsC.TabIndex = 25;
             // 
-            // radioButtonSPartly
+            // radioButtonEndC
             // 
-            this.radioButtonSPartly.AutoSize = true;
-            this.radioButtonSPartly.Location = new System.Drawing.Point(213, 3);
-            this.radioButtonSPartly.Name = "radioButtonSPartly";
-            this.radioButtonSPartly.Size = new System.Drawing.Size(194, 21);
-            this.radioButtonSPartly.TabIndex = 1;
-            this.radioButtonSPartly.TabStop = true;
-            this.radioButtonSPartly.Text = "Частичное соответствие";
-            this.radioButtonSPartly.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonSRepeats
-            // 
-            this.radioButtonSRepeats.AutoSize = true;
-            this.radioButtonSRepeats.Location = new System.Drawing.Point(3, 56);
-            this.radioButtonSRepeats.Name = "radioButtonSRepeats";
-            this.radioButtonSRepeats.Size = new System.Drawing.Size(150, 21);
-            this.radioButtonSRepeats.TabIndex = 2;
-            this.radioButtonSRepeats.TabStop = true;
-            this.radioButtonSRepeats.Text = "Повторение теста";
-            this.radioButtonSRepeats.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonSBegin
-            // 
-            this.radioButtonSBegin.AutoSize = true;
-            this.radioButtonSBegin.Location = new System.Drawing.Point(3, 29);
-            this.radioButtonSBegin.Name = "radioButtonSBegin";
-            this.radioButtonSBegin.Size = new System.Drawing.Size(139, 21);
-            this.radioButtonSBegin.TabIndex = 3;
-            this.radioButtonSBegin.TabStop = true;
-            this.radioButtonSBegin.Text = "В начале строки";
-            this.radioButtonSBegin.UseVisualStyleBackColor = true;
-            // 
-            // maskedTextBoxSRepeats
-            // 
-            this.maskedTextBoxSRepeats.Enabled = false;
-            this.maskedTextBoxSRepeats.Location = new System.Drawing.Point(150, 56);
-            this.maskedTextBoxSRepeats.Mask = "0";
-            this.maskedTextBoxSRepeats.Name = "maskedTextBoxSRepeats";
-            this.maskedTextBoxSRepeats.Size = new System.Drawing.Size(13, 22);
-            this.maskedTextBoxSRepeats.TabIndex = 4;
+            this.radioButtonEndC.AutoSize = true;
+            this.radioButtonEndC.Location = new System.Drawing.Point(213, 62);
+            this.radioButtonEndC.Name = "radioButtonEndC";
+            this.radioButtonEndC.Size = new System.Drawing.Size(130, 21);
+            this.radioButtonEndC.TabIndex = 4;
+            this.radioButtonEndC.TabStop = true;
+            this.radioButtonEndC.Text = "В конце строки";
+            this.radioButtonEndC.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(166, 58);
+            this.label1.Location = new System.Drawing.Point(189, 90);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 17);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 23;
             this.label1.Text = "раз";
             // 
-            // radioButtonSEnd
+            // radioButtonBeginC
             // 
-            this.radioButtonSEnd.AutoSize = true;
-            this.radioButtonSEnd.Location = new System.Drawing.Point(213, 30);
-            this.radioButtonSEnd.Name = "radioButtonSEnd";
-            this.radioButtonSEnd.Size = new System.Drawing.Size(130, 21);
-            this.radioButtonSEnd.TabIndex = 6;
-            this.radioButtonSEnd.TabStop = true;
-            this.radioButtonSEnd.Text = "В конце строки";
-            this.radioButtonSEnd.UseVisualStyleBackColor = true;
+            this.radioButtonBeginC.AutoSize = true;
+            this.radioButtonBeginC.Location = new System.Drawing.Point(3, 61);
+            this.radioButtonBeginC.Name = "radioButtonBeginC";
+            this.radioButtonBeginC.Size = new System.Drawing.Size(139, 21);
+            this.radioButtonBeginC.TabIndex = 3;
+            this.radioButtonBeginC.TabStop = true;
+            this.radioButtonBeginC.Text = "В начале строки";
+            this.radioButtonBeginC.UseVisualStyleBackColor = true;
             // 
-            // panelDistrict
+            // radioButtonRepeatsC
             // 
-            this.panelD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelD.Controls.Add(this.radioButtonDEnd);
-            this.panelD.Controls.Add(this.label2);
-            this.panelD.Controls.Add(this.maskedTextBoxDRepeats);
-            this.panelD.Controls.Add(this.radioButtonDBegin);
-            this.panelD.Controls.Add(this.radioButtonDRepeats);
-            this.panelD.Controls.Add(this.radioButtonDPartly);
-            this.panelD.Controls.Add(this.radioButtonDSimple);
-            this.panelD.Enabled = false;
-            this.panelD.Location = new System.Drawing.Point(214, 166);
-            this.panelD.Name = "panelDistrict";
-            this.panelD.Size = new System.Drawing.Size(478, 80);
-            this.panelD.TabIndex = 13;
-            this.panelD.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.radioButtonRepeatsC.AutoSize = true;
+            this.radioButtonRepeatsC.Location = new System.Drawing.Point(3, 88);
+            this.radioButtonRepeatsC.Name = "radioButtonRepeatsC";
+            this.radioButtonRepeatsC.Size = new System.Drawing.Size(157, 21);
+            this.radioButtonRepeatsC.TabIndex = 2;
+            this.radioButtonRepeatsC.TabStop = true;
+            this.radioButtonRepeatsC.Text = "Повторение текста";
+            this.radioButtonRepeatsC.UseVisualStyleBackColor = true;
+            this.radioButtonRepeatsC.CheckedChanged += new System.EventHandler(this.radioButtonSRepeats_CheckedChanged);
             // 
-            // radioButtonDEnd
+            // radioButtonPartlyC
             // 
-            this.radioButtonDEnd.AutoSize = true;
-            this.radioButtonDEnd.Location = new System.Drawing.Point(213, 30);
-            this.radioButtonDEnd.Name = "radioButtonDEnd";
-            this.radioButtonDEnd.Size = new System.Drawing.Size(130, 21);
-            this.radioButtonDEnd.TabIndex = 6;
-            this.radioButtonDEnd.TabStop = true;
-            this.radioButtonDEnd.Text = "В конце строки";
-            this.radioButtonDEnd.UseVisualStyleBackColor = true;
+            this.radioButtonPartlyC.AutoSize = true;
+            this.radioButtonPartlyC.Location = new System.Drawing.Point(213, 35);
+            this.radioButtonPartlyC.Name = "radioButtonPartlyC";
+            this.radioButtonPartlyC.Size = new System.Drawing.Size(194, 21);
+            this.radioButtonPartlyC.TabIndex = 1;
+            this.radioButtonPartlyC.TabStop = true;
+            this.radioButtonPartlyC.Text = "Частичное соответствие";
+            this.radioButtonPartlyC.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // radioButtonSimpleC
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(166, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 17);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "раз";
-            // 
-            // maskedTextBoxDRepeats
-            // 
-            this.maskedTextBoxDRepeats.Enabled = false;
-            this.maskedTextBoxDRepeats.Location = new System.Drawing.Point(150, 56);
-            this.maskedTextBoxDRepeats.Mask = "0";
-            this.maskedTextBoxDRepeats.Name = "maskedTextBoxDRepeats";
-            this.maskedTextBoxDRepeats.Size = new System.Drawing.Size(13, 22);
-            this.maskedTextBoxDRepeats.TabIndex = 4;
-            // 
-            // radioButtonDBegin
-            // 
-            this.radioButtonDBegin.AutoSize = true;
-            this.radioButtonDBegin.Location = new System.Drawing.Point(3, 29);
-            this.radioButtonDBegin.Name = "radioButtonDBegin";
-            this.radioButtonDBegin.Size = new System.Drawing.Size(139, 21);
-            this.radioButtonDBegin.TabIndex = 3;
-            this.radioButtonDBegin.TabStop = true;
-            this.radioButtonDBegin.Text = "В начале строки";
-            this.radioButtonDBegin.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDRepeats
-            // 
-            this.radioButtonDRepeats.AutoSize = true;
-            this.radioButtonDRepeats.Location = new System.Drawing.Point(3, 56);
-            this.radioButtonDRepeats.Name = "radioButtonDRepeats";
-            this.radioButtonDRepeats.Size = new System.Drawing.Size(150, 21);
-            this.radioButtonDRepeats.TabIndex = 2;
-            this.radioButtonDRepeats.TabStop = true;
-            this.radioButtonDRepeats.Text = "Повторение теста";
-            this.radioButtonDRepeats.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDPartly
-            // 
-            this.radioButtonDPartly.AutoSize = true;
-            this.radioButtonDPartly.Location = new System.Drawing.Point(213, 3);
-            this.radioButtonDPartly.Name = "radioButtonDPartly";
-            this.radioButtonDPartly.Size = new System.Drawing.Size(194, 21);
-            this.radioButtonDPartly.TabIndex = 1;
-            this.radioButtonDPartly.TabStop = true;
-            this.radioButtonDPartly.Text = "Частичное соответствие";
-            this.radioButtonDPartly.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDSimple
-            // 
-            this.radioButtonDSimple.AutoSize = true;
-            this.radioButtonDSimple.Location = new System.Drawing.Point(3, 3);
-            this.radioButtonDSimple.Name = "radioButtonDSimple";
-            this.radioButtonDSimple.Size = new System.Drawing.Size(172, 21);
-            this.radioButtonDSimple.TabIndex = 0;
-            this.radioButtonDSimple.TabStop = true;
-            this.radioButtonDSimple.Text = "Полное соответствие";
-            this.radioButtonDSimple.UseVisualStyleBackColor = true;
+            this.radioButtonSimpleC.AutoSize = true;
+            this.radioButtonSimpleC.Location = new System.Drawing.Point(3, 35);
+            this.radioButtonSimpleC.Name = "radioButtonSimpleC";
+            this.radioButtonSimpleC.Size = new System.Drawing.Size(172, 21);
+            this.radioButtonSimpleC.TabIndex = 0;
+            this.radioButtonSimpleC.TabStop = true;
+            this.radioButtonSimpleC.Text = "Полное соответствие";
+            this.radioButtonSimpleC.UseVisualStyleBackColor = true;
+            this.radioButtonSimpleC.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // buttonSave
             // 
@@ -355,20 +258,117 @@ namespace s4_oop_2
             this.buttonSave.Text = "Сохранить результаты поиска";
             this.buttonSave.UseVisualStyleBackColor = true;
             // 
+            // panelD
+            // 
+            this.panelD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelD.Controls.Add(this.maskedTextBoxRepeatsD);
+            this.panelD.Controls.Add(this.radioButtonEndD);
+            this.panelD.Controls.Add(this.label2);
+            this.panelD.Controls.Add(this.radioButtonBeginD);
+            this.panelD.Controls.Add(this.radioButtonRepeatsD);
+            this.panelD.Controls.Add(this.radioButtonPartlyD);
+            this.panelD.Controls.Add(this.radioButtonSimpleD);
+            this.panelD.Controls.Add(this.textBoxDistrict);
+            this.panelD.Enabled = false;
+            this.panelD.Location = new System.Drawing.Point(214, 140);
+            this.panelD.Name = "panelD";
+            this.panelD.Size = new System.Drawing.Size(478, 113);
+            this.panelD.TabIndex = 24;
+            // 
+            // maskedTextBoxRepeatsD
+            // 
+            this.maskedTextBoxRepeatsD.Enabled = false;
+            this.maskedTextBoxRepeatsD.Location = new System.Drawing.Point(166, 88);
+            this.maskedTextBoxRepeatsD.Mask = "00";
+            this.maskedTextBoxRepeatsD.Name = "maskedTextBoxRepeatsD";
+            this.maskedTextBoxRepeatsD.Size = new System.Drawing.Size(17, 22);
+            this.maskedTextBoxRepeatsD.TabIndex = 24;
+            // 
+            // radioButtonEndD
+            // 
+            this.radioButtonEndD.AutoSize = true;
+            this.radioButtonEndD.Location = new System.Drawing.Point(213, 62);
+            this.radioButtonEndD.Name = "radioButtonEndD";
+            this.radioButtonEndD.Size = new System.Drawing.Size(130, 21);
+            this.radioButtonEndD.TabIndex = 4;
+            this.radioButtonEndD.TabStop = true;
+            this.radioButtonEndD.Text = "В конце строки";
+            this.radioButtonEndD.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(189, 90);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 17);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "раз";
+            // 
+            // radioButtonBeginD
+            // 
+            this.radioButtonBeginD.AutoSize = true;
+            this.radioButtonBeginD.Location = new System.Drawing.Point(3, 61);
+            this.radioButtonBeginD.Name = "radioButtonBeginD";
+            this.radioButtonBeginD.Size = new System.Drawing.Size(139, 21);
+            this.radioButtonBeginD.TabIndex = 3;
+            this.radioButtonBeginD.TabStop = true;
+            this.radioButtonBeginD.Text = "В начале строки";
+            this.radioButtonBeginD.UseVisualStyleBackColor = true;
+            this.radioButtonBeginD.CheckedChanged += new System.EventHandler(this.radioButtonBeginD_CheckedChanged);
+            // 
+            // radioButtonRepeatsD
+            // 
+            this.radioButtonRepeatsD.AutoSize = true;
+            this.radioButtonRepeatsD.Location = new System.Drawing.Point(3, 88);
+            this.radioButtonRepeatsD.Name = "radioButtonRepeatsD";
+            this.radioButtonRepeatsD.Size = new System.Drawing.Size(157, 21);
+            this.radioButtonRepeatsD.TabIndex = 2;
+            this.radioButtonRepeatsD.TabStop = true;
+            this.radioButtonRepeatsD.Text = "Повторение текста";
+            this.radioButtonRepeatsD.UseVisualStyleBackColor = true;
+            this.radioButtonRepeatsD.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // radioButtonPartlyD
+            // 
+            this.radioButtonPartlyD.AutoSize = true;
+            this.radioButtonPartlyD.Location = new System.Drawing.Point(213, 35);
+            this.radioButtonPartlyD.Name = "radioButtonPartlyD";
+            this.radioButtonPartlyD.Size = new System.Drawing.Size(194, 21);
+            this.radioButtonPartlyD.TabIndex = 1;
+            this.radioButtonPartlyD.TabStop = true;
+            this.radioButtonPartlyD.Text = "Частичное соответствие";
+            this.radioButtonPartlyD.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSimpleD
+            // 
+            this.radioButtonSimpleD.AutoSize = true;
+            this.radioButtonSimpleD.Location = new System.Drawing.Point(3, 35);
+            this.radioButtonSimpleD.Name = "radioButtonSimpleD";
+            this.radioButtonSimpleD.Size = new System.Drawing.Size(172, 21);
+            this.radioButtonSimpleD.TabIndex = 0;
+            this.radioButtonSimpleD.TabStop = true;
+            this.radioButtonSimpleD.Text = "Полное соответствие";
+            this.radioButtonSimpleD.UseVisualStyleBackColor = true;
+            // 
+            // textBoxDistrict
+            // 
+            this.textBoxDistrict.Location = new System.Drawing.Point(3, 3);
+            this.textBoxDistrict.Name = "textBoxDistrict";
+            this.textBoxDistrict.Size = new System.Drawing.Size(470, 22);
+            this.textBoxDistrict.TabIndex = 7;
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 587);
-            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.panelD);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.panelC);
             this.Controls.Add(this.dateTimePickerYear);
             this.Controls.Add(this.trackBarRoomAmount);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBoxCity);
-            this.Controls.Add(this.textBoxDistrict);
             this.Controls.Add(this.checkBoxCity);
             this.Controls.Add(this.checkBoxDistrict);
             this.Controls.Add(this.checkBoxYear);
@@ -392,28 +392,28 @@ namespace s4_oop_2
         private System.Windows.Forms.CheckBox checkBoxYear;
         private System.Windows.Forms.CheckBox checkBoxDistrict;
         private System.Windows.Forms.CheckBox checkBoxCity;
-        private System.Windows.Forms.TextBox textBoxDistrict;
         private System.Windows.Forms.TextBox textBoxCity;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TrackBar trackBarRoomAmount;
         private System.Windows.Forms.DateTimePicker dateTimePickerYear;
         private System.Windows.Forms.Panel panelC;
-        private System.Windows.Forms.RadioButton radioButtonSBegin;
-        private System.Windows.Forms.RadioButton radioButtonSRepeats;
-        private System.Windows.Forms.RadioButton radioButtonSPartly;
-        private System.Windows.Forms.RadioButton radioButtonSSimple;
-        private System.Windows.Forms.RadioButton radioButtonSEnd;
+        private System.Windows.Forms.RadioButton radioButtonBeginC;
+        private System.Windows.Forms.RadioButton radioButtonRepeatsC;
+        private System.Windows.Forms.RadioButton radioButtonPartlyC;
+        private System.Windows.Forms.RadioButton radioButtonSimpleC;
+        private System.Windows.Forms.RadioButton radioButtonEndC;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxSRepeats;
-        private System.Windows.Forms.Panel panelD;
-        private System.Windows.Forms.RadioButton radioButtonDEnd;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxDRepeats;
-        private System.Windows.Forms.RadioButton radioButtonDBegin;
-        private System.Windows.Forms.RadioButton radioButtonDRepeats;
-        private System.Windows.Forms.RadioButton radioButtonDPartly;
-        private System.Windows.Forms.RadioButton radioButtonDSimple;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Panel panelD;
+        private System.Windows.Forms.RadioButton radioButtonEndD;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton radioButtonBeginD;
+        private System.Windows.Forms.RadioButton radioButtonRepeatsD;
+        private System.Windows.Forms.RadioButton radioButtonPartlyD;
+        private System.Windows.Forms.RadioButton radioButtonSimpleD;
+        private System.Windows.Forms.TextBox textBoxDistrict;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsD;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsC;
     }
 }

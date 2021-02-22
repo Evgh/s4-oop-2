@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace s4_oop_2
 {
@@ -70,27 +71,6 @@ namespace s4_oop_2
             columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
         }
 
-
-        private void textBoxDistrict_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBoxType_CheckedChanged(object sender, EventArgs e)
         {
             trackBarRoomAmount.Enabled = !trackBarRoomAmount.Enabled; 
@@ -103,32 +83,23 @@ namespace s4_oop_2
 
         private void checkBoxDistrict_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxDistrict.Enabled = !textBoxDistrict.Enabled;
             panelD.Enabled = !panelD.Enabled;
         }
 
         private void checkBoxCity_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxCity.Enabled = !textBoxCity.Enabled;
             panelC.Enabled = !panelC.Enabled;
         }
 
-
-
-        private bool textRegExValidation(string str, char symbol)
+        private void radioButtonSRepeats_CheckedChanged(object sender, EventArgs e)
         {
-            // если controls["radioButton + Первая буква + св-во"].Checked 
+            maskedTextBoxRepeatsC.Enabled = !maskedTextBoxRepeatsC.Enabled;
+        }
 
-            //MessageBox.Show(Controls["radioButton" + symbol + "Simple"].Text);
-            MessageBox.Show(panelD.Controls["radioButtonDSimple"].Text);
-
-/*            if ((Controls["radioButton" + symbol + "Simple"] as RadioButton).Checked)
-            {
-                MessageBox.Show("");
-            }
-*/
-            return true;
-        } 
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+             maskedTextBoxRepeatsD.Enabled = !maskedTextBoxRepeatsD.Enabled;
+        }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
@@ -152,19 +123,105 @@ namespace s4_oop_2
             if (checkBoxDistrict.Checked)
             {
                 var searchResults = from flat in selectedFlats
-                                    where textRegExValidation(flat.FlatAdress.District, 'D')
+                                    where textRegExValidation(flat.FlatAdress.District, panelD)
                                     select flat;
                 selectedFlats = searchResults.ToList();
             }
             if (checkBoxCity.Checked)
             {
                 var searchResults = from flat in selectedFlats
-                                    where flat.FlatAdress.City == textBoxCity.Text
+                                    where textRegExValidation(flat.FlatAdress.City, panelC)
                                     select flat;
                 selectedFlats = searchResults.ToList();
             }
 
             InitializeDataGridView1();
+        }
+
+        private bool textRegExValidation(string str, Panel panel)
+        {
+            int index = 100;
+            IEnumerable<Control> panelControls = panel.Controls.OfType<Control>();
+
+            TextBox text = (TextBox) panelControls.Where((c) => (c is TextBox)).ToList()[0];
+            MaskedTextBox repeatsAmount = (MaskedTextBox) panelControls.Where((c) => (c is MaskedTextBox)).ToList()[0];           
+
+            // Узнаем, какой тип сравнения выбран
+            foreach (RadioButton rr in panelControls.Where((c) => (c is RadioButton)))
+            {
+                if (rr.Checked)
+                {
+                    index = rr.TabIndex; 
+                    break;
+                }
+            }
+
+            switch (index)
+            {
+                // Обычное сравнение
+                case 0:
+                    return str == text.Text;
+
+                // Проверка на частичное соответствие
+                case 1:
+                    return Regex.IsMatch(str, text.Text);
+
+                // Выражение встречается n количество раз
+                case 2:
+                    try
+                    {
+                        int repeats = int.Parse(repeatsAmount.Text);
+                        Regex regex = new Regex(@"(\s*\w*" + text.Text + @"\w*\s*){" + repeats + "}");
+                        repeatsAmount.BackColor = System.Drawing.SystemColors.Window;
+                        return regex.IsMatch(str);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Format Error");
+                        repeatsAmount.BackColor = System.Drawing.Color.Salmon;
+                        return false;
+                    }
+
+                // В начале строки 
+                case 3:
+                    return Regex.IsMatch(str, $"^{text.Text}");
+
+                // В конце строки
+                case 4:
+                    return Regex.IsMatch(str, $"{text.Text}$");
+
+                default: 
+                    return false;
+            }
+        } 
+
+        
+
+
+
+        
+        
+
+
+        ///
+        private void textBoxDistrict_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -173,6 +230,15 @@ namespace s4_oop_2
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void radioButtonBeginD_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelS_Paint(object sender, PaintEventArgs e)
         {
 
         }
