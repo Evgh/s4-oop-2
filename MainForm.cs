@@ -243,15 +243,6 @@ namespace s4_oop_2
             InitializeDataGridView1();
         }
 
-        private void buttonRooms_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-            {
-                RoomEditForm form = new RoomEditForm(int.Parse(row.Cells[0].Value.ToString()), this);
-                form.Show();
-            }
-        }
-
         private void buttonСount_Click(object sender, EventArgs e)
         {
             string message = "";
@@ -279,7 +270,7 @@ namespace s4_oop_2
         ////////////////////////////////////////////////// пункт меню "Файл"
 
         // cериализация xml
-        private void XMLToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "XML files(*.xml)|*.xml|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
@@ -294,7 +285,7 @@ namespace s4_oop_2
             MessageBox.Show("Файл сохранен");
         }
 
-        private void XMLToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void deserializeXMLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "XML files(*.xml)|*.xml";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
@@ -323,7 +314,7 @@ namespace s4_oop_2
         }
 
         // json
-        private void jSONToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
@@ -337,7 +328,7 @@ namespace s4_oop_2
             MessageBox.Show("Файл сохранен");
         }
 
-        private void jSONToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void deserializejSONToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
@@ -362,7 +353,7 @@ namespace s4_oop_2
             InitializeDataGridView1();
         }
 
-        private void рассчитатьСтоимостьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GetPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string message = "";
             if (dataGridView1.SelectedRows.Count == 1)
@@ -388,7 +379,7 @@ namespace s4_oop_2
             MessageBox.Show(message);
         }
 
-        private void очиститьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _flats.Clear();
             InitializeDataGridView1();
@@ -396,26 +387,26 @@ namespace s4_oop_2
 
         ////////////////////////////////////////////////// меню "Поиск"
 
-        private void типколичествоКомнатToolStripMenuItem_Click(object sender, EventArgs e)
+        private void seachRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (new SearchForm(new SearchFormArgs() { type = true }, this)).Show();
         }
-        private void годЗаселенияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void searchYearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (new SearchForm(new SearchFormArgs() { year = true }, this)).Show();
         }
 
-        private void районToolStripMenuItem_Click(object sender, EventArgs e)
+        private void searchDistrictToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (new SearchForm(new SearchFormArgs() { district = true }, this)).Show();
         }
 
-        private void городToolStripMenuItem_Click(object sender, EventArgs e)
+        private void searchCityStripMenuItem_Click(object sender, EventArgs e)
         {
             (new SearchForm(new SearchFormArgs() { city = true }, this)).Show();
 
         }
-        private void выбратьНесколькоToolStripMenuItem_Click(object sender, EventArgs e)
+        private void searchManualToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (new SearchForm(new SearchFormArgs() {}, this)).Show();
         }
@@ -425,13 +416,13 @@ namespace s4_oop_2
         }
 
         ////////////////////////////////////////////////// О программе 
-        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Программа 'Квартиры' v.2.0 (с) Касперович Е.Н.");
         }
 
         ///////////////////////////////////////////////// Сортировка
-        private void площадиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sortAreaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var sorted = from flat in _flats
                          orderby flat.Area
@@ -440,7 +431,7 @@ namespace s4_oop_2
             InitializeDataGridView1();
         }
 
-        private void количествуКомнатToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sortRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var sorted = from flat in _flats
                          orderby flat.RoomAmount
@@ -449,13 +440,39 @@ namespace s4_oop_2
             InitializeDataGridView1();
         }
 
-        private void ценеToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sortPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var sorted = from flat in _flats
                          orderby flat.GetPrice()
                          select flat;
             _flats = sorted.ToList<Flat>();
             InitializeDataGridView1();
+        }
+
+        private void toolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButtonDeleteRow_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                dataGridView1.Rows.Remove(row); 
+            }
+        }
+        private void toolStripButtonEditRooms_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                RoomEditForm form = new RoomEditForm(int.Parse(row.Cells[0].Value.ToString()), this);
+                form.Show();
+            }
+        }
+
+        private void buttonEditRow_Click(object sender, EventArgs e)
+        {
+            toolStripEditObject.Visible = !toolStripEditObject.Visible;
         }
     }
 }
