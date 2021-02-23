@@ -6,6 +6,7 @@ using System.IO;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Linq;
+using Newtonsoft.Json;
 
 
 namespace s4_oop_2
@@ -14,6 +15,9 @@ namespace s4_oop_2
     public partial class MainForm : Form
     {
         public List<Flat> _flats;
+        internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
+        internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
+
 
         public MainForm() : this (new List<Flat> { })
         {
@@ -27,8 +31,6 @@ namespace s4_oop_2
             InitializeDataGridView1();
             InitializeListBoxAdress();
             AddComboBoxColumn();
-
-            (new SearchForm(new SearchFormArgs() { }, this)).Show();
         }
 
         internal void InitializeDataGridView1()
@@ -37,11 +39,14 @@ namespace s4_oop_2
             bindingSource.DataSource = _flats;
             dataGridView1.DataSource = bindingSource;
 
-            dataGridView1.Columns["AdressId"].Visible = false;
-            dataGridView1.Columns["FlatAdress"].Visible = false;
-            DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
-            DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
-            columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            if (_flats != null)
+            {
+                dataGridView1.Columns["AdressId"].Visible = false;
+                dataGridView1.Columns["FlatAdress"].Visible = false;
+                DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
+                DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
+                columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            }
         }
 
         internal void AddComboBoxColumn()
@@ -276,11 +281,12 @@ namespace s4_oop_2
         // cериализация xml
         private void XMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            saveFileDialog1.Filter = "XML files(*.xml)|*.xml|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
             string path = saveFileDialog1.FileName;
-            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Flat>));
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
                 serializer.Serialize(fs, _flats);
@@ -290,11 +296,12 @@ namespace s4_oop_2
 
         private void XMLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "XML files(*.xml)|*.xml";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
             string path = openFileDialog1.FileName;
-            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Flat>));
             using (FileStream fs = new FileStream(path, FileMode.Open))
             {
                 _flats = (List<Flat>)serializer.Deserialize(fs);
@@ -314,6 +321,47 @@ namespace s4_oop_2
 
             InitializeDataGridView1();
         }
+
+        // json
+        private void jSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = saveFileDialog1.FileName;
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.WriteLine(JsonConvert.SerializeObject(_flats, Newtonsoft.Json.Formatting.Indented));
+            }
+            MessageBox.Show("Файл сохранен");
+        }
+
+        private void jSONToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = openFileDialog1.FileName;
+            using(StreamReader sr = new StreamReader(path)) 
+            {
+                _flats = JsonConvert.DeserializeObject<List<Flat>>(sr.ReadToEnd()); 
+            }
+            
+            if (_flats != null)
+            {
+                foreach (var flat in _flats)
+                {
+                    if (flat.AdressId > Adress.adressPool.Count - 1)
+                    {
+                        flat.AdressId = 0;
+                    }
+                }
+            }
+            InitializeDataGridView1();
+        }
+
         private void рассчитатьСтоимостьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string message = "";

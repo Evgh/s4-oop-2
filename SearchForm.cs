@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using System.IO;
+using Newtonsoft.Json;
+
 
 namespace s4_oop_2
 {
@@ -241,6 +245,36 @@ namespace s4_oop_2
         private void panelS_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void buttonSearchSaveJson_Click(object sender, EventArgs e)
+        {
+            _parent.SaveDialog.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
+            if (_parent.SaveDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = _parent.SaveDialog.FileName;
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.WriteLine(JsonConvert.SerializeObject(selectedFlats, Newtonsoft.Json.Formatting.Indented));
+            }
+            MessageBox.Show("Файл сохранен");
+            // _parent.jSONToolStripMenuItem_Click(this, new EventArgs());
+        }
+
+        private void buttonSearchSaveXml_Click(object sender, EventArgs e)
+        {
+            _parent.SaveDialog.Filter = "XML files(*.xml)|*.xml|All files|*.*";
+            if (_parent.SaveDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string path = _parent.SaveDialog.FileName;
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Flat>));
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                serializer.Serialize(fs, selectedFlats);
+            }
+            MessageBox.Show("Файл сохранен");
         }
     }
 }

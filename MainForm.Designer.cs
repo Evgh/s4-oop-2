@@ -400,15 +400,16 @@
             // xMLToolStripMenuItem
             // 
             this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.xMLToolStripMenuItem.Text = "XML";
             this.xMLToolStripMenuItem.Click += new System.EventHandler(this.XMLToolStripMenuItem_Click);
             // 
             // jSONToolStripMenuItem
             // 
             this.jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
-            this.jSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.jSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.jSONToolStripMenuItem.Text = "JSON";
+            this.jSONToolStripMenuItem.Click += new System.EventHandler(this.jSONToolStripMenuItem_Click);
             // 
             // загрузитьToolStripMenuItem
             // 
@@ -429,8 +430,9 @@
             // jSONToolStripMenuItem1
             // 
             this.jSONToolStripMenuItem1.Name = "jSONToolStripMenuItem1";
-            this.jSONToolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
+            this.jSONToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.jSONToolStripMenuItem1.Text = "JSON";
+            this.jSONToolStripMenuItem1.Click += new System.EventHandler(this.jSONToolStripMenuItem1_Click);
             // 
             // рассчитатьСтоимостьToolStripMenuItem
             // 

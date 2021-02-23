@@ -46,7 +46,7 @@ namespace s4_oop_2
             this.radioButtonRepeatsC = new System.Windows.Forms.RadioButton();
             this.radioButtonPartlyC = new System.Windows.Forms.RadioButton();
             this.radioButtonSimpleC = new System.Windows.Forms.RadioButton();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonSearchSaveJson = new System.Windows.Forms.Button();
             this.panelD = new System.Windows.Forms.Panel();
             this.maskedTextBoxRepeatsD = new System.Windows.Forms.MaskedTextBox();
             this.radioButtonEndD = new System.Windows.Forms.RadioButton();
@@ -56,6 +56,7 @@ namespace s4_oop_2
             this.radioButtonPartlyD = new System.Windows.Forms.RadioButton();
             this.radioButtonSimpleD = new System.Windows.Forms.RadioButton();
             this.textBoxDistrict = new System.Windows.Forms.TextBox();
+            this.buttonSearchSaveXml = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRoomAmount)).BeginInit();
             this.panelC.SuspendLayout();
@@ -131,7 +132,7 @@ namespace s4_oop_2
             // 
             this.buttonSearch.Location = new System.Drawing.Point(711, 46);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(317, 320);
+            this.buttonSearch.Size = new System.Drawing.Size(317, 330);
             this.buttonSearch.TabIndex = 9;
             this.buttonSearch.Text = "Найти";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -249,14 +250,15 @@ namespace s4_oop_2
             this.radioButtonSimpleC.UseVisualStyleBackColor = true;
             this.radioButtonSimpleC.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // buttonSave
+            // buttonSearchSaveJson
             // 
-            this.buttonSave.Location = new System.Drawing.Point(711, 12);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(317, 23);
-            this.buttonSave.TabIndex = 14;
-            this.buttonSave.Text = "Сохранить результаты поиска";
-            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSearchSaveJson.Location = new System.Drawing.Point(711, 17);
+            this.buttonSearchSaveJson.Name = "buttonSearchSaveJson";
+            this.buttonSearchSaveJson.Size = new System.Drawing.Size(155, 23);
+            this.buttonSearchSaveJson.TabIndex = 14;
+            this.buttonSearchSaveJson.Text = "Сохранить JSON";
+            this.buttonSearchSaveJson.UseVisualStyleBackColor = true;
+            this.buttonSearchSaveJson.Click += new System.EventHandler(this.buttonSearchSaveJson_Click);
             // 
             // panelD
             // 
@@ -357,13 +359,24 @@ namespace s4_oop_2
             this.textBoxDistrict.Size = new System.Drawing.Size(470, 22);
             this.textBoxDistrict.TabIndex = 7;
             // 
+            // buttonSearchSaveXml
+            // 
+            this.buttonSearchSaveXml.Location = new System.Drawing.Point(872, 17);
+            this.buttonSearchSaveXml.Name = "buttonSearchSaveXml";
+            this.buttonSearchSaveXml.Size = new System.Drawing.Size(156, 23);
+            this.buttonSearchSaveXml.TabIndex = 25;
+            this.buttonSearchSaveXml.Text = "Сохранить XML";
+            this.buttonSearchSaveXml.UseVisualStyleBackColor = true;
+            this.buttonSearchSaveXml.Click += new System.EventHandler(this.buttonSearchSaveXml_Click);
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 587);
+            this.Controls.Add(this.buttonSearchSaveXml);
             this.Controls.Add(this.panelD);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.buttonSearchSaveJson);
             this.Controls.Add(this.panelC);
             this.Controls.Add(this.dateTimePickerYear);
             this.Controls.Add(this.trackBarRoomAmount);
@@ -404,7 +417,7 @@ namespace s4_oop_2
         private System.Windows.Forms.RadioButton radioButtonSimpleC;
         private System.Windows.Forms.RadioButton radioButtonEndC;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonSearchSaveJson;
         private System.Windows.Forms.Panel panelD;
         private System.Windows.Forms.RadioButton radioButtonEndD;
         private System.Windows.Forms.Label label2;
@@ -415,5 +428,6 @@ namespace s4_oop_2
         private System.Windows.Forms.TextBox textBoxDistrict;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsD;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsC;
+        private System.Windows.Forms.Button buttonSearchSaveXml;
     }
 }
