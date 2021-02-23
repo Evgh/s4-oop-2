@@ -75,10 +75,10 @@
             this.годЗаселенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.районToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.городToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выбратьНесколькоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripFileEdit = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonSearch = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.площадьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.количествоКомнатToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,10 +86,10 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.xMLToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.jSONToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.xMLToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.jSONToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripEditObject = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonEditRooms = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeleteRow = new System.Windows.Forms.ToolStripButton();
@@ -98,7 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.toolStripFileEdit.SuspendLayout();
             this.toolStripEditObject.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -506,7 +506,7 @@
             this.годЗаселенияToolStripMenuItem,
             this.районToolStripMenuItem,
             this.городToolStripMenuItem,
-            this.выбратьНесколькоToolStripMenuItem});
+            this.searchManualToolStripMenuItem});
             this.пункт1ToolStripMenuItem.Name = "пункт1ToolStripMenuItem";
             this.пункт1ToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             this.пункт1ToolStripMenuItem.Text = "Поиск";
@@ -539,12 +539,12 @@
             this.городToolStripMenuItem.Text = "Город";
             this.городToolStripMenuItem.Click += new System.EventHandler(this.searchCityStripMenuItem_Click);
             // 
-            // выбратьНесколькоToolStripMenuItem
+            // searchManualToolStripMenuItem
             // 
-            this.выбратьНесколькоToolStripMenuItem.Name = "выбратьНесколькоToolStripMenuItem";
-            this.выбратьНесколькоToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
-            this.выбратьНесколькоToolStripMenuItem.Text = "Выбрать несколько";
-            this.выбратьНесколькоToolStripMenuItem.Click += new System.EventHandler(this.searchManualToolStripMenuItem_Click);
+            this.searchManualToolStripMenuItem.Name = "searchManualToolStripMenuItem";
+            this.searchManualToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.searchManualToolStripMenuItem.Text = "Выбрать несколько";
+            this.searchManualToolStripMenuItem.Click += new System.EventHandler(this.searchManualToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
@@ -553,33 +553,33 @@
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // toolStrip1
+            // toolStripFileEdit
             // 
-            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.toolStripFileEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStripFileEdit.AutoSize = false;
+            this.toolStripFileEdit.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripFileEdit.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStripFileEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonSearch,
             this.toolStripDropDownButton1,
             this.toolStripButton2,
             this.toolStripDropDownButton2,
             this.toolStripDropDownButton3});
-            this.toolStrip1.Location = new System.Drawing.Point(679, 28);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(601, 34);
-            this.toolStrip1.TabIndex = 22;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStripFileEdit.Location = new System.Drawing.Point(679, 28);
+            this.toolStripFileEdit.Name = "toolStripFileEdit";
+            this.toolStripFileEdit.Size = new System.Drawing.Size(601, 34);
+            this.toolStripFileEdit.TabIndex = 22;
+            this.toolStripFileEdit.Text = "toolStripFileEdit";
             // 
-            // toolStripButton1
+            // toolStripButtonSearch
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 31);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.searchManualToolStripMenuItem_Click);
+            this.toolStripButtonSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSearch.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSearch.Image")));
+            this.toolStripButtonSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSearch.Name = "toolStripButtonSearch";
+            this.toolStripButtonSearch.Size = new System.Drawing.Size(29, 31);
+            this.toolStripButtonSearch.Text = "toolStripButton1";
+            this.toolStripButtonSearch.Click += new System.EventHandler(this.searchManualToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton1
             // 
@@ -628,7 +628,7 @@
             // 
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.xMLToolStripMenuItem2,
-            this.jSONToolStripMenuItem2});
+            this.saveJSONToolStripMenuItem});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -638,22 +638,22 @@
             // xMLToolStripMenuItem2
             // 
             this.xMLToolStripMenuItem2.Name = "xMLToolStripMenuItem2";
-            this.xMLToolStripMenuItem2.Size = new System.Drawing.Size(127, 26);
+            this.xMLToolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
             this.xMLToolStripMenuItem2.Text = "XML";
             this.xMLToolStripMenuItem2.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
             // 
-            // jSONToolStripMenuItem2
+            // saveJSONToolStripMenuItem
             // 
-            this.jSONToolStripMenuItem2.Name = "jSONToolStripMenuItem2";
-            this.jSONToolStripMenuItem2.Size = new System.Drawing.Size(127, 26);
-            this.jSONToolStripMenuItem2.Text = "JSON";
-            this.jSONToolStripMenuItem2.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
+            this.saveJSONToolStripMenuItem.Name = "saveJSONToolStripMenuItem";
+            this.saveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveJSONToolStripMenuItem.Text = "JSON";
+            this.saveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton3
             // 
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.xMLToolStripMenuItem3,
-            this.jSONToolStripMenuItem3});
+            this.openJSONToolStripMenuItem});
             this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
             this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
@@ -663,16 +663,16 @@
             // xMLToolStripMenuItem3
             // 
             this.xMLToolStripMenuItem3.Name = "xMLToolStripMenuItem3";
-            this.xMLToolStripMenuItem3.Size = new System.Drawing.Size(127, 26);
+            this.xMLToolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
             this.xMLToolStripMenuItem3.Text = "XML";
             this.xMLToolStripMenuItem3.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
             // 
-            // jSONToolStripMenuItem3
+            // openJSONToolStripMenuItem
             // 
-            this.jSONToolStripMenuItem3.Name = "jSONToolStripMenuItem3";
-            this.jSONToolStripMenuItem3.Size = new System.Drawing.Size(127, 26);
-            this.jSONToolStripMenuItem3.Text = "JSON";
-            this.jSONToolStripMenuItem3.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
+            this.openJSONToolStripMenuItem.Name = "openJSONToolStripMenuItem";
+            this.openJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openJSONToolStripMenuItem.Text = "JSON";
+            this.openJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
             // 
             // toolStripEditObject
             // 
@@ -717,7 +717,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1295, 570);
             this.Controls.Add(this.toolStripEditObject);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStripFileEdit);
             this.Controls.Add(this.buttonEditRow);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
@@ -733,8 +733,8 @@
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStripFileEdit.ResumeLayout(false);
+            this.toolStripFileEdit.PerformLayout();
             this.toolStripEditObject.ResumeLayout(false);
             this.toolStripEditObject.PerformLayout();
             this.ResumeLayout(false);
@@ -771,6 +771,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button buttonEditRow;
         private System.Windows.Forms.MenuStrip menuStrip1;
+
         private System.Windows.Forms.ToolStripMenuItem пункт1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem пункут1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
@@ -787,12 +788,12 @@
         private System.Windows.Forms.ToolStripMenuItem годЗаселенияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem районToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem городToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выбратьНесколькоToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchManualToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem рассчитатьСтоимостьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem очиститьТаблицуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStrip toolStripFileEdit;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSearch;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem площадьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem количествоКомнатToolStripMenuItem;
@@ -800,10 +801,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem saveJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
         private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem openJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStripEditObject;
         private System.Windows.Forms.ToolStripButton toolStripButtonEditRooms;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeleteRow;

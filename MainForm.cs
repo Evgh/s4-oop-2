@@ -28,6 +28,11 @@ namespace s4_oop_2
             InitializeComponent();
             _flats = flats;
 
+            openJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            saveJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+           
+
             InitializeDataGridView1();
             InitializeListBoxAdress();
             AddComboBoxColumn();
