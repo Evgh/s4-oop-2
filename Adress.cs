@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 
 namespace s4_oop_2
@@ -83,8 +84,10 @@ namespace s4_oop_2
             get => ToString();
         }
 
-
-        public Adress Self { get => this;}
+        [NonSerialized]
+        Adress self;
+        [JsonIgnore]
+        public Adress Self { get => self;}
 
         Adress(string country, string city, string district, string street, string houseNum, int flatNum)
         {
@@ -96,6 +99,7 @@ namespace s4_oop_2
             FlatNumber = flatNum;
 
             Id = nextId++;
+            self = this;
         }
         Adress() : this("country", "city", "district", "ул. Street", "61A", 13)
         {
