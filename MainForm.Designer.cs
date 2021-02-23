@@ -59,11 +59,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.jSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstSaveXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.xMLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.jSONToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstOpenXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.рассчитатьСтоимостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +93,9 @@
             this.toolStripEditObject = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonEditRooms = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeleteRow = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelDateTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -100,6 +103,7 @@
             this.menuStrip1.SuspendLayout();
             this.toolStripFileEdit.SuspendLayout();
             this.toolStripEditObject.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelOwner
@@ -313,7 +317,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1264, 273);
+            this.dataGridView1.Size = new System.Drawing.Size(1264, 260);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
@@ -411,48 +415,48 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xMLToolStripMenuItem,
-            this.jSONToolStripMenuItem});
+            this.firstSaveXMLToolStripMenuItem,
+            this.firstSaveJSONToolStripMenuItem});
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
-            // xMLToolStripMenuItem
+            // firstSaveXMLToolStripMenuItem
             // 
-            this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
-            this.xMLToolStripMenuItem.Text = "XML";
-            this.xMLToolStripMenuItem.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
+            this.firstSaveXMLToolStripMenuItem.Name = "firstSaveXMLToolStripMenuItem";
+            this.firstSaveXMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstSaveXMLToolStripMenuItem.Text = "XML";
+            this.firstSaveXMLToolStripMenuItem.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
             // 
-            // jSONToolStripMenuItem
+            // firstSaveJSONToolStripMenuItem
             // 
-            this.jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
-            this.jSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
-            this.jSONToolStripMenuItem.Text = "JSON";
-            this.jSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
+            this.firstSaveJSONToolStripMenuItem.Name = "firstSaveJSONToolStripMenuItem";
+            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstSaveJSONToolStripMenuItem.Text = "JSON";
+            this.firstSaveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
             // 
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xMLToolStripMenuItem1,
-            this.jSONToolStripMenuItem1});
+            this.firstOpenXMLToolStripMenuItem,
+            this.firstOpenJSONToolStripMenuItem});
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
             this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             // 
-            // xMLToolStripMenuItem1
+            // firstOpenXMLToolStripMenuItem
             // 
-            this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
-            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
-            this.xMLToolStripMenuItem1.Text = "XML";
-            this.xMLToolStripMenuItem1.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
+            this.firstOpenXMLToolStripMenuItem.Name = "firstOpenXMLToolStripMenuItem";
+            this.firstOpenXMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstOpenXMLToolStripMenuItem.Text = "XML";
+            this.firstOpenXMLToolStripMenuItem.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
             // 
-            // jSONToolStripMenuItem1
+            // firstOpenJSONToolStripMenuItem
             // 
-            this.jSONToolStripMenuItem1.Name = "jSONToolStripMenuItem1";
-            this.jSONToolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
-            this.jSONToolStripMenuItem1.Text = "JSON";
-            this.jSONToolStripMenuItem1.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
+            this.firstOpenJSONToolStripMenuItem.Name = "firstOpenJSONToolStripMenuItem";
+            this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstOpenJSONToolStripMenuItem.Text = "JSON";
+            this.firstOpenJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
             // 
             // рассчитатьСтоимостьToolStripMenuItem
             // 
@@ -638,14 +642,14 @@
             // xMLToolStripMenuItem2
             // 
             this.xMLToolStripMenuItem2.Name = "xMLToolStripMenuItem2";
-            this.xMLToolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.xMLToolStripMenuItem2.Size = new System.Drawing.Size(127, 26);
             this.xMLToolStripMenuItem2.Text = "XML";
             this.xMLToolStripMenuItem2.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
             // 
             // saveJSONToolStripMenuItem
             // 
             this.saveJSONToolStripMenuItem.Name = "saveJSONToolStripMenuItem";
-            this.saveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.saveJSONToolStripMenuItem.Text = "JSON";
             this.saveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
             // 
@@ -663,14 +667,14 @@
             // xMLToolStripMenuItem3
             // 
             this.xMLToolStripMenuItem3.Name = "xMLToolStripMenuItem3";
-            this.xMLToolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
+            this.xMLToolStripMenuItem3.Size = new System.Drawing.Size(127, 26);
             this.xMLToolStripMenuItem3.Text = "XML";
             this.xMLToolStripMenuItem3.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
             // 
             // openJSONToolStripMenuItem
             // 
             this.openJSONToolStripMenuItem.Name = "openJSONToolStripMenuItem";
-            this.openJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.openJSONToolStripMenuItem.Text = "JSON";
             this.openJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
             // 
@@ -711,11 +715,35 @@
             this.toolStripButtonDeleteRow.Text = "Удалить строку";
             this.toolStripButtonDeleteRow.Click += new System.EventHandler(this.toolStripButtonDeleteRow_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabelDateTime});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1295, 26);
+            this.statusStrip1.TabIndex = 24;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(170, 20);
+            this.toolStripStatusLabel1.Text = "Текущие дата и время: ";
+            // 
+            // toolStripStatusLabelDateTime
+            // 
+            this.toolStripStatusLabelDateTime.Name = "toolStripStatusLabelDateTime";
+            this.toolStripStatusLabelDateTime.Size = new System.Drawing.Size(0, 20);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1295, 570);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripEditObject);
             this.Controls.Add(this.toolStripFileEdit);
             this.Controls.Add(this.buttonEditRow);
@@ -737,6 +765,8 @@
             this.toolStripFileEdit.PerformLayout();
             this.toolStripEditObject.ResumeLayout(false);
             this.toolStripEditObject.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -776,11 +806,11 @@
         private System.Windows.Forms.ToolStripMenuItem пункут1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem firstSaveXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem firstSaveJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem firstOpenXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem firstOpenJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem площадиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem количествуКомнатToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ценеToolStripMenuItem;
@@ -808,6 +838,9 @@
         private System.Windows.Forms.ToolStrip toolStripEditObject;
         private System.Windows.Forms.ToolStripButton toolStripButtonEditRooms;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeleteRow;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelDateTime;
     }
 }
 

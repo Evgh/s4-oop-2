@@ -28,14 +28,20 @@ namespace s4_oop_2
             InitializeComponent();
             _flats = flats;
 
-            openJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
-            saveJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
-            searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-           
 
+            InitializeShortcutKeys();
             InitializeDataGridView1();
             InitializeListBoxAdress();
             AddComboBoxColumn();
+            InitializeTimer();
+        }
+        ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
+        internal void InitializeShortcutKeys()
+        {
+            firstSaveJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            firstOpenJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;                                                                          
+
+            searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
         }
 
         internal void InitializeDataGridView1()
@@ -83,6 +89,22 @@ namespace s4_oop_2
             listBoxAdress.ValueMember = "FlatNumber";
         }
 
+        internal void InitializeTimer()
+        {
+            System.Timers.Timer dateTimeTimer = new System.Timers.Timer();
+            dateTimeTimer.Elapsed += new System.Timers.ElapsedEventHandler(aTimer_Elapsed);
+            dateTimeTimer.Interval = 1000;   //here you can set your interval
+            dateTimeTimer.Start();
+        }
+        void aTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            toolStripStatusLabelDateTime.Text = DateTime.Now.ToString();
+        }
+
+
+        /// <summary>
+        /// Для передачи данных из полей ввода в конструктор Flat
+        /// </summary>
         FlatArgs MyFlatArgs
         {
             get
