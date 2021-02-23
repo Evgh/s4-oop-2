@@ -87,7 +87,7 @@ namespace s4_oop_2
         {
         }
 
-        public double Count()
+        public double GetPrice()
         {
             return Area * 29 * (4.7 / (0.1 * (rooms.Count + 1)));
         }

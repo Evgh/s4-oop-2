@@ -400,14 +400,14 @@
             // xMLToolStripMenuItem
             // 
             this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.xMLToolStripMenuItem.Text = "XML";
             this.xMLToolStripMenuItem.Click += new System.EventHandler(this.XMLToolStripMenuItem_Click);
             // 
             // jSONToolStripMenuItem
             // 
             this.jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
-            this.jSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.jSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.jSONToolStripMenuItem.Text = "JSON";
             this.jSONToolStripMenuItem.Click += new System.EventHandler(this.jSONToolStripMenuItem_Click);
             // 
@@ -430,7 +430,7 @@
             // jSONToolStripMenuItem1
             // 
             this.jSONToolStripMenuItem1.Name = "jSONToolStripMenuItem1";
-            this.jSONToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.jSONToolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
             this.jSONToolStripMenuItem1.Text = "JSON";
             this.jSONToolStripMenuItem1.Click += new System.EventHandler(this.jSONToolStripMenuItem1_Click);
             // 
@@ -463,18 +463,21 @@
             this.площадиToolStripMenuItem.Name = "площадиToolStripMenuItem";
             this.площадиToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.площадиToolStripMenuItem.Text = "Площадь";
+            this.площадиToolStripMenuItem.Click += new System.EventHandler(this.площадиToolStripMenuItem_Click);
             // 
             // количествуКомнатToolStripMenuItem
             // 
             this.количествуКомнатToolStripMenuItem.Name = "количествуКомнатToolStripMenuItem";
             this.количествуКомнатToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.количествуКомнатToolStripMenuItem.Text = "Количество комнат";
+            this.количествуКомнатToolStripMenuItem.Click += new System.EventHandler(this.количествуКомнатToolStripMenuItem_Click);
             // 
             // ценеToolStripMenuItem
             // 
             this.ценеToolStripMenuItem.Name = "ценеToolStripMenuItem";
             this.ценеToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.ценеToolStripMenuItem.Text = "Цена";
+            this.ценеToolStripMenuItem.Click += new System.EventHandler(this.ценеToolStripMenuItem_Click);
             // 
             // пункт1ToolStripMenuItem
             // 

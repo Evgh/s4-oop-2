@@ -260,7 +260,7 @@ namespace s4_oop_2
                 int id = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                 Flat theFlat = _flats.Find((f) => { return f.Id == id; });
 
-                message = $"Стоимость квартиры {theFlat?.Count()} белорусских рублей";
+                message = $"Стоимость квартиры {theFlat?.GetPrice()} белорусских рублей";
             }
             else
             {
@@ -373,7 +373,7 @@ namespace s4_oop_2
 
                 if (selectedFlat != null)
                 {
-                    message = $"Стоимость квартиры {selectedFlat.Count()} белорусских рублей";
+                    message = $"Стоимость квартиры {selectedFlat.GetPrice()} белорусских рублей";
                 }
                 else
                 {
@@ -428,6 +428,34 @@ namespace s4_oop_2
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Программа 'Квартиры' v.2.0 (с) Касперович Е.Н.");
+        }
+
+        ///////////////////////////////////////////////// Сортировка
+        private void площадиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sorted = from flat in _flats
+                         orderby flat.Area
+                         select flat;
+            _flats = sorted.ToList<Flat>();
+            InitializeDataGridView1();
+        }
+
+        private void количествуКомнатToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sorted = from flat in _flats
+                         orderby flat.RoomAmount
+                         select flat;
+            _flats = sorted.ToList<Flat>();
+            InitializeDataGridView1();
+        }
+
+        private void ценеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sorted = from flat in _flats
+                         orderby flat.GetPrice()
+                         select flat;
+            _flats = sorted.ToList<Flat>();
+            InitializeDataGridView1();
         }
     }
 }
