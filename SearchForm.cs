@@ -27,7 +27,7 @@ namespace s4_oop_2
     public partial class SearchForm : Form
     {
         MainForm _parent;
-        List<Flat> selectedFlats;
+        MyBindingSourse selectedFlats;
 
         public SearchForm()
         {
@@ -38,7 +38,10 @@ namespace s4_oop_2
         {
             InitializeComponent();
             _parent = parent;
-            selectedFlats = parent._flats;
+
+            //_parent.Controls.Find("", false);
+
+            selectedFlats = parent.Flats;
 
             dateTimePickerYear.Format = DateTimePickerFormat.Custom;
             dateTimePickerYear.CustomFormat = "yyyy";
@@ -107,37 +110,37 @@ namespace s4_oop_2
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            selectedFlats = _parent._flats;
-            if (checkBoxType.Checked)
-            {
-                var searchResults = from flat in selectedFlats
-                                    where flat.RoomAmount == trackBarRoomAmount.Value
-                                    select flat;
-                selectedFlats = searchResults.ToList();
-            }
+            //selectedFlats = _parent._flats;
+            //if (checkBoxType.Checked)
+            //{
+            //    var searchResults = from flat in selectedFlats
+            //                        where flat.RoomAmount == trackBarRoomAmount.Value
+            //                        select flat;
+            //    selectedFlats = searchResults.ToList();
+            //}
 
-            if (checkBoxYear.Checked)
-            {
-                var searchResults = from flat in selectedFlats
-                                    where flat.Day.Year == dateTimePickerYear.Value.Year
-                                    select flat;
-                selectedFlats = searchResults.ToList();
-            }
+            //if (checkBoxYear.Checked)
+            //{
+            //    var searchResults = from flat in selectedFlats
+            //                        where flat.Day.Year == dateTimePickerYear.Value.Year
+            //                        select flat;
+            //    selectedFlats = searchResults.ToList();
+            //}
 
-            if (checkBoxDistrict.Checked)
-            {
-                var searchResults = from flat in selectedFlats
-                                    where textRegExValidation(flat.FlatAdress.District, panelD)
-                                    select flat;
-                selectedFlats = searchResults.ToList();
-            }
-            if (checkBoxCity.Checked)
-            {
-                var searchResults = from flat in selectedFlats
-                                    where textRegExValidation(flat.FlatAdress.City, panelC)
-                                    select flat;
-                selectedFlats = searchResults.ToList();
-            }
+            //if (checkBoxDistrict.Checked)
+            //{
+            //    var searchResults = from flat in selectedFlats
+            //                        where textRegExValidation(flat.FlatAdress.District, panelD)
+            //                        select flat;
+            //    selectedFlats = searchResults.ToList();
+            //}
+            //if (checkBoxCity.Checked)
+            //{
+            //    var searchResults = from flat in selectedFlats
+            //                        where textRegExValidation(flat.FlatAdress.City, panelC)
+            //                        select flat;
+            //    selectedFlats = searchResults.ToList();
+            //}
 
             InitializeDataGridView1();
         }

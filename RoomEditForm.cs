@@ -30,7 +30,7 @@ namespace s4_oop_2
 
         internal void InitializeListBoxRoooms(int i)
         {
-            foreach (var item in _parent._flats)
+            foreach (var item in _parent.Flats)
             {
                 if (item.Id == i)
                 {
@@ -83,7 +83,7 @@ namespace s4_oop_2
             {
                 theFlat.rooms.Add(new Room(this.trackBarArea.Value, this.trackBarWindows.Value, (Room.RoomOrientation)this.listBoxRoomOrientation.SelectedItem));
                 InitializeListBoxRoooms(theFlat.Id);
-                _parent.InitializeDataGridView1();              
+                //_parent.InitializeDataGridView1();              
                 InitializeTrackBarArea();                    
                 trackBarWindows.Value = 0;
                 labelWindows.Text = trackBarWindows.Value.ToString();

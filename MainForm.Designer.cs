@@ -60,10 +60,11 @@
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstSaveXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstOpenXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
             this.рассчитатьСтоимостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,7 +113,7 @@
             this.labelOwner.Location = new System.Drawing.Point(15, 30);
             this.labelOwner.Name = "labelOwner";
             this.labelOwner.Size = new System.Drawing.Size(73, 17);
-            this.labelOwner.TabIndex = 1;
+            this.labelOwner.TabIndex = 17;
             this.labelOwner.Text = "Владелец";
             // 
             // maskedTextBoxArea
@@ -123,7 +124,7 @@
             this.maskedTextBoxArea.Mask = "000";
             this.maskedTextBoxArea.Name = "maskedTextBoxArea";
             this.maskedTextBoxArea.Size = new System.Drawing.Size(28, 22);
-            this.maskedTextBoxArea.TabIndex = 0;
+            this.maskedTextBoxArea.TabIndex = 1;
             this.maskedTextBoxArea.ValidatingType = typeof(int);
             // 
             // labelArea
@@ -313,11 +314,11 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 285);
+            this.dataGridView1.Location = new System.Drawing.Point(19, 310);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1264, 260);
+            this.dataGridView1.Size = new System.Drawing.Size(1264, 235);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
@@ -361,7 +362,7 @@
             this.maskedTextBoxOwner.Mask = "L.L.LLL???????????????????????";
             this.maskedTextBoxOwner.Name = "maskedTextBoxOwner";
             this.maskedTextBoxOwner.Size = new System.Drawing.Size(200, 22);
-            this.maskedTextBoxOwner.TabIndex = 17;
+            this.maskedTextBoxOwner.TabIndex = 0;
             this.maskedTextBoxOwner.ValidatingType = typeof(int);
             // 
             // label5
@@ -379,7 +380,7 @@
             // 
             // buttonEditRow
             // 
-            this.buttonEditRow.Location = new System.Drawing.Point(16, 259);
+            this.buttonEditRow.Location = new System.Drawing.Point(16, 284);
             this.buttonEditRow.Name = "buttonEditRow";
             this.buttonEditRow.Size = new System.Drawing.Size(167, 23);
             this.buttonEditRow.TabIndex = 19;
@@ -428,6 +429,14 @@
             this.firstSaveXMLToolStripMenuItem.Text = "XML";
             this.firstSaveXMLToolStripMenuItem.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
             // 
+            // firstOpenJSONToolStripMenuItem
+            // 
+            this.firstOpenJSONToolStripMenuItem.Name = "firstOpenJSONToolStripMenuItem";
+            this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.firstOpenJSONToolStripMenuItem.Text = "JSON";
+            this.firstOpenJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
+
+            // 
             // firstSaveJSONToolStripMenuItem
             // 
             this.firstSaveJSONToolStripMenuItem.Name = "firstSaveJSONToolStripMenuItem";
@@ -447,16 +456,9 @@
             // firstOpenXMLToolStripMenuItem
             // 
             this.firstOpenXMLToolStripMenuItem.Name = "firstOpenXMLToolStripMenuItem";
-            this.firstOpenXMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstOpenXMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstOpenXMLToolStripMenuItem.Text = "XML";
             this.firstOpenXMLToolStripMenuItem.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
-            // 
-            // firstOpenJSONToolStripMenuItem
-            // 
-            this.firstOpenJSONToolStripMenuItem.Name = "firstOpenJSONToolStripMenuItem";
-            this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.firstOpenJSONToolStripMenuItem.Text = "JSON";
-            this.firstOpenJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
             // 
             // рассчитатьСтоимостьToolStripMenuItem
             // 
@@ -690,7 +692,7 @@
             this.toolStripButtonEditRooms,
             this.toolStripButtonDeleteRow});
             this.toolStripEditObject.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStripEditObject.Location = new System.Drawing.Point(190, 248);
+            this.toolStripEditObject.Location = new System.Drawing.Point(190, 273);
             this.toolStripEditObject.Name = "toolStripEditObject";
             this.toolStripEditObject.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStripEditObject.Size = new System.Drawing.Size(432, 34);
@@ -792,7 +794,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerDay;
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Button buttonAdressesMenu;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridView dataGridView1;
+        //private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxOwner;

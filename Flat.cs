@@ -34,7 +34,7 @@ namespace s4_oop_2
         public int ResidentAmount { get; set; }
         //3
         [Required]
-        [Range(1, 750, ErrorMessage = "1: Не положено иметь квартиры больше 750 и меньше 1 квадратного метра, потому что в нашей стране нет настолько богатых или настолько бедных людей")]
+        [Range(9, 750, ErrorMessage = "1: Не положено иметь квартиры больше 750 и меньше 1 квадратного метра, потому что в нашей стране нет настолько богатых или настолько бедных людей")]
         public int Area { get; set; }
         //4
         public int RoomAmount { get => rooms.Count; }
