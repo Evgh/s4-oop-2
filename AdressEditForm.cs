@@ -14,13 +14,10 @@ namespace s4_oop_2
     public partial class AdressEditForm : Form
     {
         MainForm _parent;
-
         public AdressEditForm(MainForm parent)
         {
             InitializeComponent();
             _parent = parent;
-
-            InitializeDataGridViewAdresses();
         }
 
         private void InitializeDataGridViewAdresses()

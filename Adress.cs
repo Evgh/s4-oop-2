@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -51,7 +52,7 @@ namespace s4_oop_2
         }
 
         // хранилище всех созданных адресов. программа не позволяет создавать отдельно взятые адреса, вся работа производится через статический пул
-        public readonly static List<Adress> adressPool;
+        public readonly static BindingList<Adress> adressPool;
 
         static int nextId = 0;
         //0
@@ -107,7 +108,7 @@ namespace s4_oop_2
         }
         static Adress()
         {
-            adressPool = new List<Adress> { new Adress() };
+            adressPool = new BindingList<Adress> { new Adress() };
         }
 
         public override string ToString()

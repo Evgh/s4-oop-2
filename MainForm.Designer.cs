@@ -425,7 +425,7 @@
             // firstSaveXMLToolStripMenuItem
             // 
             this.firstSaveXMLToolStripMenuItem.Name = "firstSaveXMLToolStripMenuItem";
-            this.firstSaveXMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstSaveXMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstSaveXMLToolStripMenuItem.Text = "XML";
             this.firstSaveXMLToolStripMenuItem.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
             // 
@@ -440,7 +440,7 @@
             // firstSaveJSONToolStripMenuItem
             // 
             this.firstSaveJSONToolStripMenuItem.Name = "firstSaveJSONToolStripMenuItem";
-            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstSaveJSONToolStripMenuItem.Text = "JSON";
             this.firstSaveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
             // 
