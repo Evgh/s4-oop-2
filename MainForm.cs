@@ -17,12 +17,19 @@ namespace s4_oop_2
         public override MyBindingSourse Flats { get; protected set; }
         public override DataGridView MyDataGrid => dataGridView1; 
         public override ListBox MyListBox => listBoxAdress;
+        public List<IFlat> _flats;
+        internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
+        internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
 
         public SaveFileDialog SaveDialog { get => saveFileDialog1; }
         public OpenFileDialog OpenDialog { get => openFileDialog1; }
 
+        public MainForm() : this (new List<IFlat> { })
+        {
+        }
 
         public MainForm(MyBindingSourse flats)
+        public MainForm(List<IFlat> flats)
         {
             InitializeComponent();
             Flats = flats;
@@ -127,9 +134,20 @@ namespace s4_oop_2
             // try/catch обрабатывает случай, если площадь не введена
             try
             {
-                var flat = new Flat(MyFlatArgs);
+                FlatBuilder fb;
+                if (checkBoxRundomRooms.Checked)
+                {
+                    fb = new SuperFlatBuilder(MyFlatArgs);
+                }
+                else
+                { 
+                   fb = new SimpleFlatBuilder(MyFlatArgs);
+                }
+                var flat = FlatDirector.CreateFlat(fb);
+
                 var results = new List<ValidationResult> { };
                 var context = new ValidationContext(flat);
+
                 // валидация 
                 if (!Validator.TryValidateObject(flat, context, results, true))
                 {
@@ -211,6 +229,7 @@ namespace s4_oop_2
             using (FileStream fs = new FileStream(path, FileMode.Open))
             {
                 Flats = (MyBindingSourse)serializer.Deserialize(fs);
+                _flats = (List<IFlat>)serializer.Deserialize(fs);
             }
 
             // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
@@ -233,6 +252,7 @@ namespace s4_oop_2
             {
                 int id = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                 Flat theFlat = Flats.Where((f) => { return f.Id == id; }).ToList<Flat>()[0];
+                IFlat theFlat = _flats.Find((f) => { return f.Id == id; });
 
                 message = $"Стоимость квартиры {theFlat?.GetPrice()} белорусских рублей";
             }
@@ -251,9 +271,9 @@ namespace s4_oop_2
 
 
         ////////////////////////////////////////////////// пункт меню "Файл"
-
-        // cериализация xml
-        private void saveXMLToolStripMenuItem_Click(object sender, EventArgs e)
+         
+        // Сериализация
+        class Converter : JsonConverter
         {
             saveFileDialog1.Filter = "XML files(*.xml)|*.xml|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
@@ -262,8 +282,10 @@ namespace s4_oop_2
             string path = saveFileDialog1.FileName;
             XmlSerializer serializer = new XmlSerializer(typeof(MyBindingSourse));
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            public override bool CanConvert(Type objectType)
             {
                 serializer.Serialize(fs, Flats);
+                return (objectType == typeof(IFlat));
             }
             MessageBox.Show("Файл сохранен");
         }
@@ -283,6 +305,9 @@ namespace s4_oop_2
                 {
                     Flats.Add(flat);
                 }
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                serializer.Serialize(writer, value, typeof(SimpleFlat));
             }
 
             // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
@@ -295,20 +320,26 @@ namespace s4_oop_2
                 {
                     flat.AdressId = 0;
                 }
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                return serializer.Deserialize(reader, typeof(SimpleFlat)); ;
             }
         }
 
-        // json
         private void saveJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Converter());
+
             string path = saveFileDialog1.FileName;
             using (StreamWriter sw = new StreamWriter(path, false))
             {
                 sw.WriteLine(JsonConvert.SerializeObject(Flats, Newtonsoft.Json.Formatting.Indented));
+                sw.WriteLine(JsonConvert.SerializeObject(_flats, Newtonsoft.Json.Formatting.Indented, settings));
             }
             MessageBox.Show("Файл сохранен");
         }
@@ -319,6 +350,9 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Converter());
+
             string path = openFileDialog1.FileName;
             using(StreamReader sr = new StreamReader(path)) 
             {
@@ -328,6 +362,13 @@ namespace s4_oop_2
                     Flats.Add(flat);
                 }
                 //InitializeDataGridView1();
+            using (StreamReader sr = new StreamReader(path))
+            {
+                _flats.Clear();
+                foreach (var flat in JsonConvert.DeserializeObject<List<IFlat>>(sr.ReadToEnd(), settings))
+                {
+                    _flats.Add(flat);
+                }
             }
             
             if (Flats != null)
@@ -341,7 +382,8 @@ namespace s4_oop_2
                 }
             }
         }
-
+        
+        // Узнать стоимость квартиры
         private void GetPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string message = "";
@@ -351,6 +393,7 @@ namespace s4_oop_2
                 int id = int.Parse(selectedId);
                 Flat selectedFlat = Flats.Where((f) => { return f.Id == id; }).ToList().First();
                 //Flat selectedFlat = _flats.Find((f) => { return f.Id == id; });
+                IFlat selectedFlat = _flats.Find((f) => { return f.Id == id; });
 
                 if (selectedFlat != null)
                 {
@@ -369,6 +412,7 @@ namespace s4_oop_2
             MessageBox.Show(message);
         }
 
+        // Очистить все
         private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Flats.Clear();
@@ -418,6 +462,11 @@ namespace s4_oop_2
             //             select flat;
             //_flats = sorted.ToList<Flat>();
             //InitializeDataGridView1();
+            var sorted = from flat in _flats
+                         orderby flat.Area
+                         select flat;
+            _flats = sorted.ToList();
+            InitializeDataGridView1();
         }
 
         private void sortRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
@@ -427,6 +476,11 @@ namespace s4_oop_2
             //             select flat;
             //_flats = sorted.ToList<Flat>();
             //InitializeDataGridView1();
+            var sorted = from flat in _flats
+                         orderby flat.RoomAmount
+                         select flat;
+            _flats = sorted.ToList();
+            InitializeDataGridView1();
         }
 
         private void sortPriceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -436,6 +490,11 @@ namespace s4_oop_2
             //             select flat;
             //_flats = sorted.ToList<Flat>();
             //InitializeDataGridView1();
+            var sorted = from flat in _flats
+                         orderby flat.GetPrice()
+                         select flat;
+            _flats = sorted.ToList();
+            InitializeDataGridView1();
         }
 
         private void toolStripDropDownButton1_Click(object sender, EventArgs e)

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -48,11 +49,7 @@ namespace s4_oop_2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
-            FormBuilder builder = new MainFormBuilder(new MyBindingSourse());
-            Form mainForm = FormDirector.Build(builder);
-            Application.Run(mainForm);
-
+            Application.Run(new MainForm(new List<IFlat> {} ));
         }
     }
 }

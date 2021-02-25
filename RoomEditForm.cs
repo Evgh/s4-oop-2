@@ -13,7 +13,7 @@ namespace s4_oop_2
     public partial class RoomEditForm : Form
     {
         MainForm _parent;
-        Flat theFlat; 
+        IFlat theFlat; 
 
         public RoomEditForm(int i, MainForm parent)
         {
@@ -21,7 +21,6 @@ namespace s4_oop_2
 
             _parent = parent;
             listBoxRoomOrientation.DataSource = System.Enum.GetValues(typeof(Room.RoomOrientation));
-
 
             InitializeListBoxRoooms(i);
             InitializeTrackBarArea();
@@ -36,7 +35,7 @@ namespace s4_oop_2
                 {
                     theFlat = item;
                     BindingSource bindingSource = new BindingSource();
-                    bindingSource.DataSource = item.rooms;
+                    bindingSource.DataSource = item.Rooms;
                     listBoxRooms.DataSource = bindingSource;
                     break;
                 }
@@ -47,9 +46,9 @@ namespace s4_oop_2
         internal void InitializeTrackBarArea()
         {
             int diff = 0;           
-            if (theFlat.rooms != null && theFlat.rooms.Count > 0)
+            if (theFlat.Rooms != null && theFlat.Rooms.Count > 0)
             {
-                foreach (var room in theFlat.rooms)
+                foreach (var room in theFlat.Rooms)
                 {
                     diff += room.Area;
                 }
@@ -81,7 +80,7 @@ namespace s4_oop_2
         {
             if (trackBarArea.Maximum > 0)
             {
-                theFlat.rooms.Add(new Room(this.trackBarArea.Value, this.trackBarWindows.Value, (Room.RoomOrientation)this.listBoxRoomOrientation.SelectedItem));
+                theFlat.Rooms.Add(new Room(this.trackBarArea.Value, this.trackBarWindows.Value, (Room.RoomOrientation)this.listBoxRoomOrientation.SelectedItem));
                 InitializeListBoxRoooms(theFlat.Id);
                 //_parent.InitializeDataGridView1();              
                 InitializeTrackBarArea();                    

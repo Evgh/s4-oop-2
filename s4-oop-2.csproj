@@ -54,10 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adress.cs" />
-    <Compile Include="BuilderPattern.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Flat.cs" />
+    <Compile Include="SimpleFlat.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
