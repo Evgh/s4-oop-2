@@ -13,9 +13,9 @@ namespace s4_oop_2
             North, South, East, West, NorthEast, NorthWest, SouthEast, SouthWest
         }
 
-        public int Area { get; set; }
-        public int Windows { get; set; }
-        public RoomOrientation Orientation { get; set; }
+        public virtual int Area { get; set; }
+        public virtual int Windows { get; set; }
+        public virtual RoomOrientation Orientation { get; set; }
 
         public override string ToString()
         {

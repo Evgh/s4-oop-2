@@ -14,20 +14,19 @@ namespace s4_oop_2
 
     public partial class MainForm : Form
     {
-        public List<Flat> _flats;
+        public List<IFlat> _flats;
         internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
         internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
 
 
-        public MainForm() : this (new List<Flat> { })
+        public MainForm() : this (new List<IFlat> { })
         {
         }
 
-        public MainForm(List<Flat> flats)
+        public MainForm(List<IFlat> flats)
         {
             InitializeComponent();
             _flats = flats;
-
 
             InitializeShortcutKeys();
             InitializeDataGridView1();
@@ -168,9 +167,20 @@ namespace s4_oop_2
             // try/catch обрабатывает случай, если площадь не введена
             try
             {
-                var flat = new Flat(MyFlatArgs);
+                FlatBuilder fb;
+                if (checkBoxRundomRooms.Checked)
+                {
+                    fb = new SuperFlatBuilder(MyFlatArgs);
+                }
+                else
+                { 
+                   fb = new SimpleFlatBuilder(MyFlatArgs);
+                }
+                var flat = FlatDirector.CreateFlat(fb);
+
                 var results = new List<ValidationResult> { };
                 var context = new ValidationContext(flat);
+
                 // валидация 
                 if (!Validator.TryValidateObject(flat, context, results, true))
                 {
@@ -252,7 +262,7 @@ namespace s4_oop_2
             XmlSerializer serializer = new XmlSerializer(_flats.GetType());
             using (FileStream fs = new FileStream(path, FileMode.Open))
             {
-                _flats = (List<Flat>)serializer.Deserialize(fs);
+                _flats = (List<IFlat>)serializer.Deserialize(fs);
             }
 
             // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
@@ -276,7 +286,7 @@ namespace s4_oop_2
             if (dataGridView1.SelectedRows.Count == 1)
             {
                 int id = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                Flat theFlat = _flats.Find((f) => { return f.Id == id; });
+                IFlat theFlat = _flats.Find((f) => { return f.Id == id; });
 
                 message = $"Стоимость квартиры {theFlat?.GetPrice()} белорусских рублей";
             }
@@ -295,62 +305,37 @@ namespace s4_oop_2
 
 
         ////////////////////////////////////////////////// пункт меню "Файл"
-
-        // cериализация xml
-        private void saveXMLToolStripMenuItem_Click(object sender, EventArgs e)
+         
+        // Сериализация
+        class Converter : JsonConverter
         {
-            saveFileDialog1.Filter = "XML files(*.xml)|*.xml|All files|*.*";
-            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string path = saveFileDialog1.FileName;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Flat>));
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            public override bool CanConvert(Type objectType)
             {
-                serializer.Serialize(fs, _flats);
+                return (objectType == typeof(IFlat));
             }
-            MessageBox.Show("Файл сохранен");
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                serializer.Serialize(writer, value, typeof(SimpleFlat));
+            }
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                return serializer.Deserialize(reader, typeof(SimpleFlat)); ;
+            }
         }
 
-        private void deserializeXMLToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "XML files(*.xml)|*.xml";
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string path = openFileDialog1.FileName;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Flat>));
-            using (FileStream fs = new FileStream(path, FileMode.Open))
-            {
-                _flats = (List<Flat>)serializer.Deserialize(fs);
-            }
-
-            // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
-            // собственно, объекты-адреса не сериализуются, они просто хранятся в памяти, а каждая квартира получает даже не ссылку на свой адрес, а id адреса
-            // и по этому id квартира работает со ссылкой на адрес через пул адресов
-            // возможна ситуация, когда объект десериализуется, и у него будет ид на адрес, которого не существует
-            foreach (var flat in _flats)
-            {
-                if (flat.AdressId > Adress.adressPool.Count - 1)
-                {
-                    flat.AdressId = 0;
-                }
-            }
-
-            InitializeDataGridView1();
-        }
-
-        // json
         private void saveJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Converter());
+
             string path = saveFileDialog1.FileName;
             using (StreamWriter sw = new StreamWriter(path, false))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(_flats, Newtonsoft.Json.Formatting.Indented));
+                sw.WriteLine(JsonConvert.SerializeObject(_flats, Newtonsoft.Json.Formatting.Indented, settings));
             }
             MessageBox.Show("Файл сохранен");
         }
@@ -361,10 +346,17 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Converter());
+
             string path = openFileDialog1.FileName;
-            using(StreamReader sr = new StreamReader(path)) 
+            using (StreamReader sr = new StreamReader(path))
             {
-                _flats = JsonConvert.DeserializeObject<List<Flat>>(sr.ReadToEnd()); 
+                _flats.Clear();
+                foreach (var flat in JsonConvert.DeserializeObject<List<IFlat>>(sr.ReadToEnd(), settings))
+                {
+                    _flats.Add(flat);
+                }
             }
             
             if (_flats != null)
@@ -379,7 +371,8 @@ namespace s4_oop_2
             }
             InitializeDataGridView1();
         }
-
+        
+        // Узнать стоимость квартиры
         private void GetPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string message = "";
@@ -387,7 +380,7 @@ namespace s4_oop_2
             {
                 string selectedId = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 int id = int.Parse(selectedId);
-                Flat selectedFlat = _flats.Find((f) => { return f.Id == id; });
+                IFlat selectedFlat = _flats.Find((f) => { return f.Id == id; });
 
                 if (selectedFlat != null)
                 {
@@ -406,6 +399,7 @@ namespace s4_oop_2
             MessageBox.Show(message);
         }
 
+        // Очистить все
         private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _flats.Clear();
@@ -454,7 +448,7 @@ namespace s4_oop_2
             var sorted = from flat in _flats
                          orderby flat.Area
                          select flat;
-            _flats = sorted.ToList<Flat>();
+            _flats = sorted.ToList();
             InitializeDataGridView1();
         }
 
@@ -463,7 +457,7 @@ namespace s4_oop_2
             var sorted = from flat in _flats
                          orderby flat.RoomAmount
                          select flat;
-            _flats = sorted.ToList<Flat>();
+            _flats = sorted.ToList();
             InitializeDataGridView1();
         }
 
@@ -472,7 +466,7 @@ namespace s4_oop_2
             var sorted = from flat in _flats
                          orderby flat.GetPrice()
                          select flat;
-            _flats = sorted.ToList<Flat>();
+            _flats = sorted.ToList();
             InitializeDataGridView1();
         }
 

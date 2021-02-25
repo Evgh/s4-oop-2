@@ -27,7 +27,7 @@ namespace s4_oop_2
     public partial class SearchForm : Form
     {
         MainForm _parent;
-        List<Flat> selectedFlats;
+        List<IFlat> selectedFlats;
 
         public SearchForm()
         {
@@ -221,7 +221,7 @@ namespace s4_oop_2
                 return;
 
             string path = _parent.SaveDialog.FileName;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Flat>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<SimpleFlat>));
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
                 serializer.Serialize(fs, selectedFlats);
