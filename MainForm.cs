@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
@@ -66,6 +67,7 @@ namespace s4_oop_2
             {
                 dataGridView1.Columns["AdressId"].Visible = false;
                 dataGridView1.Columns["FlatAdress"].Visible = false;
+                dataGridView1.Columns["Price"].Visible = false;
                 DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
                 DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
                 columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -199,6 +201,7 @@ namespace s4_oop_2
             }
             catch (System.FormatException ex)
             {
+                // если в поле ввода площади ничего не введено 
                 MessageBox.Show(ex.Message);
                 maskedTextBoxArea.BackColor = System.Drawing.Color.Salmon;
             }
@@ -323,11 +326,7 @@ namespace s4_oop_2
             string message = "";
             if (dataGridView1.SelectedRows.Count == 1)
             {
-                string selectedId = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-                int id = int.Parse(selectedId);
-                
-                IFlat selectedFlat = PrimarySource.OfType<IFlat>().Where((f) => f.Id == id).ToList()[0];
-
+                IFlat selectedFlat = dataGridView1.SelectedRows[0].DataBoundItem as IFlat;
                 if (selectedFlat != null)
                 {
                     message = $"Стоимость квартиры {selectedFlat.GetPrice()} белорусских рублей";
@@ -390,27 +389,51 @@ namespace s4_oop_2
         ///////////////////////////////////////////////// Сортировка
         private void sortAreaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //DataGridViewColumn column = dataGridView1.Columns["Area"];
-            //dataGridView1.Sort(column, ListSortDirection.Ascending);
+            DataGridViewColumn column = dataGridView1.Columns["Area"];
+            dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
 
         private void sortRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var sorted = from flat in _flats
-            //             orderby flat.RoomAmount
-            //             select flat;
-            //_flats = sorted.ToList();
-            //InitializeDataGridView1();
+            DataGridViewColumn column = dataGridView1.Columns["RoomAmount"];
+            dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
 
         private void sortPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var sorted = from flat in _flats
-            //             orderby flat.GetPrice()
-            //             select flat;
-            //_flats = sorted.ToList();
-            //InitializeDataGridView1();
+            DataGridViewColumn column = dataGridView1.Columns["Price"];
+            dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
+
+        //private class PriceComparer : IComparer
+        //{
+        //    private static int sortOrderModifier = 1;
+
+        //    public PriceComparer(SortOrder sortOrder)
+        //    {
+        //        if (sortOrder == SortOrder.Descending)
+        //        {
+        //            sortOrderModifier = -1;
+        //        }
+        //        else if (sortOrder == SortOrder.Ascending)
+        //        {
+        //            sortOrderModifier = 1;
+        //        }
+        //    }
+        //    public int Compare(object x, object y)
+        //    {
+        //        DataGridViewRow DataGridViewRow1 = (DataGridViewRow)x;
+        //        DataGridViewRow DataGridViewRow2 = (DataGridViewRow)y;
+
+        //        IFlat firstFlat = DataGridViewRow1.DataBoundItem as IFlat;
+        //        IFlat secondFlat = DataGridViewRow2.DataBoundItem as IFlat;
+
+        //        // Sort based on the Price.
+        //        int CompareResult = (int)firstFlat.GetPrice() - (int)secondFlat.GetPrice();
+
+        //        return CompareResult * sortOrderModifier;
+        //    }
+        //}
 
         private void toolStripDropDownButton1_Click(object sender, EventArgs e)
         {
@@ -428,7 +451,7 @@ namespace s4_oop_2
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                RoomEditForm form = new RoomEditForm(int.Parse(row.Cells[0].Value.ToString()), this);
+                RoomEditForm form = new RoomEditForm((row.DataBoundItem as IFlat).Id, this);
                 form.Show();
             }
         }

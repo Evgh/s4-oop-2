@@ -72,6 +72,8 @@ namespace s4_oop_2
 
         List<Room> Rooms { get; }
         void InitializeRooms(List<Room> rooms);
+
+        double Price { get; }
         double GetPrice();
     }
 
@@ -117,6 +119,9 @@ namespace s4_oop_2
         [JsonIgnore]
         public List<Room> Rooms { get => _rooms; } 
         public List<Room> _rooms;
+
+        [JsonIgnore]
+        public double Price => GetPrice();
 
         public SimpleFlat(string owner, int residentAmount, int area, DateTime day, bool hasKitchen, bool hasBathroom, bool hasRestroom, bool hasBasement, bool hasBalcony, Adress adress)
         {
