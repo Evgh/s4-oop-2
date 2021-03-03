@@ -50,6 +50,7 @@
             this.buttonAdressesMenu = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxRundomRooms = new System.Windows.Forms.CheckBox();
             this.listBoxAdress = new System.Windows.Forms.ListBox();
             this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -59,12 +60,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.firstSaveXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.firstOpenXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.рассчитатьСтоимостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,10 +84,8 @@
             this.ценаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.xMLToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.xMLToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.openJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripEditObject = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonEditRooms = new System.Windows.Forms.ToolStripButton();
@@ -113,7 +109,7 @@
             this.labelOwner.Location = new System.Drawing.Point(15, 30);
             this.labelOwner.Name = "labelOwner";
             this.labelOwner.Size = new System.Drawing.Size(73, 17);
-            this.labelOwner.TabIndex = 17;
+            this.labelOwner.TabIndex = 111;
             this.labelOwner.Text = "Владелец";
             // 
             // maskedTextBoxArea
@@ -254,9 +250,9 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(1055, 139);
+            this.buttonAdd.Location = new System.Drawing.Point(1023, 139);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(202, 38);
+            this.buttonAdd.Size = new System.Drawing.Size(234, 23);
             this.buttonAdd.TabIndex = 7;
             this.buttonAdd.Text = "Добавить запись";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -301,7 +297,7 @@
             // 
             // buttonAdressesMenu
             // 
-            this.buttonAdressesMenu.Location = new System.Drawing.Point(852, 139);
+            this.buttonAdressesMenu.Location = new System.Drawing.Point(852, 85);
             this.buttonAdressesMenu.Name = "buttonAdressesMenu";
             this.buttonAdressesMenu.Size = new System.Drawing.Size(142, 23);
             this.buttonAdressesMenu.TabIndex = 15;
@@ -313,25 +309,26 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 310);
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
+            this.dataGridView1.Location = new System.Drawing.Point(19, 285);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1264, 235);
+            this.dataGridView1.Size = new System.Drawing.Size(1261, 260);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.checkBoxRundomRooms);
             this.panel1.Controls.Add(this.listBoxAdress);
             this.panel1.Controls.Add(this.maskedTextBoxOwner);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.labelOwner);
             this.panel1.Controls.Add(this.buttonAdressesMenu);
-            this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.maskedTextBoxArea);
+            this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.labelDate);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.labelArea);
@@ -345,6 +342,16 @@
             this.panel1.Size = new System.Drawing.Size(1264, 185);
             this.panel1.TabIndex = 17;
             // 
+            // checkBoxRundomRooms
+            // 
+            this.checkBoxRundomRooms.AutoSize = true;
+            this.checkBoxRundomRooms.Location = new System.Drawing.Point(852, 141);
+            this.checkBoxRundomRooms.Name = "checkBoxRundomRooms";
+            this.checkBoxRundomRooms.Size = new System.Drawing.Size(165, 21);
+            this.checkBoxRundomRooms.TabIndex = 25;
+            this.checkBoxRundomRooms.Text = "Cлучайные комнаты";
+            this.checkBoxRundomRooms.UseVisualStyleBackColor = true;
+            // 
             // listBoxAdress
             // 
             this.listBoxAdress.FormattingEnabled = true;
@@ -353,7 +360,7 @@
             ""});
             this.listBoxAdress.Location = new System.Drawing.Point(852, 30);
             this.listBoxAdress.Name = "listBoxAdress";
-            this.listBoxAdress.Size = new System.Drawing.Size(405, 100);
+            this.listBoxAdress.Size = new System.Drawing.Size(405, 52);
             this.listBoxAdress.TabIndex = 18;
             // 
             // maskedTextBoxOwner
@@ -416,18 +423,25 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.firstSaveXMLToolStripMenuItem,
             this.firstSaveJSONToolStripMenuItem});
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
-            // firstSaveXMLToolStripMenuItem
+            // firstSaveJSONToolStripMenuItem
             // 
-            this.firstSaveXMLToolStripMenuItem.Name = "firstSaveXMLToolStripMenuItem";
-            this.firstSaveXMLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.firstSaveXMLToolStripMenuItem.Text = "XML";
-            this.firstSaveXMLToolStripMenuItem.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
+            this.firstSaveJSONToolStripMenuItem.Name = "firstSaveJSONToolStripMenuItem";
+            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.firstSaveJSONToolStripMenuItem.Text = "JSON";
+            this.firstSaveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
+            // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.firstOpenJSONToolStripMenuItem});
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить";
             // 
             // firstOpenJSONToolStripMenuItem
             // 
@@ -435,30 +449,6 @@
             this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstOpenJSONToolStripMenuItem.Text = "JSON";
             this.firstOpenJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
-
-            // 
-            // firstSaveJSONToolStripMenuItem
-            // 
-            this.firstSaveJSONToolStripMenuItem.Name = "firstSaveJSONToolStripMenuItem";
-            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.firstSaveJSONToolStripMenuItem.Text = "JSON";
-            this.firstSaveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
-            // 
-            // загрузитьToolStripMenuItem
-            // 
-            this.загрузитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.firstOpenXMLToolStripMenuItem,
-            this.firstOpenJSONToolStripMenuItem});
-            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
-            this.загрузитьToolStripMenuItem.Text = "Загрузить";
-            // 
-            // firstOpenXMLToolStripMenuItem
-            // 
-            this.firstOpenXMLToolStripMenuItem.Name = "firstOpenXMLToolStripMenuItem";
-            this.firstOpenXMLToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
-            this.firstOpenXMLToolStripMenuItem.Text = "XML";
-            this.firstOpenXMLToolStripMenuItem.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
             // 
             // рассчитатьСтоимостьToolStripMenuItem
             // 
@@ -633,20 +623,12 @@
             // toolStripDropDownButton2
             // 
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xMLToolStripMenuItem2,
             this.saveJSONToolStripMenuItem});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
             this.toolStripDropDownButton2.Size = new System.Drawing.Size(117, 31);
             this.toolStripDropDownButton2.Text = "Сохранить";
-            // 
-            // xMLToolStripMenuItem2
-            // 
-            this.xMLToolStripMenuItem2.Name = "xMLToolStripMenuItem2";
-            this.xMLToolStripMenuItem2.Size = new System.Drawing.Size(127, 26);
-            this.xMLToolStripMenuItem2.Text = "XML";
-            this.xMLToolStripMenuItem2.Click += new System.EventHandler(this.saveXMLToolStripMenuItem_Click);
             // 
             // saveJSONToolStripMenuItem
             // 
@@ -658,20 +640,12 @@
             // toolStripDropDownButton3
             // 
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xMLToolStripMenuItem3,
             this.openJSONToolStripMenuItem});
             this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
             this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
             this.toolStripDropDownButton3.Size = new System.Drawing.Size(101, 31);
             this.toolStripDropDownButton3.Text = "Открыть";
-            // 
-            // xMLToolStripMenuItem3
-            // 
-            this.xMLToolStripMenuItem3.Name = "xMLToolStripMenuItem3";
-            this.xMLToolStripMenuItem3.Size = new System.Drawing.Size(127, 26);
-            this.xMLToolStripMenuItem3.Text = "XML";
-            this.xMLToolStripMenuItem3.Click += new System.EventHandler(this.deserializeXMLToolStripMenuItem1_Click);
             // 
             // openJSONToolStripMenuItem
             // 
@@ -809,10 +783,8 @@
         private System.Windows.Forms.ToolStripMenuItem пункут1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem firstSaveXMLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem firstSaveJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem firstOpenXMLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem firstOpenJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem площадиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem количествуКомнатToolStripMenuItem;
@@ -833,10 +805,7 @@
         private System.Windows.Forms.ToolStripMenuItem ценаToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
-        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem saveJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
-        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem openJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStripEditObject;
         private System.Windows.Forms.ToolStripButton toolStripButtonEditRooms;
@@ -844,6 +813,8 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelDateTime;
+        private System.Windows.Forms.ToolStripMenuItem saveJSONToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxRundomRooms;
     }
 }
 
