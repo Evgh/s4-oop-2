@@ -75,16 +75,6 @@ namespace s4_oop_2
         double GetPrice();
     }
 
-    public class FlatSourse : BindingList<IFlat>
-    {
-        public BindingList<IFlat> Source { get; }
-
-        public FlatSourse()
-        {
-            Source = new BindingList<IFlat> { };
-        }
-    }
-
 
     [Serializable]
     public class SimpleFlat : IFlat 
@@ -152,6 +142,13 @@ namespace s4_oop_2
         {
 
         }
+
+        public SimpleFlat(int index)
+        {
+            Id = index;
+        }
+
+
         public void InitializeRooms(List<Room> rooms)
         {
             _rooms = rooms;

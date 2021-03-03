@@ -59,12 +59,7 @@ namespace s4_oop_2
             Application.SetCompatibleTextRenderingDefault(false);
 
 
-            MainFactoryBuilder factory = new MainFactoryBuilder();
-            factory.CreateForm(factory.CreatePrimarySource(), factory.CreateSecondarySource());
-
-
-
-            Application.Run(factory.CreateForm());
+            Application.Run(FormDirector.CreateForm(new MainFormBuilder()));
         }
     }
 }

@@ -8,49 +8,56 @@ using System.Text;
 using System.Linq;
 using Newtonsoft.Json;
 
+using System.Collections;
 using System.ComponentModel;
 
 namespace s4_oop_2
 {
-    public interface IBindingForm<T, K>
+    public interface IBindingForm
     {
-        BindingList<T> PrimarySource { get; }
-        BindingList<K> SecondarySource { get;}
+        IBindingList PrimarySource { get; }
+        IBindingList SecondarySource { get; }
+
+        void InitializePrimarySource(IBindingList source);
+        void InitializeSecondarySource(IBindingList source);
+        Form ToForm();
     }
 
-
-    public interface IFormBuilder<T, K>
+    public static class FormDirector
     {
-        Form CreateForm(object obj = null);
-        Form CreateForm(BindingList<T> primary, BindingList<K> secondary, object formArgs);
-        BindingList<T> CreatePrimarySource();
-        BindingList<K> CreateSecondarySource();
+        public static Form CreateForm(IFormBuilder builder)
+        {
+            builder.InitializePrimarySource();
+            builder.InitializeSecondarySource();
+            return builder.GetForm;
+        }
     }
 
-    public class MainFactoryBuilder : IFormBuilder<IFlat, Adress>
+    public interface IFormBuilder
     {
-        public Form CreateForm(BindingList<IFlat> primary, BindingList<Adress> secondary, object obj = null)
+        Form GetForm { get; }
+        void InitializePrimarySource();
+        void InitializeSecondarySource();
+    }
+
+    public class MainFormBuilder : IFormBuilder
+    {
+        IBindingForm currentForm;
+        public Form GetForm { get => currentForm.ToForm(); }
+
+        public MainFormBuilder()
         {
-            Form myForm = new MainForm(primary, secondary, obj);
-            return myForm;
+            currentForm = new MainForm();
         }
 
-        public Form CreateForm(object obj = null )
+        public void InitializePrimarySource()
         {
-            BindingList<IFlat> primary = CreatePrimarySource();
-            BindingList<Adress> secondary = CreateSecondarySource();
-
-            return CreateForm(primary, secondary, obj);
+            currentForm.InitializePrimarySource(new SortableBindingList<IFlat>() { });
         }
 
-        public BindingList<IFlat> CreatePrimarySource()
+        public void InitializeSecondarySource()
         {
-            return new FlatSourse();
-        }
-
-        public BindingList<Adress> CreateSecondarySource()
-        {
-            return null;
+            currentForm.InitializeSecondarySource(Adress.adressPool);
         }
     }
 }

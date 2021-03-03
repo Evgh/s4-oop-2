@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,23 +12,12 @@ using Newtonsoft.Json;
 namespace s4_oop_2
 {
 
-    public partial class MainForm : Form, IBindingForm <IFlat, Adress>
+    public partial class MainForm : Form, IBindingForm
     {
-        public MainForm(BindingList<IFlat> primary, BindingList<Adress> secondary, object formArgs)
-        {
-            PrimarySource = primary;
-            SecondarySource = secondary;
-
-            InitializeComponent();
-
-            InitializeShortcutKeys();
-            InitializePrimarySource();
-            InitializeListBoxAdress();
-            InitializeTimer();
-        }
-
-        public BindingList<IFlat> PrimarySource { get; }
-        public BindingList<Adress> SecondarySource { get; }
+        IBindingList primary;
+        IBindingList secondary;
+        public IBindingList PrimarySource { get => primary; }
+        public IBindingList SecondarySource { get => secondary; }
 
         internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
         internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
@@ -57,18 +45,20 @@ namespace s4_oop_2
             }
         }
 
-       
-        ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
-        internal void InitializeShortcutKeys()
+        public MainForm()
+        {   
+            InitializeComponent();
+            InitializeShortcutKeys();
+            InitializeTimer();
+        }
+        public Form ToForm()
         {
-            firstSaveJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
-            firstOpenJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;                                                                          
-
-            searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+            return this;
         }
 
-        internal void InitializePrimarySource()
+        public void InitializePrimarySource(IBindingList source)
         {
+            primary = source;
             dataGridView1.DataSource = PrimarySource;
             AddComboBoxColumn();
 
@@ -82,9 +72,19 @@ namespace s4_oop_2
             }
         }
 
-        internal void AddComboBoxColumn()
+        public void InitializeSecondarySource(IBindingList source)
         {
-            // Функционал, чтобы редактировать адреса через выпадающий список Combobox  
+            secondary = source;
+            listBoxAdress.DataSource = SecondarySource;
+            listBoxAdress.DisplayMember = "MyToString";
+            listBoxAdress.ValueMember = "FlatNumber";
+        }
+        ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
+        /// <summary>
+        /// Метод добавляет колонку "Адрес", которую можно редактировать адреса через выпадающий список Combobox 
+        /// </summary>
+        private void AddComboBoxColumn()
+        {
             DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
             column.HeaderText = "Adress";
             column.Width = 300;
@@ -102,15 +102,11 @@ namespace s4_oop_2
             dataGridView1.Columns.Add(column);
         }
 
-        internal void InitializeListBoxAdress()
+        internal void InitializeShortcutKeys()
         {
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = Adress.adressPool;
-            
-            
-            listBoxAdress.DataSource = bindingSource;
-            listBoxAdress.DisplayMember = "MyToString";
-            listBoxAdress.ValueMember = "FlatNumber";
+            firstSaveJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            firstOpenJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
         }
 
         internal void InitializeTimer()
@@ -126,6 +122,7 @@ namespace s4_oop_2
         }
 
 
+        //////////////////////////////////////////////////////////////////////
         private void radioButtonGoodsDefault_CheckedChanged(object sender, EventArgs e)
         {
             foreach (var control in panel2.Controls)
@@ -163,12 +160,13 @@ namespace s4_oop_2
                 }
             }
         }
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             // try/catch обрабатывает случай, если площадь не введена
+            // ошибка возникает в MyFlatArgs
             try
             {
+                // Паттерн Builder
                 FlatBuilder fb;
                 if (checkBoxRundomRooms.Checked)
                 {
@@ -179,46 +177,23 @@ namespace s4_oop_2
                    fb = new SimpleFlatBuilder(MyFlatArgs);
                 }
                 var flat = FlatDirector.CreateFlat(fb);
-
+                
+                // для валидации
                 var results = new List<ValidationResult> { };
                 var context = new ValidationContext(flat);
 
                 // валидация 
                 if (!Validator.TryValidateObject(flat, context, results, true))
                 {
-                    List<int> invalidIndexex = new List<int> { };
-                    StringBuilder message = new StringBuilder("");
-                    
-                    foreach (var error in results)
-                    {
-                        message.Append(error.ErrorMessage);
-                        message.Append('\n');
-                        // получаем таб-индекс элемента из сообщения об ошибке (индексы прописаны вручную)
-                        invalidIndexex.Add(int.Parse(error.ErrorMessage.Substring(0, 1)));
-                    }
-
-                    //// перекрашиваем поля ввода с некорректными данными
-                    foreach (Control control in panel1.Controls)
-                    {
-                        for (int i = 0; i < invalidIndexex.Count; i++)
-                        {
-                            if (control.TabIndex == invalidIndexex[i])
-                            {
-                                control.BackColor = System.Drawing.Color.Salmon;
-                                break;
-                            }
-                            control.BackColor = System.Drawing.SystemColors.Window;
-                        }                        
-                    }
-
-                    MessageBox.Show(message.ToString());
+                    OnInvalidValidation(results);
                 }
                 else
                 {
+                    // если валидация успешна
                     PrimarySource.Add(flat);
                     maskedTextBoxArea.BackColor = maskedTextBoxOwner.BackColor = System.Drawing.SystemColors.Window;
 
-                    RoomEditForm roomEditor = new RoomEditForm(PrimarySource[PrimarySource.Count - 1].Id, this);
+                    RoomEditForm roomEditor = new RoomEditForm(((IFlat)PrimarySource[PrimarySource.Count - 1]).Id, this);
                     roomEditor.Show();
                 }
             }
@@ -227,31 +202,52 @@ namespace s4_oop_2
                 MessageBox.Show(ex.Message);
                 maskedTextBoxArea.BackColor = System.Drawing.Color.Salmon;
             }
-            //InitializeDataGridView1();            
         }
+
+        private void OnInvalidValidation(List<ValidationResult> results)
+        {
+            List<int> invalidIndexes = new List<int> { };
+            StringBuilder message = new StringBuilder("");
+
+            foreach (var error in results)
+            {
+                message.Append(error.ErrorMessage);
+                message.Append('\n');
+                // получаем таб-индекс элемента из сообщения об ошибке (индексы прописаны вручную)
+                invalidIndexes.Add(int.Parse(error.ErrorMessage.Substring(0, 1)));
+            }
+
+            //// перекрашиваем поля ввода с некорректными данными
+            ColorInputs(invalidIndexes);
+            MessageBox.Show(message.ToString());
+        }
+
+        /// <summary>
+        /// Перекрашивает в цвет Salmon поля ввода, в которых введены некорректные значения
+        /// </summary>
+        /// <param name="invalidIndexes"> Таб-индексы элементов управления, которые надо перекрасить </param>
+        private void ColorInputs(List<int> invalidIndexes)
+        {
+            foreach (Control control in panel1.Controls)
+            {
+                for (int i = 0; i < invalidIndexes.Count; i++)
+                {
+                    if (control.TabIndex == invalidIndexes[i])
+                    {
+                        control.BackColor = System.Drawing.Color.Salmon;
+                        break;
+                    }
+                    control.BackColor = System.Drawing.SystemColors.Window;
+                }
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
 
         private void buttonAdressesMenu_Click(object sender, EventArgs e)
         {
             AdressEditForm form = new AdressEditForm(this);
             form.Show();
-        }
-
-        private void buttonСount_Click(object sender, EventArgs e)
-        {
-            string message = "";
-            if (dataGridView1.SelectedRows.Count == 1)
-            {
-                int id = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-
-                IFlat theFlat = PrimarySource.Where((f) => { return f.Id == id; }).ToList()[0];
-                message = $"Стоимость квартиры {theFlat?.GetPrice()} белорусских рублей";
-            }
-            else
-            {
-                message = "Выделите 1 строку в таблице";
-            }
-
-            MessageBox.Show(message);
         }
 
         ////////////////////////////////////////////////// пункт меню "Файл"
@@ -303,7 +299,7 @@ namespace s4_oop_2
             using (StreamReader sr = new StreamReader(path))
             {
                 PrimarySource.Clear();
-                foreach (var flat in JsonConvert.DeserializeObject<BindingList<IFlat>>(sr.ReadToEnd(), settings))
+                foreach (var flat in JsonConvert.DeserializeObject <SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
                 {
                     PrimarySource.Add(flat);
                 }
@@ -311,15 +307,14 @@ namespace s4_oop_2
             
             if (PrimarySource != null)
             {
-                foreach (var flat in PrimarySource)
-                {
+                foreach (IFlat flat in PrimarySource)
+                { 
                     if (flat.AdressId > Adress.adressPool.Count - 1)
                     {
                         flat.AdressId = 0;
                     }
                 }
             }
-            //InitializeDataGridView1();
         }
         
         // Узнать стоимость квартиры
@@ -330,7 +325,8 @@ namespace s4_oop_2
             {
                 string selectedId = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 int id = int.Parse(selectedId);
-                IFlat selectedFlat = PrimarySource.Where((f) => { return f.Id == id; }).ToList()[0];
+                
+                IFlat selectedFlat = PrimarySource.OfType<IFlat>().Where((f) => f.Id == id).ToList()[0];
 
                 if (selectedFlat != null)
                 {
@@ -394,11 +390,8 @@ namespace s4_oop_2
         ///////////////////////////////////////////////// Сортировка
         private void sortAreaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var sorted = from flat in _flats
-            //             orderby flat.Area
-            //             select flat;
-            //_flats = sorted.ToList();
-            //InitializeDataGridView1();
+            //DataGridViewColumn column = dataGridView1.Columns["Area"];
+            //dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
 
         private void sortRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)

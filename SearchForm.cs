@@ -23,11 +23,11 @@ namespace s4_oop_2
         public bool city;
     }
 
-
     public partial class SearchForm : Form
     {
         MainForm _parent;
-        BindingList<IFlat> selectedFlats;
+        IBindingList selectedFlats;
+
 
         public SearchForm()
         {
@@ -38,7 +38,14 @@ namespace s4_oop_2
         {
             InitializeComponent();
             _parent = parent;
-            selectedFlats = parent.PrimarySource;
+
+            selectedFlats = new BindingList<IFlat> { };
+            foreach(var item in parent.PrimarySource)
+            {
+                selectedFlats.Add(item);
+            }
+
+
 
             dateTimePickerYear.Format = DateTimePickerFormat.Custom;
             dateTimePickerYear.CustomFormat = "yyyy";
@@ -68,6 +75,8 @@ namespace s4_oop_2
         {
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = selectedFlats;
+
+
             dataGridView1.DataSource = bindingSource;
             dataGridView1.Columns["AdressId"].Visible = false;
             DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
@@ -107,55 +116,44 @@ namespace s4_oop_2
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            selectedFlats = _parent.PrimarySource;
+            var selected = _parent.PrimarySource.OfType<IFlat>();
 
             if (checkBoxType.Checked)
             {
-                var searchResults = from flat in selectedFlats
+                var searchResults = from flat in selected
                                     where flat.RoomAmount == trackBarRoomAmount.Value
                                     select flat;
 
-                selectedFlats.Clear();
-                foreach (var result in searchResults)
-                {
-                    selectedFlats.Add(result);
-                }
-
+                selected = searchResults;
             }
 
             if (checkBoxYear.Checked)
             {
-                var searchResults = from flat in selectedFlats
+                var searchResults = from flat in selected
                                     where flat.Day.Year == dateTimePickerYear.Value.Year
                                     select flat;
-                selectedFlats.Clear();
-                foreach (var result in searchResults)
-                {
-                    selectedFlats.Add(result);
-                }
+                selected = searchResults;
             }
 
             if (checkBoxDistrict.Checked)
             {
-                var searchResults = from flat in selectedFlats
+                var searchResults = from flat in selected
                                     where textRegExValidation(flat.FlatAdress.District, panelD)
                                     select flat;
-                selectedFlats.Clear();
-                foreach (var result in searchResults)
-                {
-                    selectedFlats.Add(result);
-                }
+                selected = searchResults;
             }
             if (checkBoxCity.Checked)
             {
-                var searchResults = from flat in selectedFlats
+                var searchResults = from flat in selected
                                     where textRegExValidation(flat.FlatAdress.City, panelC)
                                     select flat;
-                selectedFlats.Clear();
-                foreach (var result in searchResults)
-                {
-                    selectedFlats.Add(result);
-                }
+                selected = searchResults;
+            }
+
+            selectedFlats.Clear();
+            foreach (var el in selected)
+            {
+                selectedFlats.Add(el);
             }
 
             InitializeDataGridView1();

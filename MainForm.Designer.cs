@@ -50,6 +50,7 @@
             this.buttonAdressesMenu = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxRundomRooms = new System.Windows.Forms.CheckBox();
             this.listBoxAdress = new System.Windows.Forms.ListBox();
             this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -83,6 +84,7 @@
             this.ценаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.saveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.openJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripEditObject = new System.Windows.Forms.ToolStrip();
@@ -91,8 +93,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDateTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.saveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxRundomRooms = new System.Windows.Forms.CheckBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -309,7 +309,7 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dataGridView1.Location = new System.Drawing.Point(19, 285);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -341,6 +341,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1264, 185);
             this.panel1.TabIndex = 17;
+            // 
+            // checkBoxRundomRooms
+            // 
+            this.checkBoxRundomRooms.AutoSize = true;
+            this.checkBoxRundomRooms.Location = new System.Drawing.Point(852, 141);
+            this.checkBoxRundomRooms.Name = "checkBoxRundomRooms";
+            this.checkBoxRundomRooms.Size = new System.Drawing.Size(165, 21);
+            this.checkBoxRundomRooms.TabIndex = 25;
+            this.checkBoxRundomRooms.Text = "Cлучайные комнаты";
+            this.checkBoxRundomRooms.UseVisualStyleBackColor = true;
             // 
             // listBoxAdress
             // 
@@ -421,7 +431,7 @@
             // firstSaveJSONToolStripMenuItem
             // 
             this.firstSaveJSONToolStripMenuItem.Name = "firstSaveJSONToolStripMenuItem";
-            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstSaveJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstSaveJSONToolStripMenuItem.Text = "JSON";
             this.firstSaveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
             // 
@@ -436,7 +446,7 @@
             // firstOpenJSONToolStripMenuItem
             // 
             this.firstOpenJSONToolStripMenuItem.Name = "firstOpenJSONToolStripMenuItem";
-            this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstOpenJSONToolStripMenuItem.Text = "JSON";
             this.firstOpenJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
             // 
@@ -620,6 +630,13 @@
             this.toolStripDropDownButton2.Size = new System.Drawing.Size(117, 31);
             this.toolStripDropDownButton2.Text = "Сохранить";
             // 
+            // saveJSONToolStripMenuItem
+            // 
+            this.saveJSONToolStripMenuItem.Name = "saveJSONToolStripMenuItem";
+            this.saveJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.saveJSONToolStripMenuItem.Text = "JSON";
+            this.saveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
+            // 
             // toolStripDropDownButton3
             // 
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -633,7 +650,7 @@
             // openJSONToolStripMenuItem
             // 
             this.openJSONToolStripMenuItem.Name = "openJSONToolStripMenuItem";
-            this.openJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.openJSONToolStripMenuItem.Text = "JSON";
             this.openJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
             // 
@@ -696,23 +713,6 @@
             // 
             this.toolStripStatusLabelDateTime.Name = "toolStripStatusLabelDateTime";
             this.toolStripStatusLabelDateTime.Size = new System.Drawing.Size(0, 20);
-            // 
-            // saveJSONToolStripMenuItem
-            // 
-            this.saveJSONToolStripMenuItem.Name = "saveJSONToolStripMenuItem";
-            this.saveJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.saveJSONToolStripMenuItem.Text = "JSON";
-            this.saveJSONToolStripMenuItem.Click += new System.EventHandler(this.saveJSONToolStripMenuItem_Click);
-            // 
-            // checkBoxRundomRooms
-            // 
-            this.checkBoxRundomRooms.AutoSize = true;
-            this.checkBoxRundomRooms.Location = new System.Drawing.Point(852, 141);
-            this.checkBoxRundomRooms.Name = "checkBoxRundomRooms";
-            this.checkBoxRundomRooms.Size = new System.Drawing.Size(165, 21);
-            this.checkBoxRundomRooms.TabIndex = 25;
-            this.checkBoxRundomRooms.Text = "Cлучайные комнаты";
-            this.checkBoxRundomRooms.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
