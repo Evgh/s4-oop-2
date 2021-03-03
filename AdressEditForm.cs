@@ -11,23 +11,31 @@ using System.Windows.Forms;
 
 namespace s4_oop_2
 {
-    public partial class AdressEditForm : Form
+    public partial class AdressEditForm : Form, IBindingForm
     {
-        MainForm _parent;
-        public AdressEditForm(MainForm parent)
+        IBindingList primary;
+        public IBindingList PrimarySource => primary;
+        public IBindingList SecondarySource => null;
+
+        public AdressEditForm()
         {
             InitializeComponent();
-            _parent = parent;
-            InitializeDataGridViewAdresses();
         }
-
-        private void InitializeDataGridViewAdresses()
+        public Form ToForm()
         {
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = Adress.adressPool;
-            dataGridViewAdresses.DataSource = bindingSource;
+            return this;
+        }
+        public void InitializePrimarySource(IBindingList source)
+        {
+            primary = source;
+            dataGridViewAdresses.DataSource = PrimarySource;
             dataGridViewAdresses.Columns["MyToString"].Visible = false;
             dataGridViewAdresses.Columns["ID"].Visible = false;
+            dataGridViewAdresses.Columns["Self"].Visible = false;
+        }
+        public void InitializeSecondarySource(IBindingList source) 
+        {
+            // не реализовано
         }
 
         private void ChangeControlsColors(List<int> indexes)
@@ -82,14 +90,10 @@ namespace s4_oop_2
                 ChangeControlsColors(ex.ControlsIndexex);
 
             }
-
-            //_parent.InitializeListBoxAdress();
         }
 
         private void dataGridViewAdresses_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
-            //_parent.InitializeListBoxAdress();
         }
-
     }
 }

@@ -10,37 +10,38 @@ using System.Windows.Forms;
 
 namespace s4_oop_2
 {
-    public partial class RoomEditForm : Form
+    public partial class RoomEditForm : Form, IBindingForm
     {
-        MainForm _parent;
+        IBindingList secondary;
+        public IBindingList PrimarySource => null;
+        public IBindingList SecondarySource => secondary;
+
+        //MainForm _parent;
         IFlat theFlat; 
 
-        public RoomEditForm(int i, MainForm parent)
+        public RoomEditForm(IFlat flat)
         {
             InitializeComponent();
 
-            _parent = parent;
+            theFlat = flat;
             listBoxRoomOrientation.DataSource = System.Enum.GetValues(typeof(Room.RoomOrientation));
-
-            InitializeListBoxRoooms(i);
             InitializeTrackBarArea();
             labelWindows.Text = trackBarWindows.Value.ToString();
         }
-
-        internal void InitializeListBoxRoooms(int i)
+        public Form ToForm()
         {
-            foreach (IFlat item in _parent.PrimarySource)
-            {
-                if (item.Id == i)
-                {
-                    theFlat = item;
-                    BindingSource bindingSource = new BindingSource();
-                    bindingSource.DataSource = item.Rooms;
-                    listBoxRooms.DataSource = bindingSource;
-                    break;
-                }
+            return this;
+        }
 
-            }
+        public void InitializePrimarySource(IBindingList source)
+        {
+            // не реализовано
+        }
+
+        public void InitializeSecondarySource(IBindingList source)
+        {
+            secondary = source;
+            listBoxRooms.DataSource = SecondarySource;
         }
 
         internal void InitializeTrackBarArea()
@@ -55,7 +56,6 @@ namespace s4_oop_2
             }
             trackBarArea.Maximum = theFlat.Area - diff;
         }
-
         private void trackBarArea_Scroll(object sender, EventArgs e)
         {
             labelArea.Text = trackBarArea.Value.ToString();
@@ -80,15 +80,12 @@ namespace s4_oop_2
         {
             if (trackBarArea.Maximum > 0)
             {
-                theFlat.Rooms.Add(new Room(this.trackBarArea.Value, this.trackBarWindows.Value, (Room.RoomOrientation)this.listBoxRoomOrientation.SelectedItem));
-                InitializeListBoxRoooms(theFlat.Id);
-                //_parent.InitializePrimarySource();              
+                SecondarySource.Add(new Room(this.trackBarArea.Value, this.trackBarWindows.Value, (Room.RoomOrientation)this.listBoxRoomOrientation.SelectedItem));
+
                 InitializeTrackBarArea();                    
                 trackBarWindows.Value = 0;
                 labelWindows.Text = trackBarWindows.Value.ToString();
-               // trackBarArea.Value = 0;
                 labelArea.Text = trackBarArea.Value.ToString();
-
             }
             else
             {

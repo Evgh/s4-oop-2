@@ -56,7 +56,6 @@ namespace s4_oop_2
             this.radioButtonPartlyD = new System.Windows.Forms.RadioButton();
             this.radioButtonSimpleD = new System.Windows.Forms.RadioButton();
             this.textBoxDistrict = new System.Windows.Forms.TextBox();
-            this.buttonSearchSaveXml = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRoomAmount)).BeginInit();
             this.panelC.SuspendLayout();
@@ -255,9 +254,9 @@ namespace s4_oop_2
             // 
             this.buttonSearchSaveJson.Location = new System.Drawing.Point(711, 17);
             this.buttonSearchSaveJson.Name = "buttonSearchSaveJson";
-            this.buttonSearchSaveJson.Size = new System.Drawing.Size(155, 23);
+            this.buttonSearchSaveJson.Size = new System.Drawing.Size(317, 23);
             this.buttonSearchSaveJson.TabIndex = 14;
-            this.buttonSearchSaveJson.Text = "Сохранить JSON";
+            this.buttonSearchSaveJson.Text = "Сохранить результаты поиска";
             this.buttonSearchSaveJson.UseVisualStyleBackColor = true;
             this.buttonSearchSaveJson.Click += new System.EventHandler(this.buttonSearchSaveJson_Click);
             // 
@@ -357,22 +356,11 @@ namespace s4_oop_2
             this.textBoxDistrict.Size = new System.Drawing.Size(470, 22);
             this.textBoxDistrict.TabIndex = 7;
             // 
-            // buttonSearchSaveXml
-            // 
-            this.buttonSearchSaveXml.Location = new System.Drawing.Point(872, 17);
-            this.buttonSearchSaveXml.Name = "buttonSearchSaveXml";
-            this.buttonSearchSaveXml.Size = new System.Drawing.Size(156, 23);
-            this.buttonSearchSaveXml.TabIndex = 25;
-            this.buttonSearchSaveXml.Text = "Сохранить XML";
-            this.buttonSearchSaveXml.UseVisualStyleBackColor = true;
-            this.buttonSearchSaveXml.Click += new System.EventHandler(this.buttonSearchSaveXml_Click);
-            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 587);
-            this.Controls.Add(this.buttonSearchSaveXml);
             this.Controls.Add(this.panelD);
             this.Controls.Add(this.buttonSearchSaveJson);
             this.Controls.Add(this.panelC);
@@ -426,6 +414,5 @@ namespace s4_oop_2
         private System.Windows.Forms.TextBox textBoxDistrict;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsD;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsC;
-        private System.Windows.Forms.Button buttonSearchSaveXml;
     }
 }
