@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Linq;
@@ -12,28 +13,51 @@ using Newtonsoft.Json;
 namespace s4_oop_2
 {
 
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IBindingForm <IFlat, Adress>
     {
-        public List<IFlat> _flats;
+        public MainForm(BindingList<IFlat> primary, BindingList<Adress> secondary, object formArgs)
+        {
+            PrimarySource = primary;
+            SecondarySource = secondary;
+
+            InitializeComponent();
+
+            InitializeShortcutKeys();
+            InitializePrimarySource();
+            InitializeListBoxAdress();
+            InitializeTimer();
+        }
+
+        public BindingList<IFlat> PrimarySource { get; }
+        public BindingList<Adress> SecondarySource { get; }
+
         internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
         internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
 
-
-        public MainForm() : this (new List<IFlat> { })
+        /// <summary>
+        /// Для передачи данных из полей ввода в конструктор Flat
+        /// </summary>
+        FlatArgs MyFlatArgs
         {
+            get
+            {
+                return new FlatArgs
+                {
+                    owner = maskedTextBoxOwner.Text,
+                    residentAmount = trackBarResidentAmount.Value,
+                    area = int.Parse(maskedTextBoxArea.Text),
+                    day = dateTimePickerDay.Value,
+                    hasKitchen = checkBoxHasKitchen.Checked,
+                    hasBathroom = checkBoxHasBathroom.Checked,
+                    hasRestroom = checkBoxHasRestroom.Checked,
+                    hasBasement = checkBoxHasBasement.Checked,
+                    hasBalcony = checkBoxHasBalcony.Checked,
+                    adress = listBoxAdress.SelectedItem as Adress
+                };
+            }
         }
 
-        public MainForm(List<IFlat> flats)
-        {
-            InitializeComponent();
-            _flats = flats;
-
-            InitializeShortcutKeys();
-            InitializeDataGridView1();
-            InitializeListBoxAdress();
-            AddComboBoxColumn();
-            InitializeTimer();
-        }
+       
         ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
         internal void InitializeShortcutKeys()
         {
@@ -43,13 +67,12 @@ namespace s4_oop_2
             searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
         }
 
-        internal void InitializeDataGridView1()
+        internal void InitializePrimarySource()
         {
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = _flats;
-            dataGridView1.DataSource = bindingSource;
+            dataGridView1.DataSource = PrimarySource;
+            AddComboBoxColumn();
 
-            if (_flats != null)
+            if (PrimarySource != null)
             {
                 dataGridView1.Columns["AdressId"].Visible = false;
                 dataGridView1.Columns["FlatAdress"].Visible = false;
@@ -83,6 +106,8 @@ namespace s4_oop_2
         {
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = Adress.adressPool;
+            
+            
             listBoxAdress.DataSource = bindingSource;
             listBoxAdress.DisplayMember = "MyToString";
             listBoxAdress.ValueMember = "FlatNumber";
@@ -100,29 +125,6 @@ namespace s4_oop_2
             toolStripStatusLabelDateTime.Text = DateTime.Now.ToString();
         }
 
-
-        /// <summary>
-        /// Для передачи данных из полей ввода в конструктор Flat
-        /// </summary>
-        FlatArgs MyFlatArgs
-        {
-            get
-            {
-                return new FlatArgs
-                {
-                    owner = maskedTextBoxOwner.Text,
-                    residentAmount = trackBarResidentAmount.Value,
-                    area = int.Parse(maskedTextBoxArea.Text),
-                    day = dateTimePickerDay.Value,
-                    hasKitchen = checkBoxHasKitchen.Checked,
-                    hasBathroom = checkBoxHasBathroom.Checked,
-                    hasRestroom = checkBoxHasRestroom.Checked,
-                    hasBasement = checkBoxHasBasement.Checked,
-                    hasBalcony = checkBoxHasBalcony.Checked,
-                    adress = listBoxAdress.SelectedItem as Adress
-                };
-            }
-        }
 
         private void radioButtonGoodsDefault_CheckedChanged(object sender, EventArgs e)
         {
@@ -213,10 +215,10 @@ namespace s4_oop_2
                 }
                 else
                 {
-                    _flats.Add(flat);
+                    PrimarySource.Add(flat);
                     maskedTextBoxArea.BackColor = maskedTextBoxOwner.BackColor = System.Drawing.SystemColors.Window;
 
-                    RoomEditForm roomEditor = new RoomEditForm(_flats[_flats.Count - 1].Id, this);
+                    RoomEditForm roomEditor = new RoomEditForm(PrimarySource[PrimarySource.Count - 1].Id, this);
                     roomEditor.Show();
                 }
             }
@@ -225,12 +227,7 @@ namespace s4_oop_2
                 MessageBox.Show(ex.Message);
                 maskedTextBoxArea.BackColor = System.Drawing.Color.Salmon;
             }
-            InitializeDataGridView1();            
-        }
-
-        private void buttonClear_Click(object sender, EventArgs e)
-        {
-
+            //InitializeDataGridView1();            
         }
 
         private void buttonAdressesMenu_Click(object sender, EventArgs e)
@@ -239,55 +236,14 @@ namespace s4_oop_2
             form.Show();
         }
 
-        private void buttonSerialize_Click(object sender, EventArgs e)
-        {
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string path = saveFileDialog1.FileName;
-            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            {
-                serializer.Serialize(fs, _flats);
-            }
-            MessageBox.Show("Файл сохранен");
-        }
-        private void buttonDeserialize_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string path = openFileDialog1.FileName;
-            XmlSerializer serializer = new XmlSerializer(_flats.GetType());
-            using (FileStream fs = new FileStream(path, FileMode.Open))
-            {
-                _flats = (List<IFlat>)serializer.Deserialize(fs);
-            }
-
-            // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
-            // собственно, объекты-адреса не сериализуются, они просто хранятся в памяти, а каждая квартира получает даже не ссылку на свой адрес, а id адреса
-            // и по этому id квартира работает со ссылкой на адрес через пул адресов
-            // возможна ситуация, когда объект десериализуется, и у него будет ид на адрес, которого не существует
-            foreach (var flat in _flats)
-            {
-                if (flat.AdressId > Adress.adressPool.Count - 1)
-                {
-                    flat.AdressId = 0;
-                }
-            }
-
-            InitializeDataGridView1();
-        }
-
         private void buttonСount_Click(object sender, EventArgs e)
         {
             string message = "";
             if (dataGridView1.SelectedRows.Count == 1)
             {
                 int id = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                IFlat theFlat = _flats.Find((f) => { return f.Id == id; });
 
+                IFlat theFlat = PrimarySource.Where((f) => { return f.Id == id; }).ToList()[0];
                 message = $"Стоимость квартиры {theFlat?.GetPrice()} белорусских рублей";
             }
             else
@@ -297,12 +253,6 @@ namespace s4_oop_2
 
             MessageBox.Show(message);
         }
-
-        public void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
-
 
         ////////////////////////////////////////////////// пункт меню "Файл"
          
@@ -335,7 +285,7 @@ namespace s4_oop_2
             string path = saveFileDialog1.FileName;
             using (StreamWriter sw = new StreamWriter(path, false))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(_flats, Newtonsoft.Json.Formatting.Indented, settings));
+                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented, settings));
             }
             MessageBox.Show("Файл сохранен");
         }
@@ -352,16 +302,16 @@ namespace s4_oop_2
             string path = openFileDialog1.FileName;
             using (StreamReader sr = new StreamReader(path))
             {
-                _flats.Clear();
-                foreach (var flat in JsonConvert.DeserializeObject<List<IFlat>>(sr.ReadToEnd(), settings))
+                PrimarySource.Clear();
+                foreach (var flat in JsonConvert.DeserializeObject<BindingList<IFlat>>(sr.ReadToEnd(), settings))
                 {
-                    _flats.Add(flat);
+                    PrimarySource.Add(flat);
                 }
             }
             
-            if (_flats != null)
+            if (PrimarySource != null)
             {
-                foreach (var flat in _flats)
+                foreach (var flat in PrimarySource)
                 {
                     if (flat.AdressId > Adress.adressPool.Count - 1)
                     {
@@ -369,7 +319,7 @@ namespace s4_oop_2
                     }
                 }
             }
-            InitializeDataGridView1();
+            //InitializeDataGridView1();
         }
         
         // Узнать стоимость квартиры
@@ -380,7 +330,7 @@ namespace s4_oop_2
             {
                 string selectedId = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 int id = int.Parse(selectedId);
-                IFlat selectedFlat = _flats.Find((f) => { return f.Id == id; });
+                IFlat selectedFlat = PrimarySource.Where((f) => { return f.Id == id; }).ToList()[0];
 
                 if (selectedFlat != null)
                 {
@@ -402,8 +352,7 @@ namespace s4_oop_2
         // Очистить все
         private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _flats.Clear();
-            InitializeDataGridView1();
+            PrimarySource.Clear();
         }
 
         ////////////////////////////////////////////////// меню "Поиск"
@@ -445,29 +394,29 @@ namespace s4_oop_2
         ///////////////////////////////////////////////// Сортировка
         private void sortAreaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var sorted = from flat in _flats
-                         orderby flat.Area
-                         select flat;
-            _flats = sorted.ToList();
-            InitializeDataGridView1();
+            //var sorted = from flat in _flats
+            //             orderby flat.Area
+            //             select flat;
+            //_flats = sorted.ToList();
+            //InitializeDataGridView1();
         }
 
         private void sortRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var sorted = from flat in _flats
-                         orderby flat.RoomAmount
-                         select flat;
-            _flats = sorted.ToList();
-            InitializeDataGridView1();
+            //var sorted = from flat in _flats
+            //             orderby flat.RoomAmount
+            //             select flat;
+            //_flats = sorted.ToList();
+            //InitializeDataGridView1();
         }
 
         private void sortPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var sorted = from flat in _flats
-                         orderby flat.GetPrice()
-                         select flat;
-            _flats = sorted.ToList();
-            InitializeDataGridView1();
+            //var sorted = from flat in _flats
+            //             orderby flat.GetPrice()
+            //             select flat;
+            //_flats = sorted.ToList();
+            //InitializeDataGridView1();
         }
 
         private void toolStripDropDownButton1_Click(object sender, EventArgs e)

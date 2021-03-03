@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -73,6 +74,17 @@ namespace s4_oop_2
         void InitializeRooms(List<Room> rooms);
         double GetPrice();
     }
+
+    public class FlatSourse : BindingList<IFlat>
+    {
+        public BindingList<IFlat> Source { get; }
+
+        public FlatSourse()
+        {
+            Source = new BindingList<IFlat> { };
+        }
+    }
+
 
     [Serializable]
     public class SimpleFlat : IFlat 

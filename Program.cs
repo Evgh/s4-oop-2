@@ -58,7 +58,13 @@ namespace s4_oop_2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new MainForm(new List<IFlat> {} ));
+
+            MainFactoryBuilder factory = new MainFactoryBuilder();
+            factory.CreateForm(factory.CreatePrimarySource(), factory.CreateSecondarySource());
+
+
+
+            Application.Run(factory.CreateForm());
         }
     }
 }
