@@ -63,8 +63,6 @@
             this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
             this.рассчитатьСтоимостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +109,7 @@
             this.labelOwner.Location = new System.Drawing.Point(15, 30);
             this.labelOwner.Name = "labelOwner";
             this.labelOwner.Size = new System.Drawing.Size(73, 17);
-            this.labelOwner.TabIndex = 17;
+            this.labelOwner.TabIndex = 111;
             this.labelOwner.Text = "Владелец";
             // 
             // maskedTextBoxArea

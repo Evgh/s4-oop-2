@@ -314,12 +314,12 @@ namespace s4_oop_2
             settings.Converters.Add(new Converter());
 
             string path = openFileDialog1.FileName;
-            using(StreamReader sr = new StreamReader(path)) 
+            using (StreamReader sr = new StreamReader(path))
             {
-                Flats.Clear();
-                foreach(var flat in JsonConvert.DeserializeObject<MyBindingSourse>(sr.ReadToEnd()))
+                PrimarySource.Clear();
+                foreach (var flat in JsonConvert.DeserializeObject <SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
                 {
-                    Flats.Add(flat);
+                    PrimarySource.Add(flat);
                 }
                 //InitializeDataGridView1();
             using (StreamReader sr = new StreamReader(path))

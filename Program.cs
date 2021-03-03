@@ -11,22 +11,30 @@ using System.Text.RegularExpressions;
 
 
 namespace s4_oop_2
-{
-    public class MyBindingSourse : BindingList<Flat>
-    {
-
-    }
-   
     static class Program
     {
-
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            
+            //Func<object, bool> test = delegate (object value)
+            //    {
+            //        if (value != null)
+            //        {
+            //            int buff = int.Parse(value.ToString());
+            //            return buff != 413;
+            //        }
+            //        return false;
+            //    };
+
+
+            //MessageBox.Show( test(413).ToString() );
+
+
+            //MessageBox.Show(Regex.IsMatch(" hhh    saa dis dsss hgh kk", "dis").ToString() + "\n" + Regex.IsMatch("saadisdsss", "(\\s*\\w*dis\\w*\\s*){1}").ToString());
+
             try
             {
                 Adress.Add("Бел", "Минск", "Центр", "ул. Захарова", "61", 13);
