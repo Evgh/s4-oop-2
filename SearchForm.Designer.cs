@@ -241,6 +241,7 @@ namespace s4_oop_2
             // radioButtonSimpleC
             // 
             this.radioButtonSimpleC.AutoSize = true;
+            this.radioButtonSimpleC.Checked = true;
             this.radioButtonSimpleC.Location = new System.Drawing.Point(3, 35);
             this.radioButtonSimpleC.Name = "radioButtonSimpleC";
             this.radioButtonSimpleC.Size = new System.Drawing.Size(172, 21);
@@ -293,7 +294,6 @@ namespace s4_oop_2
             this.radioButtonEndD.Name = "radioButtonEndD";
             this.radioButtonEndD.Size = new System.Drawing.Size(130, 21);
             this.radioButtonEndD.TabIndex = 4;
-            this.radioButtonEndD.TabStop = true;
             this.radioButtonEndD.Text = "В конце строки";
             this.radioButtonEndD.UseVisualStyleBackColor = true;
             // 
@@ -313,7 +313,6 @@ namespace s4_oop_2
             this.radioButtonBeginD.Name = "radioButtonBeginD";
             this.radioButtonBeginD.Size = new System.Drawing.Size(139, 21);
             this.radioButtonBeginD.TabIndex = 3;
-            this.radioButtonBeginD.TabStop = true;
             this.radioButtonBeginD.Text = "В начале строки";
             this.radioButtonBeginD.UseVisualStyleBackColor = true;
             this.radioButtonBeginD.CheckedChanged += new System.EventHandler(this.radioButtonBeginD_CheckedChanged);
@@ -325,7 +324,6 @@ namespace s4_oop_2
             this.radioButtonRepeatsD.Name = "radioButtonRepeatsD";
             this.radioButtonRepeatsD.Size = new System.Drawing.Size(157, 21);
             this.radioButtonRepeatsD.TabIndex = 2;
-            this.radioButtonRepeatsD.TabStop = true;
             this.radioButtonRepeatsD.Text = "Повторение текста";
             this.radioButtonRepeatsD.UseVisualStyleBackColor = true;
             this.radioButtonRepeatsD.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
@@ -337,13 +335,13 @@ namespace s4_oop_2
             this.radioButtonPartlyD.Name = "radioButtonPartlyD";
             this.radioButtonPartlyD.Size = new System.Drawing.Size(194, 21);
             this.radioButtonPartlyD.TabIndex = 1;
-            this.radioButtonPartlyD.TabStop = true;
             this.radioButtonPartlyD.Text = "Частичное соответствие";
             this.radioButtonPartlyD.UseVisualStyleBackColor = true;
             // 
             // radioButtonSimpleD
             // 
             this.radioButtonSimpleD.AutoSize = true;
+            this.radioButtonSimpleD.Checked = true;
             this.radioButtonSimpleD.Location = new System.Drawing.Point(3, 35);
             this.radioButtonSimpleD.Name = "radioButtonSimpleD";
             this.radioButtonSimpleD.Size = new System.Drawing.Size(172, 21);

@@ -83,13 +83,12 @@ namespace s4_oop_2
 
             }
 
-            InitializeDataGridViewAdresses();
-            _parent.InitializeListBoxAdress();
+            //_parent.InitializeListBoxAdress();
         }
 
         private void dataGridViewAdresses_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
-            _parent.InitializeListBoxAdress();
+            //_parent.InitializeListBoxAdress();
         }
 
     }
