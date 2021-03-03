@@ -11,7 +11,6 @@ using System.Text.RegularExpressions;
 
 
 namespace s4_oop_2
-{
     static class Program
     {
         /// <summary>

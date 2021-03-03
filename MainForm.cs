@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
 using System.ComponentModel;
@@ -476,7 +477,14 @@ namespace s4_oop_2
 
         private void buttonEditRow_Click(object sender, EventArgs e)
         {
-            toolStripEditObject.Visible = !toolStripEditObject.Visible;
+            if (toolStripEditObject.Visible)
+            {
+                toolStripEditObject.Hide();
+            }
+            else
+            {
+                toolStripEditObject.Show();
+            }
         }
     }
 }
