@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Linq;
@@ -257,49 +256,19 @@ namespace s4_oop_2
         }
 
         ////////////////////////////////////////////////// пункт меню "Файл"
-         
+
         // Сериализация
-        class Converter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                serializer.Serialize(fs, Flats);
-                return (objectType == typeof(IFlat));
-            }
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                serializer.Serialize(writer, value, typeof(SimpleFlat));
-            }
-
-            // костыль, поскольку я усложнила себе жизнь и сделала адреса хранящимися в пуле
-            // собственно, объекты-адреса не сериализуются, они просто хранятся в памяти, а каждая квартира получает даже не ссылку на свой адрес, а id адреса
-            // и по этому id квартира работает со ссылкой на адрес через пул адресов
-            // возможна ситуация, когда объект десериализуется, и у него будет ид на адрес, которого не существует
-            foreach (var flat in Flats)
-            {
-                if (flat.AdressId > Adress.adressPool.Count - 1)
-                {
-                    flat.AdressId = 0;
-                }
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                return serializer.Deserialize(reader, typeof(SimpleFlat)); ;
-            }
-        }
-
+        // Сериализация
         private void saveJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new Converter());
-
             string path = saveFileDialog1.FileName;
             using (StreamWriter sw = new StreamWriter(path, false))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented, settings));
+                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented));
             }
             MessageBox.Show("Файл сохранен");
         }
@@ -310,31 +279,20 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new Converter());
-
             string path = openFileDialog1.FileName;
             using (StreamReader sr = new StreamReader(path))
             {
                 PrimarySource.Clear();
-                foreach (var flat in JsonConvert.DeserializeObject <SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
-                {
-                    PrimarySource.Add(flat);
-                }
-                //InitializeDataGridView1();
-            using (StreamReader sr = new StreamReader(path))
-            {
-                PrimarySource.Clear();
-                foreach (var flat in JsonConvert.DeserializeObject <SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
+                foreach (var flat in JsonConvert.DeserializeObject<SortableBindingList<SimpleFlat>>(sr.ReadToEnd()))
                 {
                     PrimarySource.Add(flat);
                 }
             }
-            
+
             if (PrimarySource != null)
             {
                 foreach (IFlat flat in PrimarySource)
-                { 
+                {
                     if (flat.AdressId > Adress.adressPool.Count - 1)
                     {
                         flat.AdressId = 0;
@@ -342,7 +300,8 @@ namespace s4_oop_2
                 }
             }
         }
-        
+
+
         // Узнать стоимость квартиры
         private void GetPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
