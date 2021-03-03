@@ -13,7 +13,6 @@ namespace s4_oop_2
 {
     public class Adress
     {
-
         [Serializable]
         public class AdressValidationException : Exception
         {

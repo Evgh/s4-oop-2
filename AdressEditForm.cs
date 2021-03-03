@@ -18,6 +18,7 @@ namespace s4_oop_2
         {
             InitializeComponent();
             _parent = parent;
+            InitializeDataGridViewAdresses();
         }
 
         private void InitializeDataGridViewAdresses()

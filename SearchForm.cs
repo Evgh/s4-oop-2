@@ -27,7 +27,7 @@ namespace s4_oop_2
     public partial class SearchForm : Form
     {
         MainForm _parent;
-        List<IFlat> selectedFlats;
+        BindingList<IFlat> selectedFlats;
 
         public SearchForm()
         {
@@ -38,10 +38,7 @@ namespace s4_oop_2
         {
             InitializeComponent();
             _parent = parent;
-
-            //_parent.Controls.Find("", false);
-
-            selectedFlats = parent.Flats;
+            selectedFlats = parent.PrimarySource;
 
             dateTimePickerYear.Format = DateTimePickerFormat.Custom;
             dateTimePickerYear.CustomFormat = "yyyy";
@@ -110,13 +107,20 @@ namespace s4_oop_2
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            selectedFlats = _parent._flats;
+            selectedFlats = _parent.PrimarySource;
+
             if (checkBoxType.Checked)
             {
                 var searchResults = from flat in selectedFlats
                                     where flat.RoomAmount == trackBarRoomAmount.Value
                                     select flat;
-                selectedFlats = searchResults.ToList();
+
+                selectedFlats.Clear();
+                foreach (var result in searchResults)
+                {
+                    selectedFlats.Add(result);
+                }
+
             }
 
             if (checkBoxYear.Checked)
@@ -124,7 +128,11 @@ namespace s4_oop_2
                 var searchResults = from flat in selectedFlats
                                     where flat.Day.Year == dateTimePickerYear.Value.Year
                                     select flat;
-                selectedFlats = searchResults.ToList();
+                selectedFlats.Clear();
+                foreach (var result in searchResults)
+                {
+                    selectedFlats.Add(result);
+                }
             }
 
             if (checkBoxDistrict.Checked)
@@ -132,14 +140,22 @@ namespace s4_oop_2
                 var searchResults = from flat in selectedFlats
                                     where textRegExValidation(flat.FlatAdress.District, panelD)
                                     select flat;
-                selectedFlats = searchResults.ToList();
+                selectedFlats.Clear();
+                foreach (var result in searchResults)
+                {
+                    selectedFlats.Add(result);
+                }
             }
             if (checkBoxCity.Checked)
             {
                 var searchResults = from flat in selectedFlats
                                     where textRegExValidation(flat.FlatAdress.City, panelC)
                                     select flat;
-                selectedFlats = searchResults.ToList();
+                selectedFlats.Clear();
+                foreach (var result in searchResults)
+                {
+                    selectedFlats.Add(result);
+                }
             }
 
             InitializeDataGridView1();
