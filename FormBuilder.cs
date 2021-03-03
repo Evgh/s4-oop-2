@@ -13,16 +13,6 @@ using System.ComponentModel;
 
 namespace s4_oop_2
 {
-    public interface IBindingForm
-    {
-        IBindingList PrimarySource { get; }
-        IBindingList SecondarySource { get; }
-
-        void InitializePrimarySource(IBindingList source);
-        void InitializeSecondarySource(IBindingList source);
-        Form ToForm();
-    }
-
     public static class FormDirector
     {
         public static Form CreateForm(IFormBuilder builder)
@@ -31,6 +21,16 @@ namespace s4_oop_2
             builder.InitializeSecondarySource();
             return builder.GetForm;
         }
+    }
+
+    public interface IBindingForm
+    {
+        IBindingList PrimarySource { get; }
+        IBindingList SecondarySource { get; }
+
+        void InitializePrimarySource(IBindingList source);
+        void InitializeSecondarySource(IBindingList source);
+        Form ToForm();
     }
 
     public interface IFormBuilder
@@ -58,6 +58,79 @@ namespace s4_oop_2
         public void InitializeSecondarySource()
         {
             currentForm.InitializeSecondarySource(Adress.adressPool);
+        }
+    }
+
+    public class AdressEditFormBuilder : IFormBuilder
+    {
+        IBindingForm currentForm;
+        public Form GetForm => currentForm.ToForm();
+
+        public AdressEditFormBuilder()
+        {
+            currentForm = new AdressEditForm();
+        }
+        public void InitializePrimarySource()
+        {
+            currentForm.InitializePrimarySource(Adress.adressPool);
+        }
+
+        public void InitializeSecondarySource()
+        {
+            currentForm.InitializeSecondarySource(null);
+        }
+    }
+
+    public class RoomEditFormBuilder : IFormBuilder
+    {
+        IBindingForm currentForm;
+        IFlat curentFlat;
+        public Form GetForm => currentForm.ToForm();
+
+        public RoomEditFormBuilder(IFlat flat)
+        {
+            currentForm = new RoomEditForm(flat);
+            curentFlat = flat;
+
+        }
+        public void InitializePrimarySource()
+        {
+            currentForm.InitializePrimarySource(null);
+        }
+
+        public void InitializeSecondarySource()
+        {
+            currentForm.InitializeSecondarySource(curentFlat.Rooms);
+        }
+    }
+
+    public class SearchFormBuilder : IFormBuilder
+    {
+        IBindingForm currentForm;
+        IBindingForm _parent;
+        SearchFormArgs args;
+        public Form GetForm => currentForm.ToForm();
+
+        public SearchFormBuilder(SearchFormArgs sfa, MainForm parent)
+        {
+            _parent = parent;
+            args = sfa;
+            currentForm = new SearchForm(sfa, parent); 
+        }
+
+        public void InitializePrimarySource()
+        {
+            SortableBindingList<IFlat> flats = new SortableBindingList<IFlat> { };
+            foreach(IFlat element in _parent.PrimarySource)
+            {
+                flats.Add(element);
+            }
+            currentForm.InitializePrimarySource(flats);
+        }
+
+        public void InitializeSecondarySource()
+        {
+            currentForm.InitializeSecondarySource(null);
         }
     }
 }

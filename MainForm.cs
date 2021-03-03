@@ -195,7 +195,9 @@ namespace s4_oop_2
                     PrimarySource.Add(flat);
                     maskedTextBoxArea.BackColor = maskedTextBoxOwner.BackColor = System.Drawing.SystemColors.Window;
 
-                    RoomEditForm roomEditor = new RoomEditForm(((IFlat)PrimarySource[PrimarySource.Count - 1]).Id, this);
+                    // открываем редактор комнат
+                    IFormBuilder builder = new RoomEditFormBuilder(flat);
+                    Form roomEditor = FormDirector.CreateForm(builder);
                     roomEditor.Show();
                 }
             }
@@ -249,8 +251,8 @@ namespace s4_oop_2
 
         private void buttonAdressesMenu_Click(object sender, EventArgs e)
         {
-            AdressEditForm form = new AdressEditForm(this);
-            form.Show();
+            Form searchForm = FormDirector.CreateForm(new AdressEditFormBuilder());
+            searchForm.Show();
         }
 
         ////////////////////////////////////////////////// пункт меню "Файл"
@@ -354,26 +356,41 @@ namespace s4_oop_2
 
         private void seachRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new SearchForm(new SearchFormArgs() { type = true }, this)).Show();
+            SearchFormArgs args = new SearchFormArgs() { type = true };
+            IFormBuilder builder = new SearchFormBuilder(args, this);
+            Form searchForm = FormDirector.CreateForm(builder);
+            searchForm.Show();
         }
         private void searchYearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new SearchForm(new SearchFormArgs() { year = true }, this)).Show();
+            SearchFormArgs args = new SearchFormArgs() { year = true };
+            IFormBuilder builder = new SearchFormBuilder(args, this);
+            Form searchForm = FormDirector.CreateForm(builder);
+            searchForm.Show();
         }
 
         private void searchDistrictToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new SearchForm(new SearchFormArgs() { district = true }, this)).Show();
+            SearchFormArgs args = new SearchFormArgs() { district = true };
+            IFormBuilder builder = new SearchFormBuilder(args, this);
+            Form searchForm = FormDirector.CreateForm(builder);
+            searchForm.Show();
         }
 
         private void searchCityStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new SearchForm(new SearchFormArgs() { city = true }, this)).Show();
-
+            SearchFormArgs args = new SearchFormArgs() { city = true };
+            IFormBuilder builder = new SearchFormBuilder(args, this);
+            Form searchForm = FormDirector.CreateForm(builder);
+            searchForm.Show();
         }
+
         private void searchManualToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new SearchForm(new SearchFormArgs() {}, this)).Show();
+            SearchFormArgs args = new SearchFormArgs() { };
+            IFormBuilder builder = new SearchFormBuilder(args, this);
+            Form searchForm = FormDirector.CreateForm(builder);
+            searchForm.Show();
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -451,8 +468,9 @@ namespace s4_oop_2
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                RoomEditForm form = new RoomEditForm((row.DataBoundItem as IFlat).Id, this);
-                form.Show();
+                IFormBuilder builder = new RoomEditFormBuilder(row.DataBoundItem as IFlat);
+                Form roomEditor = FormDirector.CreateForm(builder);
+                roomEditor.Show();
             }
         }
 

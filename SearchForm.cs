@@ -23,15 +23,35 @@ namespace s4_oop_2
         public bool city;
     }
 
-    public partial class SearchForm : Form
+    public partial class SearchForm : Form, IBindingForm
     {
         MainForm _parent;
         IBindingList selectedFlats;
 
 
-        public SearchForm()
+        IBindingList primary;
+        IBindingList secondary;
+        public IBindingList PrimarySource { get => primary; }
+        public IBindingList SecondarySource { get => secondary; }
+
+        public Form ToForm()
         {
-            InitializeComponent();
+            return this;
+        }
+
+        public void InitializePrimarySource(IBindingList source)
+        {
+            primary = source;
+            dataGridView1.DataSource = PrimarySource;
+            dataGridView1.Columns["AdressId"].Visible = false;
+            DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
+            DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
+            columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+        }
+
+        public void InitializeSecondarySource(IBindingList source)
+        {
+           // не реализовано
         }
 
         public SearchForm(SearchFormArgs sfa, MainForm parent)
@@ -44,8 +64,6 @@ namespace s4_oop_2
             {
                 selectedFlats.Add(item);
             }
-
-
 
             dateTimePickerYear.Format = DateTimePickerFormat.Custom;
             dateTimePickerYear.CustomFormat = "yyyy";
@@ -67,21 +85,6 @@ namespace s4_oop_2
             {
                 checkBoxCity.CheckState = CheckState.Checked;
             }
-
-            InitializeDataGridView1();
-        }
-
-        internal void InitializeDataGridView1()
-        {
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = selectedFlats;
-
-
-            dataGridView1.DataSource = bindingSource;
-            dataGridView1.Columns["AdressId"].Visible = false;
-            DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
-            DataGridViewColumn columnAdressFirst = dataGridView1.Columns[0];
-            columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
         }
 
         private void checkBoxType_CheckedChanged(object sender, EventArgs e)
@@ -150,13 +153,11 @@ namespace s4_oop_2
                 selected = searchResults;
             }
 
-            selectedFlats.Clear();
+            PrimarySource.Clear();
             foreach (var el in selected)
             {
-                selectedFlats.Add(el);
+                PrimarySource.Add(el);
             }
-
-            InitializeDataGridView1();
         }
 
         private bool textRegExValidation(string str, Panel panel)
@@ -222,28 +223,23 @@ namespace s4_oop_2
             if (_parent.SaveDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            //string path = _parent.SaveDialog.FileName;
+            //using (StreamWriter sw = new StreamWriter(path, false))
+            //{
+            //    sw.WriteLine(JsonConvert.SerializeObject(selectedFlats, Newtonsoft.Json.Formatting.Indented));
+            //}
+            //MessageBox.Show("Файл сохранен");
+
+
             string path = _parent.SaveDialog.FileName;
             using (StreamWriter sw = new StreamWriter(path, false))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(selectedFlats, Newtonsoft.Json.Formatting.Indented));
+                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented));
             }
             MessageBox.Show("Файл сохранен");
+
+
             // _parent.jSONToolStripMenuItem_Click(this, new EventArgs());
-        }
-
-        private void buttonSearchSaveXml_Click(object sender, EventArgs e)
-        {
-            _parent.SaveDialog.Filter = "XML files(*.xml)|*.xml|All files|*.*";
-            if (_parent.SaveDialog.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string path = _parent.SaveDialog.FileName;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<SimpleFlat>));
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            {
-                serializer.Serialize(fs, selectedFlats);
-            }
-            MessageBox.Show("Файл сохранен");
         }
 
 
