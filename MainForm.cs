@@ -487,5 +487,17 @@ namespace s4_oop_2
                 toolStripEditObject.Show();
             }
         }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                toolStripEditObject.Hide();
+            }
+            else
+            {
+                toolStripEditObject.Show();
+            }
+        }
     }
 }

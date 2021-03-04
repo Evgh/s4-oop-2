@@ -56,14 +56,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.buttonEditRow = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstSaveJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.рассчитатьСтоимостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.площадиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +91,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDateTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -310,13 +309,14 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 285);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 290);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1261, 260);
+            this.dataGridView1.Size = new System.Drawing.Size(1264, 255);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // panel1
             // 
@@ -385,16 +385,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // buttonEditRow
-            // 
-            this.buttonEditRow.Location = new System.Drawing.Point(16, 256);
-            this.buttonEditRow.Name = "buttonEditRow";
-            this.buttonEditRow.Size = new System.Drawing.Size(167, 23);
-            this.buttonEditRow.TabIndex = 19;
-            this.buttonEditRow.Text = "Свойства";
-            this.buttonEditRow.UseVisualStyleBackColor = true;
-            this.buttonEditRow.Click += new System.EventHandler(this.buttonEditRow_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -414,7 +404,6 @@
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сохранитьToolStripMenuItem,
             this.загрузитьToolStripMenuItem,
-            this.рассчитатьСтоимостьToolStripMenuItem,
             this.очиститьТаблицуToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
@@ -449,13 +438,6 @@
             this.firstOpenJSONToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.firstOpenJSONToolStripMenuItem.Text = "JSON";
             this.firstOpenJSONToolStripMenuItem.Click += new System.EventHandler(this.deserializejSONToolStripMenuItem1_Click);
-            // 
-            // рассчитатьСтоимостьToolStripMenuItem
-            // 
-            this.рассчитатьСтоимостьToolStripMenuItem.Name = "рассчитатьСтоимостьToolStripMenuItem";
-            this.рассчитатьСтоимостьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
-            this.рассчитатьСтоимостьToolStripMenuItem.Text = "Рассчитать стоимость";
-            this.рассчитатьСтоимостьToolStripMenuItem.Click += new System.EventHandler(this.GetPriceToolStripMenuItem_Click);
             // 
             // очиститьТаблицуToolStripMenuItem
             // 
@@ -663,15 +645,17 @@
             this.toolStripEditObject.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripEditObject.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.toolStripEditObject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
             this.toolStripButtonEditRooms,
             this.toolStripButtonDeleteRow});
             this.toolStripEditObject.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStripEditObject.Location = new System.Drawing.Point(190, 246);
+            this.toolStripEditObject.Location = new System.Drawing.Point(16, 253);
             this.toolStripEditObject.Name = "toolStripEditObject";
             this.toolStripEditObject.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStripEditObject.Size = new System.Drawing.Size(432, 34);
+            this.toolStripEditObject.Size = new System.Drawing.Size(599, 34);
             this.toolStripEditObject.TabIndex = 23;
             this.toolStripEditObject.Text = "toolStrip2";
+            this.toolStripEditObject.Visible = false;
             // 
             // toolStripButtonEditRooms
             // 
@@ -714,6 +698,15 @@
             this.toolStripStatusLabelDateTime.Name = "toolStripStatusLabelDateTime";
             this.toolStripStatusLabelDateTime.Size = new System.Drawing.Size(0, 20);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(156, 24);
+            this.toolStripButton1.Text = "Узнать стоимость";
+            this.toolStripButton1.Click += new System.EventHandler(this.GetPriceToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -722,7 +715,6 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripEditObject);
             this.Controls.Add(this.toolStripFileEdit);
-            this.Controls.Add(this.buttonEditRow);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
@@ -776,7 +768,6 @@
         private System.Windows.Forms.ListBox listBoxAdress;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Button buttonEditRow;
         private System.Windows.Forms.MenuStrip menuStrip1;
 
         private System.Windows.Forms.ToolStripMenuItem пункт1ToolStripMenuItem;
@@ -794,7 +785,6 @@
         private System.Windows.Forms.ToolStripMenuItem районToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem городToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchManualToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem рассчитатьСтоимостьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem очиститьТаблицуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStripFileEdit;
@@ -815,6 +805,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelDateTime;
         private System.Windows.Forms.ToolStripMenuItem saveJSONToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxRundomRooms;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 
