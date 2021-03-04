@@ -58,7 +58,6 @@ namespace s4_oop_2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             Application.Run(FormDirector.CreateForm(new MainFormBuilder()));
         }
     }

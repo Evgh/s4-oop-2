@@ -387,7 +387,7 @@
             // 
             // buttonEditRow
             // 
-            this.buttonEditRow.Location = new System.Drawing.Point(16, 284);
+            this.buttonEditRow.Location = new System.Drawing.Point(16, 256);
             this.buttonEditRow.Name = "buttonEditRow";
             this.buttonEditRow.Size = new System.Drawing.Size(167, 23);
             this.buttonEditRow.TabIndex = 19;
@@ -666,7 +666,7 @@
             this.toolStripButtonEditRooms,
             this.toolStripButtonDeleteRow});
             this.toolStripEditObject.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStripEditObject.Location = new System.Drawing.Point(190, 273);
+            this.toolStripEditObject.Location = new System.Drawing.Point(190, 246);
             this.toolStripEditObject.Name = "toolStripEditObject";
             this.toolStripEditObject.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStripEditObject.Size = new System.Drawing.Size(432, 34);
