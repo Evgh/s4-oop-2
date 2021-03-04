@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace s4_oop_2
 {
@@ -35,16 +36,14 @@ namespace s4_oop_2
 
         public SortableBindingList(SortableBindingList<T> prototype)
         {
-            SortableBindingList<T> instance = new SortableBindingList<T> { };
-            foreach(var element in prototype)
+            this._isSorted = prototype._isSorted;
+            this._sortDirection = prototype._sortDirection;
+            this._sortProperty = prototype._sortProperty;
+
+            foreach (var element in prototype.Items)
             {
-                instance.Add(element);
-
-                instance._isSorted = prototype._isSorted;
-                instance._sortDirection = prototype._sortDirection;
-                instance._sortProperty = prototype._sortProperty;
+                this.Add(element);
             }
-
         }
 
         public IBindingListPrototype Clone()

@@ -26,9 +26,9 @@ namespace s4_oop_2
     public partial class SearchForm : Form, IBindingForm
     {
         MainForm _parent;
-        IBindingListPrototype primary;
+        IBindingListPrototype searchResults;
         IBindingListPrototype parentList;
-        public IBindingListPrototype PrimarySource => primary;
+        public IBindingListPrototype PrimarySource => searchResults;
         public IBindingListPrototype SecondarySource => parentList;
 
         public Form ToForm()
@@ -38,7 +38,7 @@ namespace s4_oop_2
 
         public void InitializePrimarySource(IBindingListPrototype source)
         {
-            primary = source;
+            searchResults = source;
             dataGridView1.DataSource = PrimarySource;
             dataGridView1.Columns["AdressId"].Visible = false;
             DataGridViewColumn columnAdressLast = dataGridView1.Columns[dataGridView1.Columns.Count - 1];
