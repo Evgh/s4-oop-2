@@ -25,11 +25,11 @@ namespace s4_oop_2
 
     public interface IBindingForm
     {
-        IBindingList PrimarySource { get; }
-        IBindingList SecondarySource { get; }
+        IBindingListPrototype PrimarySource { get; }
+        IBindingListPrototype SecondarySource { get; }
 
-        void InitializePrimarySource(IBindingList source);
-        void InitializeSecondarySource(IBindingList source);
+        void InitializePrimarySource(IBindingListPrototype source);
+        void InitializeSecondarySource(IBindingListPrototype source);
         Form ToForm();
     }
 
@@ -120,12 +120,7 @@ namespace s4_oop_2
 
         public void InitializePrimarySource()
         {
-            SortableBindingList<IFlat> flats = new SortableBindingList<IFlat> { };
-            foreach(IFlat element in _parent.PrimarySource)
-            {
-                flats.Add(element);
-            }
-            currentForm.InitializePrimarySource(flats);
+            currentForm.InitializePrimarySource(_parent.PrimarySource.Clone());
         }
 
         public void InitializeSecondarySource()

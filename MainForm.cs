@@ -14,10 +14,10 @@ namespace s4_oop_2
 {
     public partial class MainForm : Form, IBindingForm
     {
-        IBindingList primary;
-        IBindingList secondary;
-        public IBindingList PrimarySource { get => primary; }
-        public IBindingList SecondarySource { get => secondary; }
+        IBindingListPrototype primary;
+        IBindingListPrototype secondary;
+        public IBindingListPrototype PrimarySource { get => primary; }
+        public IBindingListPrototype SecondarySource { get => secondary; }
 
         internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
         internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
@@ -56,7 +56,7 @@ namespace s4_oop_2
             return this;
         }
 
-        public void InitializePrimarySource(IBindingList source)
+        public void InitializePrimarySource(IBindingListPrototype source)
         {
             primary = source;
             dataGridView1.DataSource = PrimarySource;
@@ -73,7 +73,7 @@ namespace s4_oop_2
             }
         }
 
-        public void InitializeSecondarySource(IBindingList source)
+        public void InitializeSecondarySource(IBindingListPrototype source)
         {
             secondary = source;
             listBoxAdress.DataSource = SecondarySource;

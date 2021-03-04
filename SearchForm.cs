@@ -26,17 +26,17 @@ namespace s4_oop_2
     public partial class SearchForm : Form, IBindingForm
     {
         MainForm _parent;
-        IBindingList primary;
-        IBindingList parentList;
-        public IBindingList PrimarySource => primary;
-        public IBindingList SecondarySource => parentList;
+        IBindingListPrototype primary;
+        IBindingListPrototype parentList;
+        public IBindingListPrototype PrimarySource => primary;
+        public IBindingListPrototype SecondarySource => parentList;
 
         public Form ToForm()
         {
             return this;
         }
 
-        public void InitializePrimarySource(IBindingList source)
+        public void InitializePrimarySource(IBindingListPrototype source)
         {
             primary = source;
             dataGridView1.DataSource = PrimarySource;
@@ -46,7 +46,7 @@ namespace s4_oop_2
             columnAdressLast.AutoSizeMode = columnAdressFirst.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
         }
 
-        public void InitializeSecondarySource(IBindingList source)
+        public void InitializeSecondarySource(IBindingListPrototype source)
         {
             parentList = source;
         }

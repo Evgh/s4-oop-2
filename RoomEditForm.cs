@@ -12,11 +12,10 @@ namespace s4_oop_2
 {
     public partial class RoomEditForm : Form, IBindingForm
     {
-        IBindingList secondary;
-        public IBindingList PrimarySource => null;
-        public IBindingList SecondarySource => secondary;
+        IBindingListPrototype secondary;
+        public IBindingListPrototype PrimarySource => null;
+        public IBindingListPrototype SecondarySource => secondary;
 
-        //MainForm _parent;
         IFlat theFlat; 
 
         public RoomEditForm(IFlat flat)
@@ -33,12 +32,12 @@ namespace s4_oop_2
             return this;
         }
 
-        public void InitializePrimarySource(IBindingList source)
+        public void InitializePrimarySource(IBindingListPrototype source)
         {
             // не реализовано
         }
 
-        public void InitializeSecondarySource(IBindingList source)
+        public void InitializeSecondarySource(IBindingListPrototype source)
         {
             secondary = source;
             listBoxRooms.DataSource = SecondarySource;

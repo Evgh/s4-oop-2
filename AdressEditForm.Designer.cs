@@ -145,8 +145,10 @@
             // 
             // dataGridViewAdresses
             // 
+            this.dataGridViewAdresses.AllowUserToAddRows = false;
             this.dataGridViewAdresses.AllowUserToDeleteRows = false;
             this.dataGridViewAdresses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAdresses.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewAdresses.Location = new System.Drawing.Point(274, 21);
             this.dataGridViewAdresses.Name = "dataGridViewAdresses";
             this.dataGridViewAdresses.RowHeadersWidth = 51;

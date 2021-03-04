@@ -20,35 +20,6 @@ namespace s4_oop_2
         [STAThread]
         static void Main()
         {
-            //try
-            //{
-            //    Adress buff = Adress.CreateAdress();
-            //    AdressPool.GetPool().Add(buff);
-            //}
-            //catch (Adress.AdressValidationException e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //}
-            //try
-            //{
-            //    Adress buff = Adress.CreateAdress("Бел", "Минск", "Центр", "ул. Захарова", "61", 13);
-            //    AdressPool.GetPool().Add(buff);
-            //}
-            //catch (Adress.AdressValidationException e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //}
-            //try
-            //{
-            //    Adress buff = Adress.CreateAdress("Украина", "Киiв", "Героев", "пр. Славы", "3", 5);
-            //    AdressPool.GetPool().Add(buff);
-            //}
-            //catch (Adress.AdressValidationException e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //}
-
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

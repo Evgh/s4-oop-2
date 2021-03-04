@@ -10,8 +10,9 @@ namespace s4_oop_2
     /// If the elements are IComparable it uses that; otherwise compares the ToString()
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
-    public class SortableBindingList<T> : BindingList<T> where T: class
+    public class SortableBindingList<T> : BindingList<T>, IBindingListPrototype where T: class
     {
+
         private bool _isSorted;
         private ListSortDirection _sortDirection = ListSortDirection.Ascending;
         private PropertyDescriptor _sortProperty;
@@ -30,6 +31,25 @@ namespace s4_oop_2
         public SortableBindingList(IList<T> list)
             : base(list)
         {
+        }
+
+        public SortableBindingList(SortableBindingList<T> prototype)
+        {
+            SortableBindingList<T> instance = new SortableBindingList<T> { };
+            foreach(var element in prototype)
+            {
+                instance.Add(element);
+
+                instance._isSorted = prototype._isSorted;
+                instance._sortDirection = prototype._sortDirection;
+                instance._sortProperty = prototype._sortProperty;
+            }
+
+        }
+
+        public IBindingListPrototype Clone()
+        {
+            return new SortableBindingList<T>(this);
         }
 
         /// <summary>

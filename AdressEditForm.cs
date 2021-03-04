@@ -13,9 +13,9 @@ namespace s4_oop_2
 {
     public partial class AdressEditForm : Form, IBindingForm
     {
-        IBindingList primary;
-        public IBindingList PrimarySource => primary;
-        public IBindingList SecondarySource => null;
+        IBindingListPrototype primary;
+        public IBindingListPrototype PrimarySource => primary;
+        public IBindingListPrototype SecondarySource => null;
 
         public AdressEditForm()
         {
@@ -25,7 +25,7 @@ namespace s4_oop_2
         {
             return this;
         }
-        public void InitializePrimarySource(IBindingList source)
+        public void InitializePrimarySource(IBindingListPrototype source)
         {
             primary = source;
             dataGridViewAdresses.DataSource = PrimarySource;
@@ -33,7 +33,7 @@ namespace s4_oop_2
             dataGridViewAdresses.Columns["ID"].Visible = false;
             dataGridViewAdresses.Columns["Self"].Visible = false;
         }
-        public void InitializeSecondarySource(IBindingList source) 
+        public void InitializeSecondarySource(IBindingListPrototype source) 
         {
             // не реализовано
         }

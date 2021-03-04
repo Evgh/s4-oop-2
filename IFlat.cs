@@ -70,8 +70,8 @@ namespace s4_oop_2
         // 12
         Adress FlatAdress { get; set; }
 
-        BindingList<Room> Rooms { get; }
-        void InitializeRooms(BindingList<Room> rooms);
+        SortableBindingList<Room> Rooms { get; }
+        void InitializeRooms(SortableBindingList<Room> rooms);
 
         // это чтобы делать сортировку по цене
         double Price { get; }
@@ -119,9 +119,9 @@ namespace s4_oop_2
         public Adress FlatAdress { get => AdressPool.GetAdress(AdressId); set => AdressId = value.Id; }
 
         // композиция объектов-комнат
-        public BindingList<Room> _rooms;
+        public SortableBindingList<Room> _rooms;
         [JsonIgnore]
-        public BindingList<Room> Rooms => _rooms;        
+        public SortableBindingList<Room> Rooms => _rooms;        
 
         [JsonIgnore]
         public double Price => GetPrice();
@@ -157,7 +157,7 @@ namespace s4_oop_2
         }
 
 
-        public void InitializeRooms(BindingList<Room> rooms)
+        public void InitializeRooms(SortableBindingList<Room> rooms)
         {
             _rooms = rooms;
         }
@@ -206,7 +206,7 @@ namespace s4_oop_2
         }
         public override void InitializeRooms()
         {
-            activeFlat.InitializeRooms(new BindingList<Room> { });
+            activeFlat.InitializeRooms(new SortableBindingList<Room> { });
         }
     }
 
@@ -222,7 +222,7 @@ namespace s4_oop_2
         }
         public override void InitializeRooms()
         {
-            BindingList<Room> rooms = new BindingList<Room> { };
+            SortableBindingList<Room> rooms = new SortableBindingList<Room> { };
             int freeArea = activeFlat.Area;
 
             Random rand = new Random();
