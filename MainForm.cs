@@ -12,7 +12,6 @@ using Newtonsoft.Json;
 
 namespace s4_oop_2
 {
-
     public partial class MainForm : Form, IBindingForm
     {
         IBindingList primary;
@@ -90,11 +89,9 @@ namespace s4_oop_2
             DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
             column.HeaderText = "Adress";
             column.Width = 300;
+            
             //data sourse
-            BindingSource comboboxSource = new BindingSource();
-            comboboxSource.DataSource = Adress.adressPool;
-            column.DataSource = comboboxSource;
-
+            column.DataSource = AdressPool.GetPool();
             // отображается в колонке
             column.DisplayMember = "MyToString";
             // свойство, возвращающее ссылку объекта на сам себя (здесь тип Adress)
@@ -162,6 +159,11 @@ namespace s4_oop_2
                 }
             }
         }
+        /// <summary>
+        /// Добавление объекта в список квартир
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             // try/catch обрабатывает случай, если площадь не введена
@@ -258,7 +260,6 @@ namespace s4_oop_2
         ////////////////////////////////////////////////// пункт меню "Файл"
 
         // Сериализация
-        // Сериализация
         class Converter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
@@ -307,18 +308,13 @@ namespace s4_oop_2
                 PrimarySource.Clear();
                 foreach (var flat in JsonConvert.DeserializeObject<SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
                 {
-                    PrimarySource.Add(flat);
-                }
-            }
-
-            if (PrimarySource != null)
-            {
-                foreach (IFlat flat in PrimarySource)
-                {
-                    if (flat.AdressId > Adress.adressPool.Count - 1)
+                    // Защита на случай, если пул адресов все-таки изменился с момента сохранения и квартиры привязаны к несуществующим адресам
+                    if (AdressPool.GetAdress(flat.AdressId) == null)
                     {
                         flat.AdressId = 0;
                     }
+
+                    PrimarySource.Add(flat);
                 }
             }
         }
@@ -473,18 +469,6 @@ namespace s4_oop_2
                 IFormBuilder builder = new RoomEditFormBuilder(row.DataBoundItem as IFlat);
                 Form roomEditor = FormDirector.CreateForm(builder);
                 roomEditor.Show();
-            }
-        }
-
-        private void buttonEditRow_Click(object sender, EventArgs e)
-        {
-            if (toolStripEditObject.Visible)
-            {
-                toolStripEditObject.Hide();
-            }
-            else
-            {
-                toolStripEditObject.Show();
             }
         }
 

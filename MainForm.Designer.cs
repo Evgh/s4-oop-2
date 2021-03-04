@@ -86,12 +86,12 @@
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.openJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripEditObject = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonEditRooms = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeleteRow = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDateTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarResidentAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -249,7 +249,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(1023, 139);
+            this.buttonAdd.Location = new System.Drawing.Point(1049, 263);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(234, 23);
             this.buttonAdd.TabIndex = 7;
@@ -296,7 +296,7 @@
             // 
             // buttonAdressesMenu
             // 
-            this.buttonAdressesMenu.Location = new System.Drawing.Point(852, 85);
+            this.buttonAdressesMenu.Location = new System.Drawing.Point(852, 139);
             this.buttonAdressesMenu.Name = "buttonAdressesMenu";
             this.buttonAdressesMenu.Size = new System.Drawing.Size(142, 23);
             this.buttonAdressesMenu.TabIndex = 15;
@@ -309,11 +309,11 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 290);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 313);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1264, 255);
+            this.dataGridView1.Size = new System.Drawing.Size(1264, 232);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -321,14 +321,12 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.checkBoxRundomRooms);
             this.panel1.Controls.Add(this.listBoxAdress);
             this.panel1.Controls.Add(this.maskedTextBoxOwner);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.labelOwner);
             this.panel1.Controls.Add(this.buttonAdressesMenu);
             this.panel1.Controls.Add(this.maskedTextBoxArea);
-            this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.labelDate);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.labelArea);
@@ -339,13 +337,13 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(16, 65);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1264, 185);
+            this.panel1.Size = new System.Drawing.Size(1264, 177);
             this.panel1.TabIndex = 17;
             // 
             // checkBoxRundomRooms
             // 
             this.checkBoxRundomRooms.AutoSize = true;
-            this.checkBoxRundomRooms.Location = new System.Drawing.Point(852, 141);
+            this.checkBoxRundomRooms.Location = new System.Drawing.Point(878, 263);
             this.checkBoxRundomRooms.Name = "checkBoxRundomRooms";
             this.checkBoxRundomRooms.Size = new System.Drawing.Size(165, 21);
             this.checkBoxRundomRooms.TabIndex = 25;
@@ -360,7 +358,7 @@
             ""});
             this.listBoxAdress.Location = new System.Drawing.Point(852, 30);
             this.listBoxAdress.Name = "listBoxAdress";
-            this.listBoxAdress.Size = new System.Drawing.Size(405, 52);
+            this.listBoxAdress.Size = new System.Drawing.Size(405, 100);
             this.listBoxAdress.TabIndex = 18;
             // 
             // maskedTextBoxOwner
@@ -414,7 +412,7 @@
             this.сохранитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.firstSaveJSONToolStripMenuItem});
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // firstSaveJSONToolStripMenuItem
@@ -429,7 +427,7 @@
             this.загрузитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.firstOpenJSONToolStripMenuItem});
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             // 
             // firstOpenJSONToolStripMenuItem
@@ -442,7 +440,7 @@
             // очиститьТаблицуToolStripMenuItem
             // 
             this.очиститьТаблицуToolStripMenuItem.Name = "очиститьТаблицуToolStripMenuItem";
-            this.очиститьТаблицуToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.очиститьТаблицуToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.очиститьТаблицуToolStripMenuItem.Text = "Очистить таблицу";
             this.очиститьТаблицуToolStripMenuItem.Click += new System.EventHandler(this.ClearAllToolStripMenuItem_Click);
             // 
@@ -649,7 +647,7 @@
             this.toolStripButtonEditRooms,
             this.toolStripButtonDeleteRow});
             this.toolStripEditObject.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStripEditObject.Location = new System.Drawing.Point(16, 253);
+            this.toolStripEditObject.Location = new System.Drawing.Point(16, 276);
             this.toolStripEditObject.Name = "toolStripEditObject";
             this.toolStripEditObject.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStripEditObject.Size = new System.Drawing.Size(599, 34);
@@ -657,13 +655,22 @@
             this.toolStripEditObject.Text = "toolStrip2";
             this.toolStripEditObject.Visible = false;
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(156, 24);
+            this.toolStripButton1.Text = "Узнать стоимость";
+            this.toolStripButton1.Click += new System.EventHandler(this.GetPriceToolStripMenuItem_Click);
+            // 
             // toolStripButtonEditRooms
             // 
             this.toolStripButtonEditRooms.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonEditRooms.Image")));
             this.toolStripButtonEditRooms.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonEditRooms.Name = "toolStripButtonEditRooms";
-            this.toolStripButtonEditRooms.Size = new System.Drawing.Size(200, 24);
-            this.toolStripButtonEditRooms.Text = "Редактировать комнаты";
+            this.toolStripButtonEditRooms.Size = new System.Drawing.Size(165, 24);
+            this.toolStripButtonEditRooms.Text = "Добавить комнаты";
             this.toolStripButtonEditRooms.Click += new System.EventHandler(this.toolStripButtonEditRooms_Click);
             // 
             // toolStripButtonDeleteRow
@@ -698,26 +705,19 @@
             this.toolStripStatusLabelDateTime.Name = "toolStripStatusLabelDateTime";
             this.toolStripStatusLabelDateTime.Size = new System.Drawing.Size(0, 20);
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(156, 24);
-            this.toolStripButton1.Text = "Узнать стоимость";
-            this.toolStripButton1.Click += new System.EventHandler(this.GetPriceToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1295, 570);
+            this.Controls.Add(this.checkBoxRundomRooms);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripEditObject);
             this.Controls.Add(this.toolStripFileEdit);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.buttonAdd);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Form1";

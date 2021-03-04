@@ -112,7 +112,6 @@ namespace s4_oop_2
             this.textBoxCity.Name = "textBoxCity";
             this.textBoxCity.Size = new System.Drawing.Size(470, 22);
             this.textBoxCity.TabIndex = 7;
-            this.textBoxCity.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // dataGridView1
             // 
@@ -172,7 +171,6 @@ namespace s4_oop_2
             this.panelC.Name = "panelC";
             this.panelC.Size = new System.Drawing.Size(478, 113);
             this.panelC.TabIndex = 12;
-            this.panelC.Paint += new System.Windows.Forms.PaintEventHandler(this.panelS_Paint);
             // 
             // maskedTextBoxRepeatsC
             // 
@@ -248,7 +246,6 @@ namespace s4_oop_2
             this.radioButtonSimpleC.TabStop = true;
             this.radioButtonSimpleC.Text = "Полное соответствие";
             this.radioButtonSimpleC.UseVisualStyleBackColor = true;
-            this.radioButtonSimpleC.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // buttonSearchSaveJson
             // 
@@ -314,7 +311,6 @@ namespace s4_oop_2
             this.radioButtonBeginD.TabIndex = 3;
             this.radioButtonBeginD.Text = "В начале строки";
             this.radioButtonBeginD.UseVisualStyleBackColor = true;
-            this.radioButtonBeginD.CheckedChanged += new System.EventHandler(this.radioButtonBeginD_CheckedChanged);
             // 
             // radioButtonRepeatsD
             // 

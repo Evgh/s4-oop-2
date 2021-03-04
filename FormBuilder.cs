@@ -57,7 +57,7 @@ namespace s4_oop_2
 
         public void InitializeSecondarySource()
         {
-            currentForm.InitializeSecondarySource(Adress.adressPool);
+            currentForm.InitializeSecondarySource(AdressPool.GetPool()) ;
         }
     }
 
@@ -72,7 +72,7 @@ namespace s4_oop_2
         }
         public void InitializePrimarySource()
         {
-            currentForm.InitializePrimarySource(Adress.adressPool);
+            currentForm.InitializePrimarySource(AdressPool.GetPool());
         }
 
         public void InitializeSecondarySource()
@@ -130,7 +130,7 @@ namespace s4_oop_2
 
         public void InitializeSecondarySource()
         {
-            currentForm.InitializeSecondarySource(null);
+            currentForm.InitializeSecondarySource(_parent.PrimarySource);
         }
     }
 }

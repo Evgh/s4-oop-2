@@ -50,9 +50,6 @@ namespace s4_oop_2
             }
         }
 
-        // хранилище всех созданных адресов. программа не позволяет создавать отдельно взятые адреса, вся работа производится через статический пул
-        public readonly static BindingList<Adress> adressPool;
-
         static int nextId = 0;
         //0
         [Required(ErrorMessage = "0: Напишите страну")]
@@ -74,11 +71,9 @@ namespace s4_oop_2
         [Required(ErrorMessage = "5: Напишите номер квартиры")]
         [FlatNumberAttribute]
         public int FlatNumber { get; set; }
+        public int Id { get; }
 
-        public int Id { get; set; }
-
-
-        // свойство для отображения в листбоксе на Form1
+        // свойство для отображения в листбоксе на MainForm
         public string MyToString
         {
             get => ToString();
@@ -105,19 +100,14 @@ namespace s4_oop_2
         {
 
         }
-        static Adress()
-        {
-            adressPool = new BindingList<Adress> { new Adress() };
-        }
 
         public override string ToString()
         {
             return $"{Country}, {City}, район {District}, {Street}, {HouseNumber}-{FlatNumber}";
         }
 
-        // Статические методы для взаимодействия с пулом адресов. 
-
-        public static void Add(string country, string city, string district, string street, string houseNum, int flatNum)
+        // Создание и валидация адресов 
+        public static Adress CreateAdress(string country, string city, string district, string street, string houseNum, int flatNum)
         {
             var adress = new Adress(country, city, district, street, houseNum, flatNum);
             var results = new List<ValidationResult> { };
@@ -139,19 +129,11 @@ namespace s4_oop_2
                 throw new AdressValidationException(message.ToString(), indexes);
             }
             else
-                adressPool.Add(adress);
+                return adress;
         }
-        public static void Add()
+        public static Adress CreateAdress()
         {
-            Add("country", "city", "district", "ул. Street", "61A", 13);
-        }
-
-        public static Adress GetAdress(int index)
-        {
-            if (!(index >= adressPool.Count))
-                return adressPool[index];
-            else
-                return null;
+            return CreateAdress("country", "city", "district", "ул. Street", "61A", 13);
         }
     }
 }

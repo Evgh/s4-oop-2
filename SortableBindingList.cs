@@ -10,7 +10,7 @@ namespace s4_oop_2
     /// If the elements are IComparable it uses that; otherwise compares the ToString()
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
-    class SortableBindingList<T> : BindingList<T> where T: class
+    public class SortableBindingList<T> : BindingList<T> where T: class
     {
         private bool _isSorted;
         private ListSortDirection _sortDirection = ListSortDirection.Ascending;

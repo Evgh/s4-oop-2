@@ -1,0 +1,32 @@
+[
+  {
+    "Country": "country",
+    "City": "city",
+    "District": "district",
+    "Street": "ул. Street",
+    "HouseNumber": "61A",
+    "FlatNumber": 13,
+    "Id": 0,
+    "MyToString": "country, city, район district, ул. Street, 61A-13"
+  },
+  {
+    "Country": "Беларусь",
+    "City": "Минск",
+    "District": "Партизанский",
+    "Street": "ул. Захарова",
+    "HouseNumber": "61",
+    "FlatNumber": 13,
+    "Id": 1,
+    "MyToString": "Беларусь, Минск, район Партизанский, ул. Захарова, 61-13"
+  },
+  {
+    "Country": "Беларусь",
+    "City": "Минск",
+    "District": "Ю-З",
+    "Street": "пр. Любимова",
+    "HouseNumber": "12",
+    "FlatNumber": 219,
+    "Id": 2,
+    "MyToString": "Беларусь, Минск, район Ю-З, пр. Любимова, 12-219"
+  }
+]

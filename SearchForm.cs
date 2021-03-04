@@ -26,13 +26,10 @@ namespace s4_oop_2
     public partial class SearchForm : Form, IBindingForm
     {
         MainForm _parent;
-        IBindingList selectedFlats;
-
-
         IBindingList primary;
-        IBindingList secondary;
-        public IBindingList PrimarySource { get => primary; }
-        public IBindingList SecondarySource { get => secondary; }
+        IBindingList parentList;
+        public IBindingList PrimarySource => primary;
+        public IBindingList SecondarySource => parentList;
 
         public Form ToForm()
         {
@@ -51,19 +48,13 @@ namespace s4_oop_2
 
         public void InitializeSecondarySource(IBindingList source)
         {
-           // не реализовано
+            parentList = source;
         }
 
         public SearchForm(SearchFormArgs sfa, MainForm parent)
         {
             InitializeComponent();
             _parent = parent;
-
-            selectedFlats = new BindingList<IFlat> { };
-            foreach(var item in parent.PrimarySource)
-            {
-                selectedFlats.Add(item);
-            }
 
             dateTimePickerYear.Format = DateTimePickerFormat.Custom;
             dateTimePickerYear.CustomFormat = "yyyy";
@@ -119,8 +110,7 @@ namespace s4_oop_2
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            var selected = _parent.PrimarySource.OfType<IFlat>();
-
+            var selected = parentList.OfType<IFlat>();
             if (checkBoxType.Checked)
             {
                 var searchResults = from flat in selected
@@ -237,50 +227,6 @@ namespace s4_oop_2
                 sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented));
             }
             MessageBox.Show("Файл сохранен");
-
-
-            // _parent.jSONToolStripMenuItem_Click(this, new EventArgs());
-        }
-
-
-        ///
-        private void textBoxDistrict_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private void radioButtonBeginD_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelS_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

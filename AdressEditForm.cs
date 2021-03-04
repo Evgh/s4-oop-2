@@ -68,14 +68,15 @@ namespace s4_oop_2
         { 
             try
             {
-                Adress.Add(
-                    textBoxCountry.Text,
-                    textBoxCity.Text,
-                    textBoxDistrict.Text,
-                    textBoxStreet.Text,
-                    textBoxHouseNum.Text,
-                    int.Parse(maskedTextBoxFlatNum.Text)
-                    );
+                Adress buff = Adress.CreateAdress(
+                                                    textBoxCountry.Text,
+                                                    textBoxCity.Text,
+                                                    textBoxDistrict.Text,
+                                                    textBoxStreet.Text,
+                                                    textBoxHouseNum.Text,
+                                                    int.Parse(maskedTextBoxFlatNum.Text)
+                                                    );
+                PrimarySource.Add(buff);
                 // костыль, чтобы поля ввода перекрашивались обратно при правильных значениях 
                 ChangeControlsColors(new List<int> {});
             }

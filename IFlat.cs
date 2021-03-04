@@ -31,7 +31,7 @@ namespace s4_oop_2
             hasRestroom = true;
             hasBasement = false;
             hasBalcony = false;
-            adress = Adress.GetAdress(0);
+            adress = AdressPool.GetAdress();
         }
     }
 
@@ -65,7 +65,7 @@ namespace s4_oop_2
         bool HasBalcony { get; set; }
 
         //11
-        // агрегация объекта адреса
+        // агрегация объекта адреса. квартира хранит индекс, благодаря которому получает свой адрес из пула при необходимости
         int AdressId { get; set; }
         // 12
         Adress FlatAdress { get; set; }
@@ -73,6 +73,7 @@ namespace s4_oop_2
         BindingList<Room> Rooms { get; }
         void InitializeRooms(BindingList<Room> rooms);
 
+        // это чтобы делать сортировку по цене
         double Price { get; }
         double GetPrice();
     }
@@ -113,7 +114,9 @@ namespace s4_oop_2
         // агрегация объекта адреса
         public int AdressId { get; set; }
         // 12
-        public Adress FlatAdress { get => Adress.adressPool[AdressId]; set => AdressId = value.Id; }
+        // агрегация объекта адреса. квартира хранит индекс, благодаря которому получает свой адрес из пула при необходимости
+        [JsonIgnore]
+        public Adress FlatAdress { get => AdressPool.GetAdress(AdressId); set => AdressId = value.Id; }
 
         // композиция объектов-комнат
         public BindingList<Room> _rooms;
@@ -139,7 +142,7 @@ namespace s4_oop_2
             AdressId = adress.Id;
         }
 
-        protected SimpleFlat() : this("Владелец", 1, 100, DateTime.Now, true, true, true, false, false, Adress.GetAdress(0))
+        protected SimpleFlat() : this("Владелец", 1, 100, DateTime.Now, true, true, true, false, false, AdressPool.GetAdress())
         {
 
         }
