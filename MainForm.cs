@@ -259,16 +259,35 @@ namespace s4_oop_2
 
         // Сериализация
         // Сериализация
+        class Converter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return (objectType == typeof(IFlat));
+            }
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                serializer.Serialize(writer, value, typeof(SimpleFlat));
+            }
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                return serializer.Deserialize(reader, typeof(SimpleFlat)); ;
+            }
+        }
+
         private void saveJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Converter());
+
             string path = saveFileDialog1.FileName;
             using (StreamWriter sw = new StreamWriter(path, false))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented));
+                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented, settings));
             }
             MessageBox.Show("Файл сохранен");
         }
@@ -279,11 +298,14 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Converter());
+
             string path = openFileDialog1.FileName;
             using (StreamReader sr = new StreamReader(path))
             {
                 PrimarySource.Clear();
-                foreach (var flat in JsonConvert.DeserializeObject<SortableBindingList<SimpleFlat>>(sr.ReadToEnd()))
+                foreach (var flat in JsonConvert.DeserializeObject<SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
                 {
                     PrimarySource.Add(flat);
                 }
