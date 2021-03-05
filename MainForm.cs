@@ -352,43 +352,35 @@ namespace s4_oop_2
 
         ////////////////////////////////////////////////// меню "Поиск"
 
-        private void seachRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowSearchForm(SearchFormArgs args)
         {
-            SearchFormArgs args = new SearchFormArgs() { type = true };
             IFormBuilder builder = new SearchFormBuilder(args, this);
             Form searchForm = FormDirector.CreateForm(builder);
             searchForm.Show();
         }
+
+        private void seachRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowSearchForm(new SearchFormArgs() { type = true });
+        }
         private void searchYearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SearchFormArgs args = new SearchFormArgs() { year = true };
-            IFormBuilder builder = new SearchFormBuilder(args, this);
-            Form searchForm = FormDirector.CreateForm(builder);
-            searchForm.Show();
+            ShowSearchForm(new SearchFormArgs() { year = true });
         }
 
         private void searchDistrictToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SearchFormArgs args = new SearchFormArgs() { district = true };
-            IFormBuilder builder = new SearchFormBuilder(args, this);
-            Form searchForm = FormDirector.CreateForm(builder);
-            searchForm.Show();
+            ShowSearchForm(new SearchFormArgs() { district = true });
         }
 
         private void searchCityStripMenuItem_Click(object sender, EventArgs e)
         {
-            SearchFormArgs args = new SearchFormArgs() { city = true };
-            IFormBuilder builder = new SearchFormBuilder(args, this);
-            Form searchForm = FormDirector.CreateForm(builder);
-            searchForm.Show();
+            ShowSearchForm(new SearchFormArgs() { city = true });
         }
 
         private void searchManualToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SearchFormArgs args = new SearchFormArgs() { };
-            IFormBuilder builder = new SearchFormBuilder(args, this);
-            Form searchForm = FormDirector.CreateForm(builder);
-            searchForm.Show();
+            ShowSearchForm(new SearchFormArgs());
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
