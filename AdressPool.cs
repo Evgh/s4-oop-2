@@ -20,7 +20,7 @@ namespace s4_oop_2
     {
         static AdressPool instance = new AdressPool();
         // файл настроек
-        static string path = @"..\..\settings.json";
+        static string path = @"settings\settings.json";
         static AdressPool() 
         {
             DeserializePool();

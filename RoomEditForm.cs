@@ -48,7 +48,7 @@ namespace s4_oop_2
             int diff = 0;           
             if (theFlat.Rooms != null && theFlat.Rooms.Count > 0)
             {
-                foreach (var room in theFlat.Rooms)
+                foreach (Room room in theFlat.Rooms)
                 {
                     diff += room.Area;
                 }

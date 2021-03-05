@@ -267,12 +267,11 @@ namespace s4_oop_2
                 return;
             string path = saveFileDialog1.FileName;
 
-            Type t = PrimarySource.GetType();
+            var serializer = new MyJsonSerializer<IBindingListPrototype>();
+            var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);
+            var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
 
-            var serializer = new JsonSerializer<>();
-
-            Serializer.Serialize(PrimarySource, path);
-            MessageBox.Show("Файл сохранен");
+            superSerializer.Serialize(PrimarySource, path);
         }
 
         private void deserializejSONToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -281,23 +280,21 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new Converter());
-
             string path = openFileDialog1.FileName;
-            using (StreamReader sr = new StreamReader(path))
-            {
-                PrimarySource.Clear();
-                foreach (var flat in JsonConvert.DeserializeObject<SortableBindingList<IFlat>>(sr.ReadToEnd(), settings))
-                {
-                    // Защита на случай, если пул адресов все-таки изменился с момента сохранения и квартиры привязаны к несуществующим адресам
-                    if (AdressPool.GetAdress(flat.AdressId) == null)
-                    {
-                        flat.AdressId = 0;
-                    }
 
-                    PrimarySource.Add(flat);
+            var serializer = new MyJsonSerializer<IBindingListPrototype>();
+            var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);            
+
+            PrimarySource.Clear();
+            foreach (IFlat flat in loggingSerializer.Deserialize(path))
+            {
+                // Защита на случай, если пул адресов все-таки изменился с момента сохранения и квартиры привязаны к несуществующим адресам
+                if (AdressPool.GetAdress(flat.AdressId) == null)
+                {
+                    flat.AdressId = 0;
                 }
+
+                PrimarySource.Add(flat);
             }
         }
 

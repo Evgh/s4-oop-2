@@ -140,6 +140,8 @@ namespace s4_oop_2
 
             Id = idGiver++;
             AdressId = adress.Id;
+
+            _rooms = new SortableBindingList<Room> { };
         }
 
         protected SimpleFlat() : this("Владелец", 1, 100, DateTime.Now, true, true, true, false, false, AdressPool.GetAdress())

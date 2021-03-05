@@ -213,20 +213,11 @@ namespace s4_oop_2
             if (_parent.SaveDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            //string path = _parent.SaveDialog.FileName;
-            //using (StreamWriter sw = new StreamWriter(path, false))
-            //{
-            //    sw.WriteLine(JsonConvert.SerializeObject(selectedFlats, Newtonsoft.Json.Formatting.Indented));
-            //}
-            //MessageBox.Show("Файл сохранен");
-
-
             string path = _parent.SaveDialog.FileName;
-            using (StreamWriter sw = new StreamWriter(path, false))
-            {
-                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented));
-            }
-            MessageBox.Show("Файл сохранен");
+
+            var serializer = new MyJsonSerializer<IBindingListPrototype>();
+            var notifySerializer = new SerializeNotifyer<IBindingListPrototype>(serializer);
+            notifySerializer.Serialize(PrimarySource, path);
         }
     }
 }
