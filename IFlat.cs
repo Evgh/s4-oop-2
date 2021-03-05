@@ -70,8 +70,8 @@ namespace s4_oop_2
         // 12
         Adress FlatAdress { get; set; }
 
-        SortableBindingList<Room> Rooms { get; }
-        void InitializeRooms(SortableBindingList<Room> rooms);
+        IBindingListPrototype Rooms { get; }
+        void InitializeRooms(IBindingListPrototype source);
 
         // это чтобы делать сортировку по цене
         double Price { get; }
@@ -119,9 +119,9 @@ namespace s4_oop_2
         public Adress FlatAdress { get => AdressPool.GetAdress(AdressId); set => AdressId = value.Id; }
 
         // композиция объектов-комнат
-        public SortableBindingList<Room> _rooms;
+        protected IBindingListPrototype _rooms;
         [JsonIgnore]
-        public SortableBindingList<Room> Rooms => _rooms;        
+        public IBindingListPrototype Rooms => _rooms;        
 
         [JsonIgnore]
         public double Price => GetPrice();
@@ -156,21 +156,26 @@ namespace s4_oop_2
             Id = index;
         }
 
-
-        public void InitializeRooms(SortableBindingList<Room> rooms)
-        {
-            _rooms = rooms;
-        }
-
         public virtual double GetPrice()
         {
             return Area * 29 * (4.7 / (0.1 * (_rooms.Count + 1)));
         }
+
+        public virtual void InitializeRooms(IBindingListPrototype source)
+        {
+            // возможность не реализована для простых комнат
+            throw new NotSupportedException();
+        }
     }
 
-    public class SuperFlat : SimpleFlat, IFlat
+    public class RandomRoomsFlat : SimpleFlat, IFlat
     {
-        public SuperFlat(FlatArgs fa) : base(fa) { }
+        public RandomRoomsFlat(FlatArgs fa) : base(fa) { }
+        
+        public override void InitializeRooms(IBindingListPrototype source)
+        {
+            _rooms = source;
+        }
     }
 
     public static class FlatDirector
@@ -206,19 +211,19 @@ namespace s4_oop_2
         }
         public override void InitializeRooms()
         {
-            activeFlat.InitializeRooms(new SortableBindingList<Room> { });
+            // не реализовано для обычной квартиры
         }
     }
 
-    public class SuperFlatBuilder : FlatBuilder
+    public class RandomRoomsFlatBuilder : FlatBuilder
     {
-        public SuperFlatBuilder(FlatArgs fa)
+        public RandomRoomsFlatBuilder(FlatArgs fa)
         {
             flatArgs = fa;
         }
         public override void CreateFlat()
         {
-            activeFlat = new SuperFlat(flatArgs);
+            activeFlat = new RandomRoomsFlat(flatArgs);
         }
         public override void InitializeRooms()
         {

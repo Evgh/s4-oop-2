@@ -174,7 +174,7 @@ namespace s4_oop_2
                 FlatBuilder fb;
                 if (checkBoxRundomRooms.Checked)
                 {
-                    fb = new SuperFlatBuilder(MyFlatArgs);
+                    fb = new RandomRoomsFlatBuilder(MyFlatArgs);
                 }
                 else
                 { 
@@ -260,36 +260,18 @@ namespace s4_oop_2
         ////////////////////////////////////////////////// пункт меню "Файл"
 
         // Сериализация
-        class Converter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                return (objectType == typeof(IFlat));
-            }
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                serializer.Serialize(writer, value, typeof(SimpleFlat));
-            }
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                return serializer.Deserialize(reader, typeof(SimpleFlat)); ;
-            }
-        }
-
         private void saveJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new Converter());
-
             string path = saveFileDialog1.FileName;
-            using (StreamWriter sw = new StreamWriter(path, false))
-            {
-                sw.WriteLine(JsonConvert.SerializeObject(PrimarySource, Newtonsoft.Json.Formatting.Indented, settings));
-            }
+
+            Type t = PrimarySource.GetType();
+
+            var serializer = new JsonSerializer<>();
+
+            Serializer.Serialize(PrimarySource, path);
             MessageBox.Show("Файл сохранен");
         }
 
