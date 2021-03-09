@@ -30,6 +30,8 @@ namespace s4_oop_2
         IBindingListPrototype parentList;
         public IBindingListPrototype PrimarySource => searchResults;
         public IBindingListPrototype SecondarySource => parentList;
+        public SaveFileDialog SaveDialog => null;
+        public OpenFileDialog OpenDialog => null; 
 
         public Form ToForm()
         {
@@ -51,6 +53,10 @@ namespace s4_oop_2
             parentList = source;
         }
 
+        public void InitializeCommands(List<ICommand> commands)
+        {
+            // не реализовано
+        }
         public SearchForm(SearchFormArgs sfa, MainForm parent)
         {
             InitializeComponent();
@@ -110,7 +116,7 @@ namespace s4_oop_2
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            var selected = parentList.OfType<IFlat>();
+            var selected = SecondarySource.OfType<IFlat>();
             if (checkBoxType.Checked)
             {
                 var searchResults = from flat in selected

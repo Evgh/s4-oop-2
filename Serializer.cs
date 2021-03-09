@@ -10,30 +10,29 @@ using Newtonsoft.Json;
 
 namespace s4_oop_2
 {
-    public interface ISerializer<T> 
+    public interface ISerializer
     {
-        void Serialize(T source, string path);
-        T Deserialize(string path);
+        void Serialize(object source, string path);
+        object Deserialize(string path);
     }
 
     public abstract class Serializer<T>
     {
-        protected ISerializer<T> instance;
+        protected ISerializer instance;
     }
 
 
-    public class MyJsonSerializer<T> : Serializer<T>, ISerializer<T> 
+    public class MyJsonSerializer<T> : Serializer<T>, ISerializer 
     {
         public MyJsonSerializer()
         {
         }
 
-        public MyJsonSerializer(ISerializer<T> obj)
+        public MyJsonSerializer(ISerializer obj)
         {
             instance = obj;
         }
-
-        public void Serialize(T source, string path)
+        public void Serialize(object source, string path)
         {
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new IFlatConverter());
@@ -49,8 +48,24 @@ namespace s4_oop_2
                 instance.Serialize(source, path);
             }
         }
+        void Serialize(T source, string path)
+        {
+            //var settings = new JsonSerializerSettings();
+            //settings.Converters.Add(new IFlatConverter());
+            //settings.Converters.Add(new IBindingListConverter());
 
-        public T Deserialize(string path)
+            //using (StreamWriter sw = new StreamWriter(path, false))
+            //{
+            //    sw.WriteLine(JsonConvert.SerializeObject(source, Newtonsoft.Json.Formatting.Indented, settings));
+            //}
+
+            //if (instance != null)
+            //{
+            //    instance.Serialize(source, path);
+            //}
+        }
+
+        public object Deserialize(string path)
         {
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new IFlatConverter());
@@ -63,18 +78,18 @@ namespace s4_oop_2
         }
     }
 
-    public class SerializerLogger<T> : Serializer<T>, ISerializer<T>
+    public class SerializerLogger<T> : Serializer<T>, ISerializer
     {
         string _logPath;
         public SerializerLogger()
         {
         }
-        public SerializerLogger(ISerializer<T> obj, string logPath = "LogFile.txt")
+        public SerializerLogger(ISerializer obj, string logPath = "LogFile.txt")
         {
             instance = obj;
             _logPath = logPath;
         }
-        public void Serialize(T source, string path)
+        public void Serialize(object source, string path)
         {   
             if (instance != null)
             {
@@ -87,7 +102,7 @@ namespace s4_oop_2
             }
         }
 
-        public T Deserialize (string path)
+        public object Deserialize (string path)
         { 
             if (instance != null)
             {
@@ -106,14 +121,14 @@ namespace s4_oop_2
     }
 
 
-    public class SerializeNotifyer<T> : Serializer<T>, ISerializer<T> 
+    public class SerializeNotifyer<T> : Serializer<T>, ISerializer
     {
-        public SerializeNotifyer(ISerializer<T> serializer) 
+        public SerializeNotifyer(ISerializer serializer) 
         {
             instance = serializer;
         }
 
-        public void Serialize (T sourse, string path)
+        public void Serialize (object sourse, string path)
         {
             if (instance != null)
             {
@@ -122,7 +137,7 @@ namespace s4_oop_2
             }
         }
 
-        public T Deserialize(string path)
+        public object Deserialize(string path)
         {
             if (instance != null)
             {

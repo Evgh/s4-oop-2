@@ -19,6 +19,7 @@ namespace s4_oop_2
         {
             builder.InitializePrimarySource();
             builder.InitializeSecondarySource();
+            builder.InitializeCommands();
             return builder.GetForm;
         }
     }
@@ -28,8 +29,12 @@ namespace s4_oop_2
         IBindingListPrototype PrimarySource { get; }
         IBindingListPrototype SecondarySource { get; }
 
+        SaveFileDialog SaveDialog { get; }
+        OpenFileDialog OpenDialog { get; }
+
         void InitializePrimarySource(IBindingListPrototype source);
         void InitializeSecondarySource(IBindingListPrototype source);
+        void InitializeCommands(List<ICommand> commands);
         Form ToForm();
     }
 
@@ -38,6 +43,7 @@ namespace s4_oop_2
         Form GetForm { get; }
         void InitializePrimarySource();
         void InitializeSecondarySource();
+        void InitializeCommands();
     }
 
     public class MainFormBuilder : IFormBuilder
@@ -59,6 +65,16 @@ namespace s4_oop_2
         {
             currentForm.InitializeSecondarySource(AdressPool.GetPool()) ;
         }
+
+        public void InitializeCommands()
+        {
+            var serializer = new MyJsonSerializer<IBindingListPrototype>();
+            var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);
+            var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
+
+            var serializationCommand = new SerializationCommand(superSerializer, currentForm.PrimarySource, currentForm.SaveDialog);
+            currentForm.InitializeCommands(new List<ICommand> { serializationCommand });
+        }
     }
 
     public class AdressEditFormBuilder : IFormBuilder
@@ -78,6 +94,11 @@ namespace s4_oop_2
         public void InitializeSecondarySource()
         {
             currentForm.InitializeSecondarySource(null);
+        }
+
+        public void InitializeCommands()
+        {
+            // не реализовано
         }
     }
 
@@ -101,6 +122,11 @@ namespace s4_oop_2
         public void InitializeSecondarySource()
         {
             currentForm.InitializeSecondarySource(curentFlat.Rooms);
+        }
+
+        public void InitializeCommands()
+        {
+            // не реализовано
         }
     }
 
@@ -126,6 +152,11 @@ namespace s4_oop_2
         public void InitializeSecondarySource()
         {
             currentForm.InitializeSecondarySource(_parent.PrimarySource);
+        }
+
+        public void InitializeCommands()
+        {
+            // не реализовано
         }
     }
 }

@@ -15,6 +15,8 @@ namespace s4_oop_2
         IBindingListPrototype secondary;
         public IBindingListPrototype PrimarySource => null;
         public IBindingListPrototype SecondarySource => secondary;
+        public SaveFileDialog SaveDialog => null;
+        public OpenFileDialog OpenDialog => null;
 
         IFlat theFlat; 
 
@@ -41,6 +43,11 @@ namespace s4_oop_2
         {
             secondary = source;
             listBoxRooms.DataSource = SecondarySource;
+        }
+
+        public void InitializeCommands(List<ICommand> commands)
+        {
+            // не реализовано
         }
 
         internal void InitializeTrackBarArea()

@@ -16,11 +16,13 @@ namespace s4_oop_2
     {
         IBindingListPrototype primary;
         IBindingListPrototype secondary;
+        ICommand serializeCommand;
+
         public IBindingListPrototype PrimarySource { get => primary; }
         public IBindingListPrototype SecondarySource { get => secondary; }
 
-        internal SaveFileDialog SaveDialog { get => saveFileDialog1; }
-        internal OpenFileDialog OpenDiialog { get => openFileDialog1; }
+        public SaveFileDialog SaveDialog { get => saveFileDialog1; }
+        public OpenFileDialog OpenDialog { get => openFileDialog1; }
 
         /// <summary>
         /// Для передачи данных из полей ввода в конструктор Flat
@@ -80,6 +82,11 @@ namespace s4_oop_2
             listBoxAdress.DisplayMember = "MyToString";
             listBoxAdress.ValueMember = "FlatNumber";
         }
+
+        public void InitializeCommands(List<ICommand> commands)
+        {
+            this.serializeCommand = commands[0];
+        } 
         ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
         /// <summary>
         /// Метод добавляет колонку "Адрес", которую можно редактировать адреса через выпадающий список Combobox 
@@ -265,13 +272,16 @@ namespace s4_oop_2
             saveFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-            string path = saveFileDialog1.FileName;
 
-            var serializer = new MyJsonSerializer<IBindingListPrototype>();
-            var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);
-            var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
+            serializeCommand.Execute();
 
-            superSerializer.Serialize(PrimarySource, path);
+            //string path = saveFileDialog1.FileName;
+
+            //var serializer = new MyJsonSerializer<IBindingListPrototype>();
+            //var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);
+            //var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
+
+            //superSerializer.Serialize(PrimarySource, path);
         }
 
         private void deserializejSONToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -286,14 +296,14 @@ namespace s4_oop_2
             var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);            
 
             PrimarySource.Clear();
-            foreach (IFlat flat in loggingSerializer.Deserialize(path))
+            foreach (IFlat flat in (IBindingListPrototype)loggingSerializer.Deserialize(path))
             {
                 // Защита на случай, если пул адресов все-таки изменился с момента сохранения и квартиры привязаны к несуществующим адресам
                 if (AdressPool.GetAdress(flat.AdressId) == null)
                 {
                     flat.AdressId = 0;
                 }
-
+                
                 PrimarySource.Add(flat);
             }
         }

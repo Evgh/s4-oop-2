@@ -16,7 +16,9 @@ namespace s4_oop_2
         IBindingListPrototype primary;
         public IBindingListPrototype PrimarySource => primary;
         public IBindingListPrototype SecondarySource => null;
-
+        public SaveFileDialog SaveDialog => null;
+        public OpenFileDialog OpenDialog => null;
+        
         public AdressEditForm()
         {
             InitializeComponent();
@@ -37,7 +39,10 @@ namespace s4_oop_2
         {
             // не реализовано
         }
-
+        public void InitializeCommands(List<ICommand> commands)
+        {
+            // не реализовано
+        }
         private void ChangeControlsColors(List<int> indexes)
         {
             foreach (Control control in this.Controls)

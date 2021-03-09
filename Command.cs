@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace s4_oop_2
 {
@@ -11,35 +12,21 @@ namespace s4_oop_2
         void Execute();
     }
 
-    public abstract class Command : ICommand
+    public class SerializationCommand : ICommand
     {
-        protected Executer _executer;
-        public Command(Executer executer)
+        ISerializer serializer;
+        object source;
+        FileDialog path;
+
+        public SerializationCommand(ISerializer serializer, object source, FileDialog path)
         {
-            _executer = executer;
+            this.serializer = serializer;
+            this.source = source;
+            this.path = path;
         }
-        public abstract void Execute();
-    }
-
-    public class ConcreteCommand : Command
-    {
-        public ConcreteCommand(Executer e) : base(e) { }
-        public override void Execute()
+        public void Execute()
         {
-            _executer.DoThing();            
+            serializer.Serialize(source, path.FileName);
         }
-    }
-
-    public class Executer
-    {
-        public void DoThing()
-        {
-
-        }
-    }
-
-    public class AnotherExecuter : Executer
-    {
-
     }
 }
