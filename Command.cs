@@ -11,42 +11,30 @@ namespace s4_oop_2
     {
         void Execute();
         void Undo();
-        void Redo();
     }
 
     public class MainMementoCommand : ICommand
     {
-        Stack<MainForm.Memento> history = new Stack<MainForm.Memento>();
-        //Stack<MainForm.Memento> redo = new Stack<MainForm.Memento>();
+        Stack<MainForm.Memento> history;
         MainForm ordinator;
 
         public MainMementoCommand(MainForm form)
         {
+            history = new Stack<MainForm.Memento>();
             ordinator = form;
         }
 
         public void Execute()
         {
             history.Push(ordinator.GetSnapshot());
-            //redo.Clear();
         }
 
         public void Undo()
         {
             if(history.Count > 0)
             {
-                ordinator.SetSnapshot(history.Peek());
-                //redo.Push(history.Pop());
+                ordinator.SetSnapshot(history.Pop());
             }
-        }
-
-        public void Redo()
-        {
-            //if (redo.Count > 0)
-            //{
-            //    ordinator.SetSnapshot(redo.Peek());
-            //    history.Push(redo.Pop());
-            //}
         }
     }
 
@@ -66,10 +54,6 @@ namespace s4_oop_2
             serializer.Serialize(form.PrimarySource, form.SaveDialog.FileName);
         }
         public void Undo()
-        {
-            // не реализовано
-        }
-        public void Redo()
         {
             // не реализовано
         }
@@ -100,10 +84,6 @@ namespace s4_oop_2
             }
         }
         public void Undo()
-        {
-            // не реализовано
-        }
-        public void Redo()
         {
             // не реализовано
         }

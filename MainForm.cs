@@ -14,53 +14,45 @@ namespace s4_oop_2
 {
     public partial class MainForm : Form, IBindingForm
     {
+        public MainForm()
+        {
+            InitializeComponent();
+            InitializeShortcutKeys();
+            InitializeTimer();
+        }
+
         IBindingListPrototype primary;
         IBindingListPrototype secondary;
 
         ICommand serializeCommand;
         ICommand deserializeCommand;
         ICommand mementoCommand;
+        
+        public IBindingListPrototype PrimarySource => primary;
+        public IBindingListPrototype SecondarySource => secondary;
 
-        public IBindingListPrototype PrimarySource { get => primary; }
-        public IBindingListPrototype SecondarySource { get => secondary; }
-
-        public SaveFileDialog SaveDialog { get => saveFileDialog1; }
-        public OpenFileDialog OpenDialog { get => openFileDialog1; }
+        public SaveFileDialog SaveDialog => saveFileDialog1;
+        public OpenFileDialog OpenDialog => openFileDialog1;
+        public Form ToForm() => this;
 
         /// <summary>
         /// Для передачи данных из полей ввода в конструктор Flat
         /// </summary>
-        FlatArgs MyFlatArgs
+        FlatArgs MyFlatArgs => new FlatArgs
         {
-            get
-            {
-                return new FlatArgs
-                {
-                    owner = maskedTextBoxOwner.Text,
-                    residentAmount = trackBarResidentAmount.Value,
-                    area = int.Parse(maskedTextBoxArea.Text),
-                    day = dateTimePickerDay.Value,
-                    hasKitchen = checkBoxHasKitchen.Checked,
-                    hasBathroom = checkBoxHasBathroom.Checked,
-                    hasRestroom = checkBoxHasRestroom.Checked,
-                    hasBasement = checkBoxHasBasement.Checked,
-                    hasBalcony = checkBoxHasBalcony.Checked,
-                    adress = listBoxAdress.SelectedItem as Adress
-                };
-            }
-        }
+            owner = maskedTextBoxOwner.Text,
+            residentAmount = trackBarResidentAmount.Value,
+            area = int.Parse(maskedTextBoxArea.Text),
+            day = dateTimePickerDay.Value,
+            hasKitchen = checkBoxHasKitchen.Checked,
+            hasBathroom = checkBoxHasBathroom.Checked,
+            hasRestroom = checkBoxHasRestroom.Checked,
+            hasBasement = checkBoxHasBasement.Checked,
+            hasBalcony = checkBoxHasBalcony.Checked,
+            adress = listBoxAdress.SelectedItem as Adress
+        };
 
-        public MainForm()
-        {   
-            InitializeComponent();
-            InitializeShortcutKeys();
-            InitializeTimer();
-        }
-        public Form ToForm()
-        {
-            return this;
-        }
-
+        ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
         public void InitializePrimarySource(IBindingListPrototype source)
         {
             primary = source;
@@ -92,7 +84,6 @@ namespace s4_oop_2
             deserializeCommand = commands[1];
             mementoCommand = commands[2];
         } 
-        ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
         /// <summary>
         /// Метод добавляет колонку "Адрес", которую можно редактировать адреса через выпадающий список Combobox 
         /// </summary>
@@ -173,6 +164,7 @@ namespace s4_oop_2
                 }
             }
         }
+
         /// <summary>
         /// Добавление объекта в список квартир
         /// </summary>
@@ -208,6 +200,7 @@ namespace s4_oop_2
                 else
                 {
                     // если валидация успешна
+                    // сначала сохраняем состояние
                     MakeSnapshot(this, new EventArgs());
 
                     PrimarySource.Add(flat);
@@ -287,13 +280,13 @@ namespace s4_oop_2
 
         private void deserializejSONToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
+
             openFileDialog1.Filter = "Java Script Object Notation(*.json)|*.json";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            MakeSnapshot(this, new EventArgs());
-            deserializeCommand.Execute();
-            
+            deserializeCommand.Execute(); 
         }
 
 
@@ -456,15 +449,15 @@ namespace s4_oop_2
         }
 
         // для паттерна Memento
-        private void Undo(object sender, EventArgs e)
-        {
-            mementoCommand.Undo();
-        }
         private void MakeSnapshot(object sender, EventArgs e)
         {
             mementoCommand.Execute();
         }
-
+        private void Undo(object sender, EventArgs e)
+        {
+            mementoCommand.Undo();
+        }
+        
         public Memento GetSnapshot()
         {
             return new Memento(this);

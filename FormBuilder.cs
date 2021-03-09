@@ -49,7 +49,7 @@ namespace s4_oop_2
     public class MainFormBuilder : IFormBuilder
     {
         IBindingForm currentForm;
-        public Form GetForm { get => currentForm.ToForm(); }
+        public Form GetForm => currentForm.ToForm();
 
         public MainFormBuilder()
         {

@@ -20,7 +20,6 @@ namespace s4_oop_2
         protected ISerializer instance;
     }
 
-
     public class MyJsonSerializer<T> : Serializer<T>, ISerializer 
     {
         public MyJsonSerializer()
