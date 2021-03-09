@@ -73,7 +73,14 @@ namespace s4_oop_2
             var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
 
             var serializationCommand = new SerializationCommand(superSerializer, currentForm.PrimarySource, currentForm.SaveDialog);
-            currentForm.InitializeCommands(new List<ICommand> { serializationCommand });
+
+
+            var deserializer = new MyJsonSerializer<IBindingListPrototype>();
+            var loggingDeserializer = new SerializerLogger<IBindingListPrototype>(deserializer);
+
+            var deserializationCommand = new BindingListDeserializationCommand(loggingDeserializer, currentForm.PrimarySource, currentForm.OpenDialog);
+
+            currentForm.InitializeCommands(new List<ICommand> { serializationCommand, deserializationCommand });
         }
     }
 
@@ -132,16 +139,14 @@ namespace s4_oop_2
 
     public class SearchFormBuilder : IFormBuilder
     {
-        IBindingForm currentForm;
-        IBindingForm _parent;
-        SearchFormArgs args;
+        IBindingForm currentForm; 
+        IBindingForm _parent; // чтобы инициализировать источники данных
         public Form GetForm => currentForm.ToForm();
 
         public SearchFormBuilder(SearchFormArgs sfa, MainForm parent)
         {
             _parent = parent;
-            args = sfa;
-            currentForm = new SearchForm(sfa, parent); 
+            currentForm = new SearchForm(sfa); 
         }
 
         public void InitializePrimarySource()
@@ -156,7 +161,11 @@ namespace s4_oop_2
 
         public void InitializeCommands()
         {
-            // не реализовано
+            var serializer = new MyJsonSerializer<IBindingListPrototype>();
+            var notifySerializer = new SerializeNotifyer<IBindingListPrototype>(serializer);
+            var serializationCommand = new SerializationCommand(notifySerializer, currentForm.PrimarySource, currentForm.SaveDialog);
+
+            currentForm.InitializeCommands(new List<ICommand> { serializationCommand });
         }
     }
 }

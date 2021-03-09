@@ -29,4 +29,32 @@ namespace s4_oop_2
             serializer.Serialize(source, path.FileName);
         }
     }
+
+    public class BindingListDeserializationCommand : ICommand
+    {
+        ISerializer deserializer;
+        FileDialog path;
+        IBindingListPrototype source;
+
+        public BindingListDeserializationCommand(ISerializer deserializer, IBindingListPrototype source, FileDialog path)
+        {
+            this.deserializer = deserializer;
+            this.source = source;
+            this.path = path;
+        }
+
+        public void Execute()
+        {
+            source.Clear();
+            foreach (IFlat flat in (IBindingListPrototype)deserializer.Deserialize(path.FileName))
+            {
+                // Защита на случай, если пул адресов все-таки изменился с момента сохранения и квартиры привязаны к несуществующим адресам
+                if (AdressPool.GetAdress(flat.AdressId) == null)
+                {
+                    flat.AdressId = 0;
+                }
+                source.Add(flat);
+            }
+        }
+    }
 }

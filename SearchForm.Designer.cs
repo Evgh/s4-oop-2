@@ -56,6 +56,7 @@ namespace s4_oop_2
             this.radioButtonPartlyD = new System.Windows.Forms.RadioButton();
             this.radioButtonSimpleD = new System.Windows.Forms.RadioButton();
             this.textBoxDistrict = new System.Windows.Forms.TextBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRoomAmount)).BeginInit();
             this.panelC.SuspendLayout();
@@ -410,5 +411,6 @@ namespace s4_oop_2
         private System.Windows.Forms.TextBox textBoxDistrict;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsD;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRepeatsC;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

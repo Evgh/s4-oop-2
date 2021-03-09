@@ -25,12 +25,13 @@ namespace s4_oop_2
 
     public partial class SearchForm : Form, IBindingForm
     {
-        MainForm _parent;
         IBindingListPrototype searchResults;
         IBindingListPrototype parentList;
+        ICommand serializationCommand;
+
         public IBindingListPrototype PrimarySource => searchResults;
         public IBindingListPrototype SecondarySource => parentList;
-        public SaveFileDialog SaveDialog => null;
+        public SaveFileDialog SaveDialog => saveFileDialog1;
         public OpenFileDialog OpenDialog => null; 
 
         public Form ToForm()
@@ -55,12 +56,12 @@ namespace s4_oop_2
 
         public void InitializeCommands(List<ICommand> commands)
         {
+            serializationCommand = commands[0];
             // не реализовано
         }
-        public SearchForm(SearchFormArgs sfa, MainForm parent)
+        public SearchForm(SearchFormArgs sfa)
         {
             InitializeComponent();
-            _parent = parent;
 
             dateTimePickerYear.Format = DateTimePickerFormat.Custom;
             dateTimePickerYear.CustomFormat = "yyyy";
@@ -215,15 +216,11 @@ namespace s4_oop_2
 
         private void buttonSearchSaveJson_Click(object sender, EventArgs e)
         {
-            _parent.SaveDialog.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
-            if (_parent.SaveDialog.ShowDialog() == DialogResult.Cancel)
+            SaveDialog.Filter = "Java Script Object Notation(*.json)|*.json|All files|*.*";
+            if (SaveDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            string path = _parent.SaveDialog.FileName;
-
-            var serializer = new MyJsonSerializer<IBindingListPrototype>();
-            var notifySerializer = new SerializeNotifyer<IBindingListPrototype>(serializer);
-            notifySerializer.Serialize(PrimarySource, path);
+            serializationCommand.Execute();            
         }
     }
 }

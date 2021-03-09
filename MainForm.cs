@@ -17,6 +17,7 @@ namespace s4_oop_2
         IBindingListPrototype primary;
         IBindingListPrototype secondary;
         ICommand serializeCommand;
+        ICommand deserializeCommand;
 
         public IBindingListPrototype PrimarySource { get => primary; }
         public IBindingListPrototype SecondarySource { get => secondary; }
@@ -85,7 +86,8 @@ namespace s4_oop_2
 
         public void InitializeCommands(List<ICommand> commands)
         {
-            this.serializeCommand = commands[0];
+            serializeCommand = commands[0];
+            deserializeCommand = commands[1];
         } 
         ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
         /// <summary>
@@ -274,14 +276,6 @@ namespace s4_oop_2
                 return;
 
             serializeCommand.Execute();
-
-            //string path = saveFileDialog1.FileName;
-
-            //var serializer = new MyJsonSerializer<IBindingListPrototype>();
-            //var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);
-            //var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
-
-            //superSerializer.Serialize(PrimarySource, path);
         }
 
         private void deserializejSONToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -290,22 +284,8 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            string path = openFileDialog1.FileName;
-
-            var serializer = new MyJsonSerializer<IBindingListPrototype>();
-            var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);            
-
-            PrimarySource.Clear();
-            foreach (IFlat flat in (IBindingListPrototype)loggingSerializer.Deserialize(path))
-            {
-                // Защита на случай, если пул адресов все-таки изменился с момента сохранения и квартиры привязаны к несуществующим адресам
-                if (AdressPool.GetAdress(flat.AdressId) == null)
-                {
-                    flat.AdressId = 0;
-                }
-                
-                PrimarySource.Add(flat);
-            }
+            deserializeCommand.Execute();
+            
         }
 
 

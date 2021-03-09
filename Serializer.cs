@@ -15,7 +15,6 @@ namespace s4_oop_2
         void Serialize(object source, string path);
         object Deserialize(string path);
     }
-
     public abstract class Serializer<T>
     {
         protected ISerializer instance;
@@ -47,22 +46,6 @@ namespace s4_oop_2
             {
                 instance.Serialize(source, path);
             }
-        }
-        void Serialize(T source, string path)
-        {
-            //var settings = new JsonSerializerSettings();
-            //settings.Converters.Add(new IFlatConverter());
-            //settings.Converters.Add(new IBindingListConverter());
-
-            //using (StreamWriter sw = new StreamWriter(path, false))
-            //{
-            //    sw.WriteLine(JsonConvert.SerializeObject(source, Newtonsoft.Json.Formatting.Indented, settings));
-            //}
-
-            //if (instance != null)
-            //{
-            //    instance.Serialize(source, path);
-            //}
         }
 
         public object Deserialize(string path)
@@ -97,7 +80,7 @@ namespace s4_oop_2
 
                 using (var fs = new StreamWriter(_logPath, true, System.Text.Encoding.UTF8))
                 {
-                    fs.Write($"{DateTime.Now}: сериализован объект типа {typeof(T)}");
+                    fs.Write($"{DateTime.Now}: сериализован объект типа {typeof(T)}\n");
                 }
             }
         }
@@ -108,9 +91,8 @@ namespace s4_oop_2
             {
                 using (StreamWriter fs = new StreamWriter(_logPath, true, System.Text.Encoding.UTF8))
                 {
-                    fs.Write($"{DateTime.Now}: десериализован объект типа {typeof(T)}");
+                    fs.Write($"{DateTime.Now}: десериализован объект типа {typeof(T)}\n");
                 }
-
                 return (T)instance.Deserialize(path);
             }
             else 
@@ -148,8 +130,7 @@ namespace s4_oop_2
             {
                 return default(T);
             }
-        }
-        
+        }    
     } 
 
 
