@@ -50,10 +50,10 @@
             this.buttonAdressesMenu = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxRundomRooms = new System.Windows.Forms.CheckBox();
             this.listBoxAdress = new System.Windows.Forms.ListBox();
             this.maskedTextBoxOwner = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.checkBoxRundomRooms = new System.Windows.Forms.CheckBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -63,6 +63,8 @@
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstOpenJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UndoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пункут1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.площадиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.количествуКомнатToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -315,7 +317,6 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1264, 232);
             this.dataGridView1.TabIndex = 16;
-            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // panel1
@@ -339,16 +340,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1264, 177);
             this.panel1.TabIndex = 17;
-            // 
-            // checkBoxRundomRooms
-            // 
-            this.checkBoxRundomRooms.AutoSize = true;
-            this.checkBoxRundomRooms.Location = new System.Drawing.Point(878, 263);
-            this.checkBoxRundomRooms.Name = "checkBoxRundomRooms";
-            this.checkBoxRundomRooms.Size = new System.Drawing.Size(165, 21);
-            this.checkBoxRundomRooms.TabIndex = 25;
-            this.checkBoxRundomRooms.Text = "Cлучайные комнаты";
-            this.checkBoxRundomRooms.UseVisualStyleBackColor = true;
             // 
             // listBoxAdress
             // 
@@ -379,6 +370,16 @@
             this.label5.TabIndex = 16;
             this.label5.Text = "м^2";
             // 
+            // checkBoxRundomRooms
+            // 
+            this.checkBoxRundomRooms.AutoSize = true;
+            this.checkBoxRundomRooms.Location = new System.Drawing.Point(878, 263);
+            this.checkBoxRundomRooms.Name = "checkBoxRundomRooms";
+            this.checkBoxRundomRooms.Size = new System.Drawing.Size(165, 21);
+            this.checkBoxRundomRooms.TabIndex = 25;
+            this.checkBoxRundomRooms.Text = "Cлучайные комнаты";
+            this.checkBoxRundomRooms.UseVisualStyleBackColor = true;
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -388,6 +389,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
+            this.правкаToolStripMenuItem,
             this.пункут1ToolStripMenuItem,
             this.пункт1ToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
@@ -443,6 +445,21 @@
             this.очиститьТаблицуToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.очиститьТаблицуToolStripMenuItem.Text = "Очистить таблицу";
             this.очиститьТаблицуToolStripMenuItem.Click += new System.EventHandler(this.ClearAllToolStripMenuItem_Click);
+            // 
+            // правкаToolStripMenuItem
+            // 
+            this.правкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UndoToolStripMenuItem});
+            this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
+            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.правкаToolStripMenuItem.Text = "Правка";
+            // 
+            // UndoToolStripMenuItem
+            // 
+            this.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem";
+            this.UndoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.UndoToolStripMenuItem.Text = "Отменить";
+            this.UndoToolStripMenuItem.Click += new System.EventHandler(this.Undo);
             // 
             // пункут1ToolStripMenuItem
             // 
@@ -806,6 +823,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveJSONToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxRundomRooms;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem UndoToolStripMenuItem;
     }
 }
 

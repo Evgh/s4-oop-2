@@ -72,15 +72,18 @@ namespace s4_oop_2
             var loggingSerializer = new SerializerLogger<IBindingListPrototype>(serializer);
             var superSerializer = new SerializeNotifyer<IBindingListPrototype>(loggingSerializer);
 
-            var serializationCommand = new SerializationCommand(superSerializer, currentForm.PrimarySource, currentForm.SaveDialog);
+            var serializationCommand = new FormSerializationCommand(superSerializer, currentForm);
 
 
             var deserializer = new MyJsonSerializer<IBindingListPrototype>();
             var loggingDeserializer = new SerializerLogger<IBindingListPrototype>(deserializer);
 
-            var deserializationCommand = new BindingListDeserializationCommand(loggingDeserializer, currentForm.PrimarySource, currentForm.OpenDialog);
+            var deserializationCommand = new FormDeserializationCommand(loggingDeserializer, currentForm);
 
-            currentForm.InitializeCommands(new List<ICommand> { serializationCommand, deserializationCommand });
+
+            var mementoCommand = new MainMementoCommand(currentForm as MainForm);
+
+            currentForm.InitializeCommands(new List<ICommand> { serializationCommand, deserializationCommand, mementoCommand});
         }
     }
 
@@ -163,7 +166,7 @@ namespace s4_oop_2
         {
             var serializer = new MyJsonSerializer<IBindingListPrototype>();
             var notifySerializer = new SerializeNotifyer<IBindingListPrototype>(serializer);
-            var serializationCommand = new SerializationCommand(notifySerializer, currentForm.PrimarySource, currentForm.SaveDialog);
+            var serializationCommand = new FormSerializationCommand(notifySerializer, currentForm);
 
             currentForm.InitializeCommands(new List<ICommand> { serializationCommand });
         }

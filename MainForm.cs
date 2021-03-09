@@ -16,8 +16,10 @@ namespace s4_oop_2
     {
         IBindingListPrototype primary;
         IBindingListPrototype secondary;
+
         ICommand serializeCommand;
         ICommand deserializeCommand;
+        ICommand mementoCommand;
 
         public IBindingListPrototype PrimarySource { get => primary; }
         public IBindingListPrototype SecondarySource { get => secondary; }
@@ -88,6 +90,7 @@ namespace s4_oop_2
         {
             serializeCommand = commands[0];
             deserializeCommand = commands[1];
+            mementoCommand = commands[2];
         } 
         ////////////////////////////////////////////////////////////////////// методы, инициализирующие определенные компоненты
         /// <summary>
@@ -115,6 +118,8 @@ namespace s4_oop_2
             firstSaveJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
             firstOpenJSONToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
             searchManualToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+            UndoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+            //RedoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
         }
 
         internal void InitializeTimer()
@@ -203,6 +208,8 @@ namespace s4_oop_2
                 else
                 {
                     // если валидация успешна
+                    MakeSnapshot(this, new EventArgs());
+
                     PrimarySource.Add(flat);
                     maskedTextBoxArea.BackColor = maskedTextBoxOwner.BackColor = System.Drawing.SystemColors.Window;
 
@@ -284,6 +291,7 @@ namespace s4_oop_2
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
+            MakeSnapshot(this, new EventArgs());
             deserializeCommand.Execute();
             
         }
@@ -316,6 +324,7 @@ namespace s4_oop_2
         // Очистить все
         private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
             PrimarySource.Clear();
         }
 
@@ -352,10 +361,6 @@ namespace s4_oop_2
             ShowSearchForm(new SearchFormArgs());
         }
 
-        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {            
-        }
-
         ////////////////////////////////////////////////// О программе 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -365,18 +370,21 @@ namespace s4_oop_2
         ///////////////////////////////////////////////// Сортировка
         private void sortAreaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
             DataGridViewColumn column = dataGridView1.Columns["Area"];
             dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
 
         private void sortRoomAmountToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
             DataGridViewColumn column = dataGridView1.Columns["RoomAmount"];
             dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
 
         private void sortPriceToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
             DataGridViewColumn column = dataGridView1.Columns["Price"];
             dataGridView1.Sort(column, ListSortDirection.Ascending);
         }
@@ -418,6 +426,7 @@ namespace s4_oop_2
 
         private void toolStripButtonDeleteRow_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 dataGridView1.Rows.Remove(row); 
@@ -425,6 +434,7 @@ namespace s4_oop_2
         }
         private void toolStripButtonEditRooms_Click(object sender, EventArgs e)
         {
+            MakeSnapshot(this, new EventArgs());
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 IFormBuilder builder = new RoomEditFormBuilder(row.DataBoundItem as IFlat);
@@ -442,6 +452,37 @@ namespace s4_oop_2
             else
             {
                 toolStripEditObject.Show();
+            }
+        }
+
+        // для паттерна Memento
+        private void Undo(object sender, EventArgs e)
+        {
+            mementoCommand.Undo();
+        }
+        private void MakeSnapshot(object sender, EventArgs e)
+        {
+            mementoCommand.Execute();
+        }
+
+        public Memento GetSnapshot()
+        {
+            return new Memento(this);
+        }
+        public void SetSnapshot(Memento snapshot)
+        {
+            primary = snapshot.buffer;
+            dataGridView1.DataSource = primary;
+        }
+
+        public class Memento
+        {
+            public IBindingListPrototype buffer;
+            public Memento(MainForm form)
+            {
+                //buffer = new SortableBindingList<IFlat> { new SimpleFlat(new FlatArgs() { adress = AdressPool.GetAdress(0)})};
+
+                buffer = form.PrimarySource.Clone();
             }
         }
     }
