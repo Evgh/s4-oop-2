@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Adress.cs" />
     <Compile Include="AdressPool.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="FormBuilder.cs" />
     <Compile Include="IFlat.cs" />
     <Compile Include="IBindingListPrototype.cs" />

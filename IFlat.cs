@@ -119,8 +119,7 @@ namespace s4_oop_2
         public Adress FlatAdress { get => AdressPool.GetAdress(AdressId); set => AdressId = value.Id; }
 
         // композиция объектов-комнат
-        protected IBindingListPrototype _rooms;
-        [JsonIgnore]
+        protected IBindingListPrototype _rooms; 
         public IBindingListPrototype Rooms => _rooms;        
 
         [JsonIgnore]
